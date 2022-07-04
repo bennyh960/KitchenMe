@@ -1,0 +1,10 @@
+.table-container {
+  max-height: 300px;
+  overflow-y: scroll;
+  /* background-color: red; */
+}
+
+.table-title {
+  position: sticky;
+  top: 0;
+}

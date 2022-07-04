@@ -1,0 +1,8 @@
+:root {
+  --btn-primary-hover-color: rgba(234, 241, 241, 0.822);
+  --weak-line-color: rgba(200, 200, 200, 0.895);
+}
+
+body {
+  background-color: rgb(236, 236, 236);
+}
