@@ -1,0 +1,8 @@
+.instructions-recipe {
+  flex: 1;
+  width: 40vw;
+  margin: 0 1rem;
+}
+.input-edit {
+  text-align: left;
+}

@@ -1,14 +1,16 @@
 import "./App.css";
 import Post from "./components/post/post";
-import CarouselComponent from "./components/carousel/carousel";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProfilePage from "./components/profilePage/profile";
 function App() {
   return (
     <div>
-      APP
-      <Post />
-      <Post />
-      <Post />
-      {/* <CarouselComponent /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ProfilePage />} />
+          <Route path="/feed" element={<Post />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

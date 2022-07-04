@@ -28,7 +28,7 @@ function Step({ title, content }) {
       <div className="accordion">
         <div className="accordion-item">
           <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
-            <div>{isActive ? <i class="caret down icon"></i> : <i class="caret right icon"></i>}</div>
+            <div>{isActive ? <i className="caret down icon"></i> : <i className="caret right icon"></i>}</div>
             <div className="accordion-title-only">{title}</div>
           </div>
           {isActive && <div className="accordion-content">{content}</div>}

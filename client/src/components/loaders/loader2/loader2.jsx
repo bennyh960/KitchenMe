@@ -3,7 +3,7 @@ import "./loader2.css";
 
 export default function Loader2() {
   return (
-    <div class="lds-spinner">
+    <div className="lds-spinner">
       <div></div>
       <div></div>
       <div></div>

@@ -1,0 +1,15 @@
+.add-recipe-container {
+  width: 50%;
+  /* margin: 5rem 3rem; */
+}
+
+.action-btn-recipe-add {
+  display: flex;
+  /* border: 1px solid black; */
+  justify-content: space-between;
+  width: fit-content;
+}
+
+.action-btn-recipe-add > * {
+  margin: 0 1rem;
+}

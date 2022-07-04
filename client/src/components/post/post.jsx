@@ -2,25 +2,31 @@ import React from "react";
 import { useState } from "react";
 import "./post.css";
 import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ClassicPost from "./classic";
 import IngredientTable from "./table";
 import Instructions from "./instructions";
+import Video from "./video";
 
 export default function Post() {
-  const [activeView, setActiveView] = useState(["active-view", "", ""]);
+  const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const tableView = () => {
-    setActiveView(["", "active-view", ""]);
+    setActiveView(["", "active-view", "", ""]);
     setCurrentSlide(1);
   };
   const instructionView = () => {
-    setActiveView(["", "", "active-view"]);
+    setActiveView(["", "", "active-view", ""]);
     setCurrentSlide(2);
   };
   const classicView = () => {
-    setActiveView(["active-view", "", ""]);
+    setActiveView(["active-view", "", "", ""]);
     setCurrentSlide(0);
+  };
+  const videoView = () => {
+    setActiveView(["", "", "", "active-view"]);
+    setCurrentSlide(3);
   };
 
   const onSwipeMove = () => {
@@ -58,6 +64,11 @@ export default function Post() {
                 <i className="tasks icon large"></i>
               </button>
             </li>
+            <li className={activeView[3]}>
+              <button onClick={videoView}>
+                <i className="youtube icon large"></i>
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -69,10 +80,14 @@ export default function Post() {
           showThumbs={false}
           showArrows={false}
           selectedItem={currentSlide}
+          showIndicators={false}
+          showStatus={false}
         >
           <ClassicPost />
+
           <IngredientTable />
           <Instructions />
+          <Video url="https://www.youtube.com/watch?v=1IszT_guI08" />
         </Carousel>
       </div>
       <div className="post-blog">
@@ -93,7 +108,7 @@ export default function Post() {
             </li>
             <li>
               <button>
-                <i class="comments outline icon large"></i>Comment
+                <i className="comments outline icon large"></i>Comment
               </button>
             </li>
             <li>

@@ -1,0 +1,9 @@
+.form-container-new-recipe {
+  display: flex;
+  justify-content: space-around;
+  /* align-items: center; */
+}
+
+.form-container-new-recipe div > * {
+  text-align: center;
+}
