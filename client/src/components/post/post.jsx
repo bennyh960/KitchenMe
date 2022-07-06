@@ -95,6 +95,7 @@ export default function Post() {
           <div>
             <i className="thumbs up inline icon "></i>12
           </div>
+          <h1>Falafel Recipe</h1>
           <div>
             <i className="comments inline icon large"></i>6
           </div>

@@ -1,0 +1,69 @@
+.cover-container {
+  width: 100vw;
+  max-height: 55vh;
+  height: 60vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 2px solid black; */
+  background-image: linear-gradient(gray, white, rgb(196, 196, 196), white, white);
+  /* border-bottom-left-radius: 15px; */
+  /* border-bottom-right-radius: 15px; */
+}
+
+.cover-image {
+  /* border: 1px solid black; */
+  background-image: url("../../../../public/images/coverM.jpg");
+  background-size: 100% 100%;
+  width: 80%;
+  height: 75%;
+  /* margin: auto; */
+  background-repeat: no-repeat;
+  background-position-x: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  /* border: 1px solid black; */
+}
+
+.profile-image {
+  border-radius: 50%;
+  border: 3px solid white;
+  width: 18rem;
+  height: 18rem;
+  cursor: pointer;
+}
+.cover-image div {
+  position: relative;
+  /* border: 1px solid black; */
+  /* top: 0; */
+}
+.fa-icon-float {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  background-color: var(--bg-secondary-color);
+  padding: 15px;
+  border-radius: 50%;
+}
+
+/* hover description in app.css */
+
+.fa-icon-float:hover ~ .hover-description {
+  display: block;
+}
+
+@media screen and (max-width: 700px) {
+  .cover-container {
+    height: 30vh;
+  }
+}

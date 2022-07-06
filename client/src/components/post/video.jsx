@@ -11,7 +11,7 @@ export default function Video({ url }) {
         height="300"
         src={url.replace("/watch?v=", "/embed/")}
         title="Realtime Chat App with React, Node.js, Socket.io | MERN Stack Messenger Clone"
-        frameborder="0"
+        frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
       ></iframe>
     </div>

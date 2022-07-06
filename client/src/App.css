@@ -1,6 +1,9 @@
 :root {
   --btn-primary-hover-color: rgba(234, 241, 241, 0.822);
+  --bg-secondary-color: #f3f3f3f9;
+  --bg-navbar-color: #ff0854;
   --weak-line-color: rgba(200, 200, 200, 0.895);
+  --box-shadow-primary: 0 1px 1px 2px rgb(196, 195, 195);
 }
 
 body {
@@ -9,4 +12,38 @@ body {
 
 button {
   cursor: pointer;
+}
+
+@media (max-width: 707px) {
+  html {
+    font-size: 8px;
+  }
+}
+@media (max-width: 507px) {
+  html {
+    font-size: 6px;
+  }
+}
+
+.hover-description {
+  position: absolute;
+  bottom: 45px;
+  right: -28px;
+  width: fit-content;
+  background-color: black;
+  color: white;
+  padding: 3px 5px;
+  border-radius: 10px;
+  display: none;
+}
+
+.hover-description::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  background-color: black;
+  position: absolute;
+  top: 80%;
+  left: calc(50% - 5px);
 }

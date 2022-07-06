@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  width: 80%;
+  justify-content: space-around;
+  margin: auto;
+  border: 1px solid black;
+}
+
+.title {
+  background-color: aqua;
+}
+
+.container input {
+  width: 80%;
+}

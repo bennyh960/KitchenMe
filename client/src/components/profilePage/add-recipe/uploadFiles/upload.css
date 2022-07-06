@@ -1,0 +1,31 @@
+.form-fontrol {
+  margin: 1rem 0;
+}
+
+.form-fontrol label,
+.form-fontrol input,
+.form-fontrol textarea {
+  display: block;
+}
+
+.form-fontrol label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.image-uplaod {
+  width: 60%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+  margin: auto;
+  gap: 1rem;
+}
+
+.image-upload__preview {
+  /* background-color: red; */
+  padding: 2rem;
+}

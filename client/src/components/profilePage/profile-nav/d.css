@@ -1,0 +1,57 @@
+.profile-navbar {
+  width: 80%;
+  /* margin: 2rem auto 0 auto; */
+  /* margin-bottom: 0; */
+  /* align-self: flex-end; */
+  display: flex;
+  margin-top: 2.2rem;
+  /* align-items: flex-end; */
+  /* align-items: flex-end; */
+  /* border: 3px solid black; */
+  border-top: 1px solid var(--weak-line-color);
+  /* padding: 1rem; */
+  font-weight: bold;
+  height: 50px;
+}
+
+.profile-navbar > div {
+  /* padding: 1.5rem; */
+  /* padding-top: ; */
+  /* margin-top: 2.5rem; */
+  /* margin-bottom: 1rem; */
+}
+
+.profile-nav-left {
+  flex: 2;
+  padding: 2.5rem;
+  /* border: 1px solid black; */
+  /* text-align: center; */
+  /* margin-left: 10px; */
+}
+.profile-nav-center {
+  flex: 2;
+  /* border: 1px solid black; */
+  text-align: center;
+  padding: 2.5rem;
+}
+.profile-nav-right {
+  flex: 2;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  height: 100%;
+}
+
+.profile-nav-right > div {
+  /* border: 1px solid black; */
+  height: 100%;
+  /* margin-top: 1rem; */
+  padding: 1.8rem;
+  /* height: 3.5rem; */
+  cursor: pointer;
+}
+
+.profile-nav-right > div:hover {
+  border-bottom: 3px solid var(--bg-navbar-color);
+}

@@ -1,0 +1,18 @@
+meter {
+  margin: auto;
+  width: 10rem;
+  height: 1.5rem;
+}
+
+meter[value="1"]::-webkit-meter-optimum-value {
+  background: red;
+}
+meter[value="2"]::-webkit-meter-optimum-value {
+  background: yellow;
+}
+meter[value="3"]::-webkit-meter-optimum-value {
+  background: orange;
+}
+meter[value="4"]::-webkit-meter-optimum-value {
+  background: green;
+}

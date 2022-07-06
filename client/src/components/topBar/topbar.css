@@ -1,0 +1,132 @@
+.topbar-container {
+  display: flex;
+  height: 70px;
+  /* border: 1px solid black; */
+  width: 100vw;
+  /* align-items: center; */
+  background-color: var(--bg-navbar-color);
+  box-shadow: 20px 20px 50px 10px pink inset;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 100000;
+}
+
+.logo {
+  margin: auto 2rem;
+}
+
+.topbar-user {
+  flex: 2;
+  /* width: 20%; */
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: flex-start;
+  /* box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset; */
+}
+
+.topbar-user > div {
+  /* border: 1px solid black; */
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.topbar-post-view {
+  flex: 3;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  /* box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset; */
+}
+
+.topbar-post-view > div {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.topbar-search {
+  /* box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset; */
+  /* border: 1px solid black; */
+  flex: 1.5;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+}
+
+#searchbar {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--bg-secondary-color);
+  outline: none;
+  /* border: 1px solid black; */
+}
+
+.search-icon {
+  position: absolute;
+  right: 35px;
+  z-index: 10;
+}
+
+@media screen and (max-width: 700px) {
+  .topbar-search {
+    /* position: relative; */
+    transition: all 0.5s ease-in-out;
+  }
+  .topbar-post-view {
+    display: none;
+  }
+  #searchbar {
+    /* display: none; */
+    /* margin: auto; */
+    position: absolute;
+    top: -60%;
+  }
+  .topbar-user {
+    flex: 10;
+  }
+  .search-icon {
+    background-color: var(--bg-secondary-color);
+    padding: 1.8rem;
+    border-radius: 50%;
+    margin: auto;
+    cursor: pointer;
+  }
+
+  .topbar-search:hover #searchbar {
+    top: 12px;
+    width: 80%;
+  }
+  .topbar-search:hover {
+    flex: 5;
+  }
+  .topbar-search:hover .search-icon {
+    padding: 1rem;
+    /* display: none; */
+    z-index: -100;
+  }
+
+  .topbar-user div {
+    width: 50%;
+    height: 100%;
+    /* background-color: aliceblue; */
+  }
+}
+
+.fa-icon {
+  background-color: var(--bg-secondary-color);
+  padding: 1.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-img-icon {
+  width: 50;
+  height: 50px;
+  border-radius: 50%;
+}

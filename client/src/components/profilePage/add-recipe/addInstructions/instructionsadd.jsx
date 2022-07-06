@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./instructions.css";
 
 // const rowsArr = [1, 2, 3];
-export default function InstructionsAdd() {
-  const [rowsArr, setNumOfRows] = useState([1, 2, 3]);
+export default function InstructionsAdd({ instructionsObjHandler }) {
+  const [rowsArr, setNumOfRows] = useState([0]);
+  const [arrOfrowsObject, setArrOfRosObj] = useState([]);
+  // const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    instructionsObjHandler(arrOfrowsObject);
+  }, [arrOfrowsObject]);
+
+  const addRowToData = (data, idx) => {
+    // const checkValidRow = arrOfrowsObject.find((row) => row.instruction === data.instruction);
+    // if (!checkValidRow) {
+    // }
+    setArrOfRosObj((p) => [...p, data]);
+  };
 
   const addRowBtn = (e, index) => {
     e.preventDefault();
 
-    const elementToPush = index;
+    const elementToPush = index + 1;
 
     setNumOfRows((p) => [...p, elementToPush]);
     // console.log(rowsArr, index);
@@ -16,70 +29,108 @@ export default function InstructionsAdd() {
 
   const removeRow = (e, index) => {
     e.preventDefault();
-    if (rowsArr.length >= 3) {
-      rowsArr.pop();
-      setNumOfRows((p) => [...p]);
+
+    arrOfrowsObject.splice(index, 1);
+    // setNumOfRows((p) => p.map((r) => r--));
+    setArrOfRosObj((p) => [...p]);
+
+    if (rowsArr.length <= 2) {
+      addRowBtn(e, index);
     }
   };
 
   const drawRows = () => {
-    const rowComponentArray = rowsArr.map((r, idx) => (
-      <InstructionArea addRowBtn={addRowBtn} key={idx} index={r} step={idx} removeRow={removeRow} />
+    // return [1, 2, 3].map((x) => <div>{x}</div>);
+    return rowsArr.map((r, idx) => (
+      <InstructionArea
+        addRowBtn={addRowBtn}
+        rowObj={addRowToData}
+        key={idx}
+        index={r}
+        // step={idx}
+        step={Math.min(r, idx)}
+        removeRow={removeRow}
+      />
     ));
-    console.log(rowComponentArray);
-    rowComponentArray.sort((a, b) => a.props.index - b.props.index);
-    return rowComponentArray;
   };
 
   return (
-    <div className="add-recipe-container">
-      <form action="">
-        <div className="instructions-recipe">
-          <table className="ui celled table">
-            <thead>
-              <tr>
-                <th width="5%">Step</th>
-                <th width="100%">Instruction</th>
+    <div className="instructions-recipe">
+      <table className="fl-table">
+        <thead>
+          <tr>
+            <th width="5%">Step</th>
+            <th width="100%" id="instruction">
+              Instruction
+            </th>
 
-                <th width="5%">Action</th>
-              </tr>
-            </thead>
-            <tbody>{drawRows()}</tbody>
-          </table>
-        </div>
-      </form>
+            <th width="5%"></th>
+          </tr>
+        </thead>
+        <tbody>{drawRows()}</tbody>
+      </table>
     </div>
   );
 }
 
-function InstructionArea({ addRowBtn, removeRow, index, step }) {
-  const [rowVal, setRowVal] = useState({ ingredient: "", amount: "", note: "" });
+function InstructionArea({ addRowBtn, removeRow, index, step, rowObj }) {
+  const [rowVal, setRowVal] = useState({ instructions: "" });
+  const [isSaved, setIsSaved] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const handleChange = ({ target: { value, name } }) => {
+    // console.log(value);
     setRowVal((prev) => {
       return { ...prev, [name]: value };
     });
   };
 
-  return (
-    <tr>
-      <td data-label="step">{step + 1}</td>
-      <td data-label="instruction">
-        <div className="ui large icon input input-edit">
-          {/* <input type="text" value={rowVal.instruction} onChange={handleChange} name="instruction" /> */}
-          <textarea value={rowVal.instruction} onChange={handleChange} name="instruction" cols={40} rows={3}></textarea>
-        </div>
-      </td>
+  const saveRowData = (e, idx) => {
+    e.preventDefault();
+    rowObj(rowVal, idx);
+    // todo add minimum letters
+    if (rowVal.instructions) {
+      setIsSaved(true);
+      addRowBtn(e, idx);
+    }
+  };
 
-      <td data-label="action" className="action-btn-recipe-add">
-        <button onClick={(e) => addRowBtn(e, index)}>
-          <i className="plus square outline icon"></i>
-        </button>
-        <button onClick={(e) => removeRow(e, index)}>
-          <i className="minus square outline icon"></i>
-        </button>
-      </td>
-    </tr>
+  const handleRemoveRow = (e, idx) => {
+    removeRow(e, idx);
+    setIsDeleted(true);
+  };
+
+  return (
+    !isDeleted && (
+      <tr>
+        <td data-label="step">{step + 1}</td>
+        <td data-label="instruction">
+          <textarea
+            style={{ resize: "none", textAlign: "left", width: "100%" }}
+            value={rowVal.instructions}
+            onChange={handleChange}
+            name="instructions"
+            cols={40}
+            rows={3}
+            disabled={isSaved}
+            placeholder={`Add instruction for step ${step + 1}`}
+          ></textarea>
+        </td>
+
+        <td data-label="action" className="action-btn-recipe-add">
+          {!isSaved && (
+            <button onClick={(e) => saveRowData(e, index)}>
+              <i className="save outline icon"></i>
+            </button>
+          )}
+          {isSaved && (
+            <button onClick={(e) => handleRemoveRow(e, index)}>
+              <i className="trash alternate icon"></i>
+            </button>
+          )}
+        </td>
+      </tr>
+    )
   );
 }
 
