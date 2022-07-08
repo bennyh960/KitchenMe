@@ -1,0 +1,20 @@
+.about-title-btn {
+  /* background-color: red; */
+  display: flex;
+}
+.edit-btn {
+  border: none;
+  background-color: transparent;
+  margin-right: 15px;
+}
+
+.show-about-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 15px;
+}
+
+.show-about-data span {
+  margin: 1rem 0;
+}

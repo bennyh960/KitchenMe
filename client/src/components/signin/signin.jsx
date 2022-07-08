@@ -1,19 +1,37 @@
 import React, { useEffect, useState } from "react";
 import "./signin.css";
 import PasswordMeter from "./passwordmeter";
-import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import { Link } from "react-router-dom";
+import usersApi from "../../api/usersApi";
 
 export default function Signin() {
   const [showPasswordMeter, setPasswordMeter] = useState(false);
   const [showConfirmPass, setConfirmPass] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", password: "", password2: "" });
+  const [message, setMessage] = useState("\n");
 
   const handleChange = ({ target: { value, name } }) => {
+    setMessage("\n");
     setFormData((prev) => {
       return { ...prev, [name]: value };
     });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // todo add loader
+    try {
+      // console.log(usersApi);
+      await usersApi.newUserRouter.post("", formData);
+      // todo remove loader
+    } catch (error) {
+      console.log(error.message, error.response.data);
+      const description = error.response.data.split("{")[1].replace("}", "");
+      const text = `${error.message}:
+       With ${description}`;
+      setMessage(text);
+    }
   };
 
   useEffect(() => {
@@ -24,20 +42,19 @@ export default function Signin() {
       formData.password.length < 3 ||
       formData.password !== formData.password2
     ) {
-      //   if (formData.password.length < 3) {
-      console.log("============");
       setIsSubmit(true);
       return;
       //   }
     }
-    console.log("xxx");
+
     setIsSubmit(false);
   }, [formData]);
 
   return (
     <div className="sign-in-container">
       {/* <div className="sign-form"></div> */}
-      <form className="ui form sign-form" action="http://localhost:5000/users/new" method="POST">
+      {/* <form className="ui form sign-form" action="http://localhost:5000/users/new" method="POST"> */}
+      <form className="ui form sign-form" onSubmit={handleSubmit}>
         <h1>Sign-In</h1>
         <hr />
         <div className="field">
@@ -74,13 +91,19 @@ export default function Signin() {
             onChange={handleChange}
           />
         </div>
-        <div>{showPasswordMeter ? <PasswordMeter password={"b123njD"} /> : <br />}</div>
+        <div>{showPasswordMeter ? <PasswordMeter password={formData.password} /> : <br />}</div>
         {showConfirmPass &&
           (formData.password !== formData.password2 ? <div>Unmatch passords</div> : <div>Password Match</div>)}
+        <Link to={"/users/login"}>Already have account?</Link>
+        {message && <Message text={message} />}
         <button className="ui button" type="submit" disabled={isSubmit}>
-          Submit
+          Register
         </button>
       </form>
     </div>
   );
+}
+
+function Message({ text }) {
+  return <div>{text}</div>;
 }

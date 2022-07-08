@@ -3,6 +3,10 @@ import Post from "../../post/post";
 // import Addrecipe from "../add-recipe/addrecipe";
 import { Link } from "react-router-dom";
 import "./myposts.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import Aboutme from "../about-me/aboutme";
 
 export default function Myposts() {
   return (
@@ -26,11 +30,7 @@ export default function Myposts() {
         </div>
       </div>
       <div className="my-post-right-container">
-        <div className="white-box user-detailes">
-          <h2 style={{ margin: "15px" }} className="line">
-            About me:
-          </h2>
-        </div>
+        <Aboutme />
         <div className="white-box user-friends">
           <h2 style={{ margin: "15px" }} className="line">
             My Friends:
