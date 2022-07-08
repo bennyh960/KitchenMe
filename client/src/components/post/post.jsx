@@ -8,6 +8,10 @@ import IngredientTable from "./table";
 import Instructions from "./instructions";
 import Video from "./video";
 
+// todo : add rating if we got time
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faRightFromBracket, faGear, faEdit, faStar } from "@fortawesome/free-solid-svg-icons";
+
 export default function Post() {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -72,6 +76,17 @@ export default function Post() {
           </ul>
         </div>
       </div>
+      <div className="like-comment-counter">
+        <div>
+          <i className="thumbs up inline icon "></i>12
+          {/* <FontAwesomeIcon icon={faStar} color="yellow" size="lg" /> */}
+          {/* <b>4.5</b> */}
+        </div>
+        <h1>Falafel Recipe</h1>
+        <div>
+          <i className="comments inline icon large"></i>6
+        </div>
+      </div>
       <div className="post-content">
         <Carousel
           infiniteLoop={true}
@@ -91,15 +106,6 @@ export default function Post() {
         </Carousel>
       </div>
       <div className="post-blog">
-        <div className="like-comment-counter">
-          <div>
-            <i className="thumbs up inline icon "></i>12
-          </div>
-          <h1>Falafel Recipe</h1>
-          <div>
-            <i className="comments inline icon large"></i>6
-          </div>
-        </div>
         <div className="action-take">
           <ul className="ul-action-take">
             <li>

@@ -8,6 +8,11 @@ const recipeSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     ingredients: [
       {
         ingredient: {
@@ -28,11 +33,9 @@ const recipeSchema = new mongoose.Schema(
     ],
     instructions: [
       {
-        instructions: {
-          type: String,
-          trim: true,
-          required: true,
-        },
+        type: String,
+        trim: true,
+        required: true,
       },
     ],
     image: {
@@ -40,7 +43,7 @@ const recipeSchema = new mongoose.Schema(
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      // required: true,
       ref: "User", // in order to conect relation between 2 models we must call it in same name
     },
   },

@@ -4,51 +4,46 @@ import "./instructions.css";
 // const rowsArr = [1, 2, 3];
 export default function InstructionsAdd({ instructionsObjHandler }) {
   const [rowsArr, setNumOfRows] = useState([0]);
-  const [arrOfrowsObject, setArrOfRosObj] = useState([]);
+  const [instructionsList, setInstructionsList] = useState([]);
+  const [addRowArg, setAddRowArg] = useState([]);
   // const [step, setStep] = useState(1);
 
   useEffect(() => {
-    instructionsObjHandler(arrOfrowsObject);
-  }, [arrOfrowsObject]);
+    instructionsObjHandler(instructionsList);
+  }, [instructionsList]);
 
   const addRowToData = (data, idx) => {
-    // const checkValidRow = arrOfrowsObject.find((row) => row.instruction === data.instruction);
+    // const checkValidRow = instructionsList.find((row) => row.instruction === data.instruction);
     // if (!checkValidRow) {
     // }
-    setArrOfRosObj((p) => [...p, data]);
-  };
-
-  const addRowBtn = (e, index) => {
-    e.preventDefault();
-
-    const elementToPush = index + 1;
-
-    setNumOfRows((p) => [...p, elementToPush]);
-    // console.log(rowsArr, index);
+    instructionsList.push(data);
+    setInstructionsList((p) => [...p]);
+    console.log(instructionsList);
   };
 
   const removeRow = (e, index) => {
     e.preventDefault();
 
-    arrOfrowsObject.splice(index, 1);
+    instructionsList.splice(index, 1);
     // setNumOfRows((p) => p.map((r) => r--));
-    setArrOfRosObj((p) => [...p]);
+    setInstructionsList((p) => [...p]);
 
-    if (rowsArr.length <= 2) {
-      addRowBtn(e, index);
+    addRowArg.push("newRow");
+    setAddRowArg((p) => [...p]);
+    if (instructionsList.length <= 2 && addRowArg.length < 2) {
+      console.log(instructionsList);
     }
   };
 
-  const drawRows = () => {
-    // return [1, 2, 3].map((x) => <div>{x}</div>);
-    return rowsArr.map((r, idx) => (
+  const drawRows = (plus) => {
+    return [1, ...instructionsList, ...plus].map((r, idx) => (
       <InstructionArea
-        addRowBtn={addRowBtn}
         rowObj={addRowToData}
         key={idx}
-        index={r}
+        index={idx}
         // step={idx}
-        step={Math.min(r, idx)}
+        // step={Math.min(r, idx)}
+        step={Math.min(idx, idx)}
         removeRow={removeRow}
       />
     ));
@@ -67,21 +62,23 @@ export default function InstructionsAdd({ instructionsObjHandler }) {
             <th width="5%"></th>
           </tr>
         </thead>
-        <tbody>{drawRows()}</tbody>
+        <tbody>{drawRows(addRowArg)}</tbody>
       </table>
     </div>
   );
 }
 
-function InstructionArea({ addRowBtn, removeRow, index, step, rowObj }) {
-  const [rowVal, setRowVal] = useState({ instructions: "" });
+function InstructionArea({ removeRow, index, step, rowObj }) {
+  // const [rowVal, setRowVal] = useState({ instructions: "" });
+  const [rowVal, setRowVal] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
 
   const handleChange = ({ target: { value, name } }) => {
     // console.log(value);
     setRowVal((prev) => {
-      return { ...prev, [name]: value };
+      // return { ...prev, [name]: value };
+      return value;
     });
   };
 
@@ -89,9 +86,8 @@ function InstructionArea({ addRowBtn, removeRow, index, step, rowObj }) {
     e.preventDefault();
     rowObj(rowVal, idx);
     // todo add minimum letters
-    if (rowVal.instructions) {
+    if (rowVal.length > 1) {
       setIsSaved(true);
-      addRowBtn(e, idx);
     }
   };
 
@@ -107,7 +103,7 @@ function InstructionArea({ addRowBtn, removeRow, index, step, rowObj }) {
         <td data-label="instruction">
           <textarea
             style={{ resize: "none", textAlign: "left", width: "100%" }}
-            value={rowVal.instructions}
+            value={rowVal}
             onChange={handleChange}
             name="instructions"
             cols={40}

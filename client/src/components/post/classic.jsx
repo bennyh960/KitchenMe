@@ -12,11 +12,8 @@ export default function ClassicPost() {
         />
       </div>
       <div>
-        Lorem ipsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum
-        dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit
-        amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor,
-        sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amet consectetur adipisicing
-        elit. Dolore sapiente cupiditate fuga distinctio autem
+        Lorem ipsum dolor, sit amepsum dolor, sit amepr, sit amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit
+        amepsum dolor, sit amepsum dolor, sit amepsum dolor, sit amepsufuga distinctio autem
       </div>
       {/* <br /> */}
     </div>

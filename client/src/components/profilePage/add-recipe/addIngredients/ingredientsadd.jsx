@@ -62,7 +62,7 @@ export default function IngredientAdd({ ingredientObjHandler }) {
       <table className="fl-table">
         <thead>
           <tr>
-            <th width="30%">Ingredient</th>
+            <th width="100%">Ingredient</th>
             <th>Amount</th>
             <th>Note</th>
             <th width="5%"></th>

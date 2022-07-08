@@ -1,7 +1,10 @@
 .confirm-container {
   display: flex;
-  margin-top: 3rem;
-  gap: 3rem;
+  margin-top: 0rem;
+  gap: 1rem;
+  padding: 20px;
+  width: 95%;
+  margin: 10px auto;
   /* background-color: aliceblue; */
 }
 
@@ -12,14 +15,18 @@
   border-radius: 5px;
   width: 30%;
   margin-left: 1rem;
+  height: fit-content;
 }
 
 .instructions-confirm {
-  width: 60%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  margin: 0 2rem;
+  padding: 5px;
   text-align: left;
+  line-height: 3rem;
   /* padding-left: 3rem; */
 }
 

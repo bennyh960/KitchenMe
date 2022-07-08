@@ -54,7 +54,7 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
       />
       <div className="image-uplaod">
         <div className="image-upload__preview">
-          {prevUrl ? <img src={prevUrl} alt="Preview" width={220} height={220} /> : <p>Please pick an Image.</p>}
+          {prevUrl ? <img src={prevUrl} alt="Preview" width={220} height={220} /> : ""}
         </div>
       </div>
       {!isValid && <p>Upload failed</p>}

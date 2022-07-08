@@ -1,5 +1,8 @@
 .form-fontrol {
   margin: 1rem 0;
+  flex-direction: column;
+  background-color: red;
+  border: 1px solid black;
 }
 
 .form-fontrol label,
@@ -16,16 +19,12 @@
 .image-uplaod {
   width: 60%;
   height: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* background-color: red; */
-  margin: auto;
-  gap: 1rem;
+  min-width: 150px;
+  min-height: 150px;
 }
 
 .image-upload__preview {
   /* background-color: red; */
-  padding: 2rem;
+  /* padding: 2rem; */
+  margin: 5px 0;
 }

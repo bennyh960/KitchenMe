@@ -135,3 +135,42 @@
 .container-left-icons-menu {
   position: relative;
 }
+
+/* FLIPING EVENT */
+/* .flip-img-container {
+  perspective: 1000px;
+}
+.flip-inner {
+  position: relative;
+  transform-style: preserve-3d;
+} */
+
+/* .flip-img-container:active .flip-inner {
+  transform: rotateY(180deg);
+} */
+
+/* .flip-front,
+.flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+} */
+
+.flip-back {
+  transform: rotateX(360deg);
+  animation: rotation 0.5s ease-in-out 0.2s;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
