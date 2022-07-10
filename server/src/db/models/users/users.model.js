@@ -52,6 +52,14 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// * COnnect users with thir posts
+// recipes
+userSchema.virtual("recipes", {
+  ref: "Recipe",
+  localField: "_id",
+  foreignField: "owner",
+});
+
 // * Public data to share
 userSchema.methods.toJSON = function () {
   const user = this;

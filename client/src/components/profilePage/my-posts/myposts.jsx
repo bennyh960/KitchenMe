@@ -9,24 +9,30 @@ import Aboutme from "../about-me/aboutme";
 import React, { useEffect, useState } from "react";
 import recipiesAPI from "../../../api/recipes.users.Api";
 import Loader2 from "../../loaders/loader2/loader2";
+import getTime from "./time";
 
 export default function Myposts({ avatar, name, email, topRated, myRank, createdAt }) {
   const [isLoading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [owner, setOwner] = useState("");
   // const [isAddedNewRecipe, setRenderNew] = useState(false);
   // const [posts2, setPosts2] = useState("");
   useEffect(() => {
     const getUserPosts = async () => {
       setLoading(true);
-      const { data } = await recipiesAPI.getUserRecipes("");
-      setPosts(data);
+      // const { data } = await recipiesAPI.getPublicRecipes(""); //! dont delete this is useful for public posts
+      const {
+        data: { recipes, owner },
+      } = await recipiesAPI.getUserRecipes("");
+      setPosts(recipes);
+      setOwner(owner);
       setLoading(false);
     };
     getUserPosts();
   }, []);
 
   const drawPosts = () => {
-    // console.log(posts);
+    console.log(posts);
     return posts.map((post) => {
       return (
         <Post
@@ -37,7 +43,8 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
           instructions={post.instructions}
           image={post.image}
           avatar={avatar}
-          name={name}
+          name={owner}
+          time={getTime(post.updatedAt)}
         />
       );
       // return <h1>xxxx</h1>;

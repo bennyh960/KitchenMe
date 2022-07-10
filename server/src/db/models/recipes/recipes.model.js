@@ -42,7 +42,7 @@ const recipeSchema = new mongoose.Schema(
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      // required: true,
+      required: true,
       ref: "User", // in order to conect relation between 2 models we must call it in same name
     },
   },

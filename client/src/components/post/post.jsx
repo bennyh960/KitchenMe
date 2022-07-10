@@ -12,9 +12,10 @@ import Video from "./video";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faRightFromBracket, faGear, faEdit, faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function Post({ title, category, ingredients, instructions, image, avatar, name }) {
+export default function Post({ title, category, ingredients, instructions, image, avatar, name, time }) {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  // console.log("time:", time);
 
   const tableView = () => {
     setActiveView(["", "active-view", "", ""]);
@@ -45,7 +46,7 @@ export default function Post({ title, category, ingredients, instructions, image
           <div className="poster-user-name">
             <div className="username-post">{name.split(" ")[0]}</div>
             {/* <div className="username-post">{name}</div> */}
-            <div className="posted-at-time">3 hours</div>
+            <div className="posted-at-time">{time}</div>
           </div>
         </div>
         <div className="change-view">

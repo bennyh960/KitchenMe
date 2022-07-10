@@ -1,6 +1,7 @@
 const express = require("express");
 const chalk = require("chalk");
 const Recipe = require("../../db/models/recipes/recipes.model");
+
 const multer = require("multer");
 const auth = require("../../middleware/auth");
 const router = new express.Router();
@@ -39,12 +40,24 @@ router.post("/recipes/new", auth, upload.single("image"), async (req, res) => {
 });
 
 // *Get recipes
-router.get("/recipes/user", async (req, res) => {
+router.get("/recipes/public", async (req, res) => {
   try {
     const recipes = await Recipe.find().sort("-updatedAt");
     res.send(recipes);
   } catch (e) {
     res.status(404).send(e.message);
+  }
+});
+
+//* Get user recipes
+router.get("/recipes/user", auth, async (req, res) => {
+  try {
+    // await req.user.populate("recipes").execPopulate(); //its seems its no longer a function
+    await req.user.populate("recipes");
+    res.send({ recipes: req.user.recipes, owner: req.user.name });
+  } catch (e) {
+    res.status(500).send(e.message);
+    console.log(chalk.red(e.message));
   }
 });
 

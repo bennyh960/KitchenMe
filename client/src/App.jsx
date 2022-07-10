@@ -100,3 +100,9 @@ function App() {
 }
 
 export default App;
+
+// TODO : make new recipe render ui
+// TODO : sort user posts
+// TODO : fix image bugs
+// TODO : create recipes album
+// TODO : create freinds

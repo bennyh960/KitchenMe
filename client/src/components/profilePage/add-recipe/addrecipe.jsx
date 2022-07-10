@@ -34,12 +34,7 @@ export default function Addrecipe() {
     // todo add loader
     console.log(formData);
     console.log(localStorage.getItem("token"));
-    const { data } = await recipiesAPI.createNewRecipe.post("", formData, {
-      headers: {
-        "content-type": "multipart/form-data", // do not forget this
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    });
+    const { data } = await recipiesAPI.createNewRecipe.post("", formData);
     console.log(data);
     //todo axios.post("/newRecipe",formData)
     // isOpenComponent(false);

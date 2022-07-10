@@ -5,7 +5,8 @@ import "./homepage.css";
 export default function Homepage({ isUser }) {
   return (
     <div>
-      <LogIn isUser={isUser} />
+      {isUser && <LogIn isUser={isUser} />}
+      homepage
     </div>
   );
 }
