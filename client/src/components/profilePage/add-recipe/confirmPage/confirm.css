@@ -1,15 +1,31 @@
 .confirm-container {
   display: flex;
-  margin-top: 0rem;
+  /* margin-top: 0rem; */
+  /* min-height: 55rem; */
+  justify-content: space-between;
   gap: 1rem;
-  padding: 20px;
+  padding: 3px;
   width: 95%;
   margin: 10px auto;
-  /* background-color: aliceblue; */
+  background-color: aliceblue;
+}
+
+.title-confirm-recipe {
+  padding: 5px;
+}
+
+.title-confirm-recipe h1 {
+  margin: 15px auto;
+  padding: 5px;
+  width: 95%;
+  border-radius: 10px;
+  background-color: var(--bg-navbar-color);
+  box-shadow: 20px 20px 50px 10px pink inset;
 }
 
 .ingredient-confirm {
   display: flex;
+  /* flex: 1; */
   flex-direction: column;
   border: 1px solid black;
   border-radius: 5px;
@@ -20,6 +36,7 @@
 
 .instructions-confirm {
   width: 50%;
+  /* flex: 5; */
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -54,3 +71,14 @@
   padding: 1rem;
   border-bottom: black 1px dotted;
 }
+
+/* #save-cancle {
+  position: relative;
+}
+#save-cancle::after {
+  content: "Set at least two ingredients and write at least two instructions";
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  position: absolute;
+} */

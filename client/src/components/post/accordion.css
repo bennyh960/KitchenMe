@@ -1,6 +1,6 @@
 .accordion-container {
   /* height: 100%; */
-  height: 300px;
+  max-height: 300px;
   overflow-y: scroll;
 }
 .accordion-item {
@@ -34,7 +34,7 @@
   /* color: transsparent; */
   text-align: justify;
   padding: 1rem;
-  animation: accordion 0.5s ease-in-out;
+  animation: accordion 0.1s ease-in-out;
 }
 
 @keyframes accordion {

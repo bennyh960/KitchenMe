@@ -12,8 +12,12 @@ const findUserRouter = axios.create({
 const logoutRouter = axios.create({
   baseURL: `${url}/users/logout`,
 });
+const users = axios.create({
+  baseURL: `${url}/users`,
+});
 
 const usersApi = {
+  users,
   newUserRouter,
   findUserRouter,
   logoutRouter,

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./signin.css";
 import PasswordMeter from "./passwordmeter";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import usersApi from "../../api/usersApi";
 
-export default function Signin() {
+export default function Signin({ isUser }) {
   const [showPasswordMeter, setPasswordMeter] = useState(false);
   const [showConfirmPass, setConfirmPass] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", password: "", password2: "" });
   const [message, setMessage] = useState("\n");
+  const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state) isUser(location.state.isUser);
+  }, []);
 
   const handleChange = ({ target: { value, name } }) => {
     setMessage("\n");
@@ -23,7 +28,15 @@ export default function Signin() {
     // todo add loader
     try {
       // console.log(usersApi);
-      await usersApi.newUserRouter.post("", formData);
+      const { data } = await usersApi.newUserRouter.post("", formData);
+      isUser(true);
+      localStorage.setItem("token", JSON.stringify(data.token));
+      // todo - store user without secret data
+      const userDataStore = {};
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/feed", {
+        state: data.user,
+      });
       // todo remove loader
     } catch (error) {
       console.log(error.message, error.response.data);

@@ -5,22 +5,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faGear, faEdit } from "@fortawesome/free-solid-svg-icons";
 import usersApi from "../../../api/usersApi";
 
-export default function PopupNanMenu() {
+export default function PopupNanMenu({ name }) {
   const navigate = useNavigate();
   //! token should arrive from prop
   const handleLogOut = async () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3MjdmNGMzZDkwYzI5MTJiMTZmZWUiLCJpYXQiOjE2NTcyMzAyMDV9.mYZOkaY7FOyzRomcIwFiF7q_fJ89Z3h1tGQtiE7frwM";
-    // const { data, status, statusText } = await usersApi.logoutRouter.post(
-    //   "",
-    //   {},
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }
-    // );
-    // console.log(data, status, typeof status, typeof statusText, statusText);
+    await usersApi.logoutRouter.post(
+      "",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      }
+    );
+    localStorage.clear();
+
     navigate("/users/login", {
       state: {
         isUser: false,
@@ -31,7 +30,7 @@ export default function PopupNanMenu() {
     <div className="white-box popup-menu">
       <div className="inner-box ">
         <Link to={"/profile/me"}>
-          <h2 className="line">Benny Hassan</h2>
+          <h2 className="line">{name}</h2>
           <span style={{ marginLeft: "1rem" }}>Profile</span>
         </Link>
       </div>

@@ -4,7 +4,7 @@
     </div> */
 
 .my-posts-container {
-  width: 70%;
+  width: 75%;
   min-height: 20vmax;
   margin: 1rem auto;
   /* border: 1px solid black; */
@@ -77,9 +77,13 @@
 @media screen and (max-width: 800px) {
   .my-posts-container {
     flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
   }
   .my-post-left-container {
-    width: 100%;
+    width: 100vw;
+    margin: auto;
   }
 }
 

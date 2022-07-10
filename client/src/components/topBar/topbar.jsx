@@ -13,34 +13,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import PopupNanMenu from "./popUpMenu/popup";
-export default function Topbar() {
+export default function Topbar({ avatar, name }) {
   const [isPopUpMenue, setIsPopUp] = useState(false);
 
-  // i dont like this methode
-  // const handleClickOutside = () => {
-  //   console.log("activate cb function for outside");
-  //   setIsPopUp(false);
-  // };
+  // useEffect(() => {
+  //   if (isPopUpMenue) {
+  //     setIsPopUp(false);
+  //   }
+  // }, []);
 
-  // const ref = useOutsideClick(handleClickOutside);
+  // i dont like this methode
+  const handleClickOutside = () => {
+    console.log("activate cb function for outside");
+    setIsPopUp(false);
+  };
+
+  const ref = useOutsideClick(handleClickOutside);
 
   return (
     <nav className="topbar-container">
       <div className="topbar-user">
-        <div className="container-left-icons-menu">
-          {isPopUpMenue && <PopupNanMenu />}
+        <div className="container-left-icons-menu" ref={ref}>
+          {isPopUpMenue && <PopupNanMenu name={name} />}
           {/* <Link to={"/profile/me"}> */}
 
           {!isPopUpMenue && (
-            <img
-              // ref={ref}
-              src={
-                "https://scontent.ftlv5-1.fna.fbcdn.net/v/t1.18169-9/12140671_10206941372348369_8765013128868409022_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=uONp3u0Y_FQAX8qLqF-&_nc_ht=scontent.ftlv5-1.fna&oh=00_AT8V37a__rFaUTEaNc30A8G84YKQrRDw983IcNTUePUWqw&oe=62ECD092"
-              }
-              alt="profile-img-logo"
-              className="profile-img-icon"
-              onClick={() => setIsPopUp(true)}
-            />
+            <img src={avatar} alt="profile-img-logo" className="profile-img-icon" onClick={() => setIsPopUp(true)} />
           )}
 
           {isPopUpMenue && (
@@ -81,23 +79,23 @@ export default function Topbar() {
 }
 
 // //* Hook
-// function useOutsideClick(callback) {
-//   const ref = useRef();
+function useOutsideClick(callback) {
+  const ref = useRef();
 
-//   useEffect(() => {
-//     const handleClick = (event) => {
-//       if (ref.current && !ref.current.contains(event.target)) {
-//         console.log("click outside ");
-//         callback();
-//       }
-//     };
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        console.log("click outside ");
+        callback();
+      }
+    };
 
-//     document.addEventListener("click", handleClick, true);
+    document.addEventListener("click", handleClick, true);
 
-//     return () => {
-//       document.removeEventListener("click", handleClick, true);
-//     };
-//   }, []);
+    return () => {
+      document.removeEventListener("click", handleClick, true);
+    };
+  }, []);
 
-//   return ref;
-// }
+  return ref;
+}

@@ -3,7 +3,7 @@
   top: 50%;
   left: 5px;
   min-width: fit-content;
-  animation: popUpleftRight 0.5s ease-out;
+  animation: popUpleftRight 0.2s ease-out;
   /* flex-direction: column;
   flex-wrap: nowrap; */
 }

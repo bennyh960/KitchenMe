@@ -15,31 +15,24 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // const rowsArr = [1, 2, 3];
 export default function Addrecipe() {
+  const [isDataReady, setIsDataReady] = useState(false);
   const [titleCategory, setTitle] = useState({ name: "", category: "" });
   const [isOpenEditor, setOpenEditor] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    category: "",
-    description: "",
-    ingredients: "",
-    instructions: "",
-    image: "",
-  });
+  const [formData, setFormData] = useState({ name: "", category: "", ingredients: "", instructions: "", image: "" });
   const [bgMandatory, setBackgroundMandtoryField] = useState("white");
+  const [customCaruselPage, setCarouselPage] = useState(1);
 
-  const postNewRecipe = async (isPublic) => {
-    // if(isPublic){
-    formData.public = isPublic;
+  useEffect(() => {
+    if (formData.ingredients.length > 1 && formData.instructions.length > 1) {
+      // console.log(formData);
+      setIsDataReady(true);
+    }
+  }, [formData]);
 
+  const postNewRecipe = async () => {
     // todo add loader
     console.log(formData);
-    console.log(localStorage.getItem("token"));
-    const { data } = await recipiesAPI.createNewRecipe.post("", formData, {
-      headers: {
-        "content-type": "multipart/form-data", // do not forget this
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    });
+    const { data } = await recipiesAPI.createNewRecipe.post("", formData);
     console.log(data);
     //todo axios.post("/newRecipe",formData)
     // isOpenComponent(false);
@@ -69,18 +62,13 @@ export default function Addrecipe() {
         return { ...p, image };
       }
     });
-    // console.log(formData);
+    console.log(formData);
     // console.log("xxx");
   };
   const handleNameCategory = () => {
     setFormData((p) => {
       if (p) {
-        return {
-          ...p,
-          name: titleCategory.name,
-          category: titleCategory.category,
-          description: titleCategory.description,
-        };
+        return { ...p, name: titleCategory.name, category: titleCategory.category };
       }
     });
 
@@ -108,33 +96,23 @@ export default function Addrecipe() {
           {/* <img src={process.env.PUBLIC_URL + "/images/logo64.png"} alt="logo" width={35} height={35} /> */}
           Add New Recipe
         </div>
-        <div className="ui input ">
+        <div class="ui input ">
           <input
             type="text"
-            placeholder="Recipe Name*..."
+            placeholder="Recipe Name..."
             onChange={handleChange}
             value={titleCategory.name}
             style={{ backgroundColor: bgMandatory }}
             name="name"
           />
         </div>
-        <div className="ui input ">
+        <div class="ui input ">
           <input
             type="text"
-            placeholder="Recipe Cetegory*..."
+            placeholder="Recipe Cetegory..."
             onChange={handleChange}
             value={titleCategory.category}
             name="category"
-            style={{ backgroundColor: bgMandatory }}
-          />
-        </div>
-        <div className="ui input ">
-          <input
-            type="text"
-            placeholder="Description..."
-            onChange={handleChange}
-            value={titleCategory.description}
-            name="description"
             style={{ backgroundColor: bgMandatory }}
           />
         </div>
@@ -151,23 +129,56 @@ export default function Addrecipe() {
           emulateTouch={true}
           // onSwipeMove={onSwipeMove}
           showThumbs={false}
-          // dynamicHeight={true}
-          // stopOnHover={true}
           showArrows={false}
           // selectedItem={currentSlide}
           showIndicators={false}
           showStatus={false}
         >
-          <div className="ingredient-container">
-            <IngredientAdd ingredientObjHandler={ingredientObjHandler} />
-          </div>
-
-          <div className="instructions-container">
-            <InstructionsAdd instructionsObjHandler={instructionsObjHandler} />
-          </div>
-
-          <div className="confirm-summary">
-            <ConfirmRecipe formData={formData} postNewRecipe={postNewRecipe} imgUploadHandler={imgUploadHandler} />
+          <div className="new-recipe-container ">
+            {customCaruselPage % 2 === 1 && (
+              <div className="ingredient-container">
+                <IngredientAdd ingredientObjHandler={ingredientObjHandler} />
+              </div>
+            )}
+            {customCaruselPage % 2 === 1 && (
+              <div className="instructions-container ">
+                <InstructionsAdd instructionsObjHandler={instructionsObjHandler} />
+              </div>
+            )}
+            <div className="next-back-buttons">
+              {customCaruselPage % 2 === 1 && (
+                <button
+                  disabled={formData.ingredients.length > 1 && formData.instructions.length > 1 ? false : true}
+                  className="ui button red"
+                  onClick={() => setCarouselPage((p) => ++p)}
+                >
+                  {/* Confirm */}
+                  {formData.ingredients.length > 1 && formData.instructions.length > 1
+                    ? "Confirm"
+                    : "Fill 2 fileds at least in order to enable"}
+                </button>
+              )}
+            </div>
+            {customCaruselPage % 2 === 0 && (
+              <div className="confirm-summary white-box">
+                <ConfirmRecipe formData={formData} imgUploadHandler={imgUploadHandler} />
+                {/* <UploadSubmit imgUploadHandler={imgUploadHandler} /> */}
+                <div className="ui buttons" id="save-cancle">
+                  <button className="ui button" id="cancle-upload-recipe" onClick={() => setCarouselPage((p) => ++p)}>
+                    Cancel
+                  </button>
+                  <div className="or"></div>
+                  <button
+                    className="ui positive button"
+                    id="submit-upload-recipe"
+                    disabled={!isDataReady}
+                    onClick={postNewRecipe}
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </Carousel>
       )}

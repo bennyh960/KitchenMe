@@ -1,36 +1,63 @@
-// import React, { useState } from "react";
 import Post from "../../post/post";
 // import Addrecipe from "../add-recipe/addrecipe";
 import { Link } from "react-router-dom";
 import "./myposts.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Addrecipe from "../add-recipe/addrecipe";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import Aboutme from "../about-me/aboutme";
+import React, { useEffect, useState } from "react";
+import recipiesAPI from "../../../api/recipes.users.Api";
+import Loader2 from "../../loaders/loader2/loader2";
 
-export default function Myposts() {
+export default function Myposts({ avatar, name, email, topRated, myRank, createdAt }) {
+  const [isLoading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+  // const [isAddedNewRecipe, setRenderNew] = useState(false);
+  // const [posts2, setPosts2] = useState("");
+  useEffect(() => {
+    const getUserPosts = async () => {
+      setLoading(true);
+      const { data } = await recipiesAPI.getUserRecipes("");
+      setPosts(data);
+      setLoading(false);
+    };
+    getUserPosts();
+  }, []);
+
+  const drawPosts = () => {
+    // console.log(posts);
+    return posts.map((post) => {
+      return (
+        <Post
+          key={post._id}
+          title={`${post.name}`}
+          category={`${post.category}`}
+          ingredients={post.ingredients}
+          instructions={post.instructions}
+          image={post.image}
+          avatar={avatar}
+          name={name}
+        />
+      );
+      // return <h1>xxxx</h1>;
+    });
+  };
+
   return (
     <div className="my-posts-container">
       <div className="my-post-left-container">
-        <div className="add-new-recipe white-box">
-          <h2 style={{ margin: "15px", textAlign: "center" }} className="line">
-            Add New Recipe
-          </h2>
-          <Link to={"/addNewRecipe"} className="btn-primary">
-            <div style={{ textAlign: "center" }}>Write New Recipe</div>
-          </Link>
-        </div>
-        {/* todo : add map function that render all user posts */}
-
-        <Post />
+        <Addrecipe />
+        {isLoading && <Loader2 />}
+        {/* <Post /> */}
+        {drawPosts()}
         <div className="first-message">
-          <h1>Welcome Benny</h1>
-
-          <h3> 06/07/22</h3>
+          <h1>Welcome {name}</h1>
+          <h3> {createdAt && createdAt.split("T")[0]}</h3>
         </div>
       </div>
       <div className="my-post-right-container">
-        <Aboutme />
+        <Aboutme name={name} email={email} myRank={myRank} topRated={topRated} />
         <div className="white-box user-friends">
           <h2 style={{ margin: "15px" }} className="line">
             My Friends:

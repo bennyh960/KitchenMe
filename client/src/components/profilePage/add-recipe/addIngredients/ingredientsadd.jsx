@@ -8,11 +8,14 @@ export default function IngredientAdd({ ingredientObjHandler }) {
 
   useEffect(() => {
     ingredientObjHandler(arrOfrowsObject);
+    // console.log(arrOfrowsObject);
   }, [arrOfrowsObject]);
 
   const addRowToData = (data, idx) => {
-    const checkValidRow = arrOfrowsObject.find((row) => row.ingredient === data.ingredient);
-    if (!checkValidRow) {
+    // console.log(data);
+    // const checkValidRow = arrOfrowsObject.find((row) => row.ingredient === data.ingredient);
+    const checkValidRow = data[0] && data[1];
+    if (checkValidRow) {
       setArrOfRosObj((p) => [...p, data]);
     }
   };
@@ -34,10 +37,6 @@ export default function IngredientAdd({ ingredientObjHandler }) {
 
     if (rowsArr.length <= 2) {
       addRowBtn(e, index);
-      //   rowsArr.splice(index, 1);
-      //   const filtredArray = rowsArr.filter((e) => e !== index);
-      //   setNumOfRows((p) => [...filtredArray]);
-      //   console.log(index, rowsArr[index], rowsArr, filtredArray);
     }
   };
 
@@ -46,14 +45,13 @@ export default function IngredientAdd({ ingredientObjHandler }) {
       <TableRowIngredients
         addRowBtn={addRowBtn}
         key={idx}
-        index={r}
+        index={idx}
         removeRow={removeRow}
         ingredientObj={ingredientObjHandler}
         rowObj={addRowToData}
       />
     ));
-    // console.log(rowComponentArray);
-    // rowComponentArray.sort((a, b) => a.props.index - b.props.index);
+
     return rowComponentArray;
   };
 
@@ -64,7 +62,7 @@ export default function IngredientAdd({ ingredientObjHandler }) {
           <tr>
             <th width="100%">Ingredient</th>
             <th>Amount</th>
-            <th>Note</th>
+
             <th width="5%"></th>
           </tr>
         </thead>
@@ -75,22 +73,25 @@ export default function IngredientAdd({ ingredientObjHandler }) {
 }
 
 function TableRowIngredients({ addRowBtn, removeRow, index, rowObj }) {
-  const [rowVal, setRowVal] = useState({ ingredient: "", amount: "", note: "" });
+  const [rowVal, setRowVal] = useState(["", ""]);
   const [isSaved, setIsSaved] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
 
   const handleChange = ({ target: { value, name } }) => {
+    if (name === "ingredient") rowVal[0] = value;
+    if (name === "amount") rowVal[1] = value;
     setRowVal((prev) => {
-      return { ...prev, [name]: value };
+      return [...prev];
     });
   };
 
   const saveRowData = (e, idx) => {
     e.preventDefault();
     rowObj(rowVal, idx);
-    if (rowVal.ingredient && rowVal.amount) {
+    if (rowVal[0] && rowVal[1]) {
       setIsSaved(true);
       addRowBtn(e, idx);
+      // console.log(rowVal);
     }
   };
 
@@ -104,19 +105,15 @@ function TableRowIngredients({ addRowBtn, removeRow, index, rowObj }) {
       <tr>
         <td data-label="ingredient">
           <div className="ui fluid icon input">
-            <input type="text" value={rowVal.ingredient} onChange={handleChange} name="ingredient" disabled={isSaved} />
+            <input type="text" value={rowVal[0]} onChange={handleChange} name="ingredient" disabled={isSaved} />
           </div>
         </td>
         <td data-label="amount">
           <div className="ui mini icon input">
-            <input type="text" value={rowVal.amount} onChange={handleChange} name="amount" disabled={isSaved} />
+            <input type="text" value={rowVal[1]} onChange={handleChange} name="amount" disabled={isSaved} />
           </div>
         </td>
-        <td data-label="note">
-          <div className="ui fluid icon input">
-            <input type="text" value={rowVal.note} onChange={handleChange} name="note" disabled={isSaved} />
-          </div>
-        </td>
+
         <td data-label="action" className="action-btn-recipe-add">
           {!isSaved && (
             <button onClick={(e) => saveRowData(e, index)}>

@@ -1,6 +1,8 @@
 .classic-container {
   max-height: 300px;
   overflow-y: scroll;
+  height: fit-content;
+  /* border: 1px solid black; */
 }
 
 .post-image {

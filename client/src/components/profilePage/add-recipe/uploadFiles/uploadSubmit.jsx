@@ -11,10 +11,10 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
     if (!file) {
       return;
     }
-
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPrevUrl(fileReader.result);
+      // console.log(fileReader);
     };
     fileReader.readAsDataURL(file);
   }, [file]);
@@ -30,13 +30,19 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
       setFile(pickedFile);
       setIsValid(true);
       fileIsValid = true;
+      // console.log(pickedFile);
     } else {
       setIsValid(false);
       fileIsValid = false;
     }
 
+    // const formData = new FormData();
+    // formData.append("img", pickedFile);
+    // console.log(formData);
+    imgUploadHandler(file);
+    // imgUploadHandler(formData);
+
     // onInput(id, pickedFile, fileIsValid);
-    imgUploadHandler(pickedFile);
   };
 
   return (
@@ -53,9 +59,7 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
         accept=".jpg,.png,.jpeg"
       />
       <div className="image-uplaod">
-        <div className="image-upload__preview">
-          {prevUrl ? <img src={prevUrl} alt="Preview" width={220} height={220} /> : ""}
-        </div>
+        <div className="image-upload__preview">{prevUrl ? <img src={prevUrl} alt="Preview" /> : "xxx"}</div>
       </div>
       {!isValid && <p>Upload failed</p>}
     </div>

@@ -12,7 +12,7 @@ import Video from "./video";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faRightFromBracket, faGear, faEdit, faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function Post() {
+export default function Post({ title, category, ingredients, instructions, image, avatar, name }) {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -41,13 +41,10 @@ export default function Post() {
     <div className="post-container">
       <div className="post-user">
         <div style={{ display: "flex" }}>
-          <img
-            src="https://scontent.fhfa1-1.fna.fbcdn.net/v/t1.18169-9/12140671_10206941372348369_8765013128868409022_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=uONp3u0Y_FQAX-IxAhc&_nc_ht=scontent.fhfa1-1.fna&oh=00_AT8K18D8VWknMw3wdizflt9z4VQh2LxWsOVEV-VHWsktXA&oe=62E8DC12"
-            alt=""
-            className="user-poster-img"
-          />
+          <img src={avatar} alt="post avatar" className="user-poster-img" />
           <div className="poster-user-name">
-            <div className="username-post">Benny</div>
+            <div className="username-post">{name.split(" ")[0]}</div>
+            {/* <div className="username-post">{name}</div> */}
             <div className="posted-at-time">3 hours</div>
           </div>
         </div>
@@ -82,7 +79,10 @@ export default function Post() {
           {/* <FontAwesomeIcon icon={faStar} color="yellow" size="lg" /> */}
           {/* <b>4.5</b> */}
         </div>
-        <h1>Falafel Recipe</h1>
+        <div className="title-catagroy-container">
+          <h1>{title}</h1>
+          <span>{category}</span>
+        </div>
         <div>
           <i className="comments inline icon large"></i>6
         </div>
@@ -97,12 +97,13 @@ export default function Post() {
           selectedItem={currentSlide}
           showIndicators={false}
           showStatus={false}
+          // dynamicHeight={true}
         >
-          <ClassicPost />
+          <ClassicPost image={image} />
 
-          <IngredientTable />
-          <Instructions />
-          <Video url="https://www.youtube.com/watch?v=1IszT_guI08" />
+          <IngredientTable ingredients={ingredients} />
+          <Instructions instructions={instructions} />
+          {/* <Video url="https://www.youtube.com/watch?v=1IszT_guI08" /> */}
         </Carousel>
       </div>
       <div className="post-blog">

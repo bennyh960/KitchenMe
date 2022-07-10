@@ -13,23 +13,22 @@ const recipeSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    description: {
+      type: String,
+
+      trim: true,
+    },
+    public: {
+      type: Boolean,
+      default: false,
+    },
+
     ingredients: [
-      {
-        ingredient: {
-          type: String,
-          trim: true,
-          required: true,
-        },
-        amount: {
-          type: String,
-          trim: true,
-          required: true,
-        },
-        note: {
-          type: String,
-          trim: true,
-        },
-      },
+      [
+        // type: String,
+        // trim: true,
+        // required: true,
+      ],
     ],
     instructions: [
       {

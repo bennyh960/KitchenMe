@@ -52,6 +52,17 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// * Public data to share
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+  delete userObject.tokens;
+
+  return userObject;
+};
+
 // * UserSchema Generate Ahuthentication token methode - post register or login
 userSchema.methods.generateAuthToken = async function () {
   const user = this;

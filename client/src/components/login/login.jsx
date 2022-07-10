@@ -32,6 +32,10 @@ export default function LogIn({ isUser }) {
       setMessage(`${data.user.name} sucssesfully login in.`);
       // todo remove loader
       isUser(true);
+      localStorage.setItem("token", JSON.stringify(data.token));
+      // todo - store user without secret data
+      const userDataStore = {};
+      localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/feed", {
         state: data.user,
       });

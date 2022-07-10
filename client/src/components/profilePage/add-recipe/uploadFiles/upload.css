@@ -1,8 +1,11 @@
-.form-fontrol {
+.form-control {
   margin: 1rem 0;
+  width: 25%;
+  height: 80%;
+  /* flex: 1; */
   flex-direction: column;
-  background-color: red;
-  border: 1px solid black;
+  /* background-color: red; */
+  /* border: 1px solid black; */
 }
 
 .form-fontrol label,
@@ -14,17 +17,34 @@
 .form-fontrol label {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  /* width: 30%; */
+  /* border: 1px solid black; */
 }
 
 .image-uplaod {
-  width: 60%;
-  height: 60%;
-  min-width: 150px;
-  min-height: 150px;
+  /* width: 50px; */
+  /* height: 50px; */
+  max-height: 100%;
+  max-width: 100%;
+  /* min-width: 150px; */
+  /* min-height: 150px; */
 }
 
 .image-upload__preview {
   /* background-color: red; */
   /* padding: 2rem; */
+  width: 100%;
+  height: 100%;
   margin: 5px 0;
+  cursor: zoom-in;
+  transition: 0.5s all ease-in;
+}
+
+.image-upload__preview:active,
+.image-upload__preview:focus {
+  cursor: auto;
+  position: relative;
+  transform: scale(3);
+  left: -150px;
+  top: 50px;
 }
