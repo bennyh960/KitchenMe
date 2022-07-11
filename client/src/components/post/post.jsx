@@ -12,7 +12,7 @@ import Video from "./video";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faRightFromBracket, faGear, faEdit, faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function Post({ title, category, ingredients, instructions, image, avatar, name, time }) {
+export default function Post({ title, category, ingredients, instructions, image, avatar, name, time, description }) {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
   // console.log("time:", time);
@@ -100,7 +100,7 @@ export default function Post({ title, category, ingredients, instructions, image
           showStatus={false}
           // dynamicHeight={true}
         >
-          <ClassicPost image={image} />
+          <ClassicPost image={image} description={description} />
 
           <IngredientTable ingredients={ingredients} />
           <Instructions instructions={instructions} />

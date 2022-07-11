@@ -2,34 +2,40 @@ import Post from "../../post/post";
 // import Addrecipe from "../add-recipe/addrecipe";
 import { Link } from "react-router-dom";
 import "./myposts.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Addrecipe from "../add-recipe/addrecipe";
-import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import Aboutme from "../about-me/aboutme";
 import React, { useEffect, useState } from "react";
 import recipiesAPI from "../../../api/recipes.users.Api";
 import Loader2 from "../../loaders/loader2/loader2";
 import getTime from "./time";
 
-export default function Myposts({ avatar, name, email, topRated, myRank, createdAt }) {
+export default function Myposts({ avatar, name, email, topRated, myRank, createdAt, token }) {
   const [isLoading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [owner, setOwner] = useState("");
-  // const [isAddedNewRecipe, setRenderNew] = useState(false);
-  // const [posts2, setPosts2] = useState("");
+  const [updateNewPostUi, setUpdateUi] = useState(false);
+
   useEffect(() => {
     const getUserPosts = async () => {
       setLoading(true);
       // const { data } = await recipiesAPI.getPublicRecipes(""); //! dont delete this is useful for public posts
       const {
         data: { recipes, owner },
-      } = await recipiesAPI.getUserRecipes("");
+      } = await recipiesAPI.getUserRecipes("", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      });
       setPosts(recipes);
       setOwner(owner);
       setLoading(false);
     };
     getUserPosts();
-  }, []);
+  }, [, updateNewPostUi]);
+
+  const updateUi = () => {
+    setUpdateUi((p) => !p);
+  };
 
   const drawPosts = () => {
     console.log(posts);
@@ -44,6 +50,7 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
           image={post.image}
           avatar={avatar}
           name={owner}
+          description={post.description}
           time={getTime(post.updatedAt)}
         />
       );
@@ -54,8 +61,9 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
   return (
     <div className="my-posts-container">
       <div className="my-post-left-container">
-        <Addrecipe />
+        <Addrecipe updateUi={updateUi} />
         {isLoading && <Loader2 />}
+        {/* <Loader2 /> */}
         {/* <Post /> */}
         {drawPosts()}
         <div className="first-message">

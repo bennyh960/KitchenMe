@@ -3,9 +3,8 @@
   top: 50%;
   left: 5px;
   min-width: fit-content;
+  max-width: 100px;
   animation: popUpleftRight 0.2s ease-out;
-  /* flex-direction: column;
-  flex-wrap: nowrap; */
 }
 
 @keyframes popUpleftRight {
@@ -19,8 +18,18 @@
 
 @media screen and (max-width: 700px) {
   .popup-menu {
-    overflow: scroll;
-    min-height: fit-content;
+    top: calc(50% + 10px);
+    overflow-y: scroll;
+    min-height: 250px;
+    /* min-width: 200px; */
+  }
+  .popup-menu > * {
+    max-height: 50px;
+    /* width: 200px; */
+  }
+  .popup-option,
+  .inner-box {
+    margin: 1rem 1rem;
   }
 }
 

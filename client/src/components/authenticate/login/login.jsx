@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
-import usersApi from "../../api/usersApi";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import usersApi from "../../../api/usersApi";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function LogIn({ isUser }) {
+export default function LogIn({ handleClickTo, isUser }) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("\n");
   const navigate = useNavigate();
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state) isUser(location.state.isUser);
-  }, []);
+  // const location = useLocation();
+  // useEffect(() => {
+  //   if (location.state) isUser(location.state.isUser);
+  // }, []);
 
   const handleChange = ({ target: { value, name } }) => {
     setMessage("\n");
@@ -34,11 +34,12 @@ export default function LogIn({ isUser }) {
       isUser(true);
       localStorage.setItem("token", JSON.stringify(data.token));
       // todo - store user without secret data
-      const userDataStore = {};
+
       localStorage.setItem("user", JSON.stringify(data.user));
-      navigate("/feed", {
-        state: data.user,
-      });
+      navigate("/feed");
+      // navigate("/feed", {
+      //   state: data.user,
+      // });
     } catch (error) {
       setMessage(error.message);
     }
@@ -72,8 +73,11 @@ export default function LogIn({ isUser }) {
           <input type="password" name="password" placeholder="Password*" required onChange={handleChange} />
         </div>
         {message && <Message text={message} />}
-        <Link to="/users/new">Not a member? - Register</Link>
-        <Link to="/users/login/passwordForgot">Forgot your password?</Link>
+
+        <div className="auth-options-links">
+          <p onClick={() => handleClickTo("register")}>Not a member? - Register</p>
+          <p onClick={() => handleClickTo("passwordReset")}>Forgot your password?</p>
+        </div>
 
         <button className="ui button" type="submit" disabled={!isSubmit}>
           Log In

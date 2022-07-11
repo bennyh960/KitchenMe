@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./signin.css";
 import PasswordMeter from "./passwordmeter";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import usersApi from "../../api/usersApi";
+import { useNavigate } from "react-router-dom";
+import usersApi from "../../../api/usersApi";
 
-export default function Signin({ isUser }) {
+export default function Signin({ handleClickTo, isUser }) {
   const [showPasswordMeter, setPasswordMeter] = useState(false);
   const [showConfirmPass, setConfirmPass] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", password: "", password2: "" });
   const [message, setMessage] = useState("\n");
   const navigate = useNavigate();
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state) isUser(location.state.isUser);
-  }, []);
 
   const handleChange = ({ target: { value, name } }) => {
     setMessage("\n");
@@ -29,20 +25,24 @@ export default function Signin({ isUser }) {
     try {
       // console.log(usersApi);
       const { data } = await usersApi.newUserRouter.post("", formData);
-      isUser(true);
+
       localStorage.setItem("token", JSON.stringify(data.token));
       // todo - store user without secret data
-      const userDataStore = {};
+
       localStorage.setItem("user", JSON.stringify(data.user));
+      isUser(true);
       navigate("/feed", {
         state: data.user,
       });
       // todo remove loader
     } catch (error) {
       console.log(error.message, error.response.data);
-      const description = error.response.data.split("{")[1].replace("}", "");
-      const text = `${error.message}:
-       With ${description}`;
+      let text;
+      if (error.response && error.response.data.includes("{")) {
+        const description = error.response.data.split("{")[1].replace("}", "");
+        text = `${error.message}:
+        With ${description}`;
+      } else text = error.response.data;
       setMessage(text);
     }
   };
@@ -107,7 +107,10 @@ export default function Signin({ isUser }) {
         <div>{showPasswordMeter ? <PasswordMeter password={formData.password} /> : <br />}</div>
         {showConfirmPass &&
           (formData.password !== formData.password2 ? <div>Unmatch passords</div> : <div>Password Match</div>)}
-        <Link to={"/users/login"}>Already have account?</Link>
+        <p onClick={() => handleClickTo("login")} style={{ color: "blue", cursor: "pointer" }}>
+          Already have account?
+        </p>
+
         {message && <Message text={message} />}
         <button className="ui button" type="submit" disabled={isSubmit}>
           Register

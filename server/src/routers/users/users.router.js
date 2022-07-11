@@ -33,6 +33,22 @@ router.post("/users/login", async (req, res) => {
   }
 });
 
+//* PasswordReset
+router.post("/users/reset/password", async (req, res) => {
+  try {
+    console.log(req.body.email);
+    const user = await User.findOne({ email: req.body.email });
+    // ! we can add here email api to send password
+    let text;
+    if (!user) text = "bad";
+    else text = "ok";
+    res.send(text);
+  } catch (error) {
+    res.status(404).send(error.message);
+    console.log(chalk.red(error.message));
+  }
+});
+
 // * LOGOUT
 router.post("/users/logout", auth, async (req, res) => {
   try {
@@ -55,8 +71,6 @@ router.post(
     req.user.avatar = buffer;
     await req.user.save();
     res.send("Image uploaded as png file");
-    // res.set("Content-Type", "image/png");
-    // res.send(req.user.avatar);
   },
   (error, req, res, next) => {
     res.status(400).send({ error: error.message });

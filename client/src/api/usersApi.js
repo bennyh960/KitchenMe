@@ -9,6 +9,9 @@ const newUserRouter = axios.create({
 const findUserRouter = axios.create({
   baseURL: `${url}/users/login`,
 });
+const resetPassword = axios.create({
+  baseURL: `${url}/users/reset/password`,
+});
 const logoutRouter = axios.create({
   baseURL: `${url}/users/logout`,
 });
@@ -21,6 +24,7 @@ const usersApi = {
   newUserRouter,
   findUserRouter,
   logoutRouter,
+  resetPassword,
 };
 
 export default usersApi;

@@ -14,8 +14,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 // import axios from "axios";
 
 // const rowsArr = [1, 2, 3];
-export default function Addrecipe() {
-  const [titleCategory, setTitle] = useState({ name: "", category: "" });
+export default function Addrecipe({ updateUi }) {
+  const [titleCategory, setTitle] = useState({ name: "", category: "", description: "" });
   const [isOpenEditor, setOpenEditor] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -28,16 +28,15 @@ export default function Addrecipe() {
   const [bgMandatory, setBackgroundMandtoryField] = useState("white");
 
   const postNewRecipe = async (isPublic) => {
-    // if(isPublic){
     formData.public = isPublic;
-
-    // todo add loader
-    console.log(formData);
-    console.log(localStorage.getItem("token"));
-    const { data } = await recipiesAPI.createNewRecipe.post("", formData);
-    console.log(data);
-    //todo axios.post("/newRecipe",formData)
-    // isOpenComponent(false);
+    const { data } = await recipiesAPI.createNewRecipe.post("", formData, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    });
+    updateUi();
+    // setOpenEditor(false);
+    setTitle({ name: "", description: "", category: "" });
   };
 
   const ingredientObjHandler = (ingredients) => {
@@ -46,8 +45,6 @@ export default function Addrecipe() {
         return { ...p, ingredients };
       }
     });
-    // console.log(formData);
-    // console.log("xxx");
   };
   const instructionsObjHandler = (instructions) => {
     setFormData((p) => {
@@ -55,10 +52,9 @@ export default function Addrecipe() {
         return { ...p, instructions };
       }
     });
-    // console.log(formData);
-    // console.log("xxx");
   };
   const imgUploadHandler = (image) => {
+    console.log(image);
     setFormData((p) => {
       if (p) {
         return { ...p, image };
@@ -162,7 +158,12 @@ export default function Addrecipe() {
           </div>
 
           <div className="confirm-summary">
-            <ConfirmRecipe formData={formData} postNewRecipe={postNewRecipe} imgUploadHandler={imgUploadHandler} />
+            <ConfirmRecipe
+              formData={formData}
+              postNewRecipe={postNewRecipe}
+              imgUploadHandler={imgUploadHandler}
+              updateUi={updateUi}
+            />
           </div>
         </Carousel>
       )}

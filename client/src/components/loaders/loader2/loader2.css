@@ -1,8 +1,22 @@
+.loader-container {
+  width: 90%;
+  height: 10%;
+  /* position: absolute; */
+  /* top: 10vh; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid black; */
+  margin: 1rem auto;
+  /* left: 0; */
+  background-color: rgba(240, 248, 255, 0.542);
+}
 .lds-spinner {
   color: official;
   display: inline-block;
+
   /* margin: auto; */
-  border: 2px solid black;
+  /* border: 2px solid black; */
   position: relative;
   width: 80px;
   height: 80px;
@@ -20,7 +34,7 @@
   width: 6px;
   height: 18px;
   border-radius: 20%;
-  background: #fff;
+  background: rgb(206, 31, 31);
 }
 .lds-spinner div:nth-child(1) {
   transform: rotate(0deg);

@@ -17,6 +17,7 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
       // console.log(fileReader);
     };
     fileReader.readAsDataURL(file);
+    imgUploadHandler(file);
   }, [file]);
 
   const pickImageHandler = () => {
@@ -30,24 +31,16 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
       setFile(pickedFile);
       setIsValid(true);
       fileIsValid = true;
-      // console.log(pickedFile);
+      console.log(pickedFile);
     } else {
       setIsValid(false);
       fileIsValid = false;
     }
-
-    // const formData = new FormData();
-    // formData.append("img", pickedFile);
-    // console.log(formData);
-    imgUploadHandler(file);
-    // imgUploadHandler(formData);
-
-    // onInput(id, pickedFile, fileIsValid);
   };
 
   return (
     <div className="form-control">
-      <button class="ui primary button" onClick={pickImageHandler}>
+      <button className="ui primary button" onClick={pickImageHandler}>
         Pick Image
       </button>
       <input
@@ -59,9 +52,12 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
         accept=".jpg,.png,.jpeg"
       />
       <div className="image-uplaod">
-        <div className="image-upload__preview">{prevUrl ? <img src={prevUrl} alt="Preview" /> : "xxx"}</div>
+        <div className="image-upload__preview">{prevUrl ? <img src={prevUrl} alt="Preview" /> : ""}</div>
       </div>
       {!isValid && <p>Upload failed</p>}
+      {/* <button className="ui primary button" onClick={pickImageHandler}>
+        confirm
+      </button> */}
     </div>
   );
 }

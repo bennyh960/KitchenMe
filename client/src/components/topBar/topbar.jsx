@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import PopupNanMenu from "./popUpMenu/popup";
-export default function Topbar({ avatar, name }) {
+export default function Topbar({ avatar, name, isUser }) {
   const [isPopUpMenue, setIsPopUp] = useState(false);
 
   // useEffect(() => {
@@ -24,7 +24,7 @@ export default function Topbar({ avatar, name }) {
 
   // i dont like this methode
   const handleClickOutside = () => {
-    console.log("activate cb function for outside");
+    // console.log("activate cb function for outside");
     setIsPopUp(false);
   };
 
@@ -34,7 +34,7 @@ export default function Topbar({ avatar, name }) {
     <nav className="topbar-container">
       <div className="topbar-user">
         <div className="container-left-icons-menu" ref={ref}>
-          {isPopUpMenue && <PopupNanMenu name={name} />}
+          {isPopUpMenue && <PopupNanMenu name={name} isUser={isUser} />}
           {/* <Link to={"/profile/me"}> */}
 
           {!isPopUpMenue && (
@@ -85,7 +85,7 @@ function useOutsideClick(callback) {
   useEffect(() => {
     const handleClick = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        console.log("click outside ");
+        // console.log("click outside ");
         callback();
       }
     };

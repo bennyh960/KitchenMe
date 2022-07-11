@@ -1,5 +1,5 @@
-.sign-in-container {
-  background: url("../../../public/images/signupM.jpg");
+.login-container {
+  background: url("../../../../public/images/signupM.jpg");
   width: 100vw;
   height: 100vh;
   background-position: center center;
@@ -11,11 +11,11 @@
   justify-content: center;
 }
 
-.sign-form h1 {
+.login-form h1 {
   text-align: center;
 }
 
-.sign-form {
+.login-form {
   width: 300px;
   /* height: 40%; */
   border-radius: 15px;
@@ -23,36 +23,46 @@
   /* border: 1px solid black; */
   padding: 2rem;
   display: flex;
-  flex-direction: column;
   box-shadow: var(--box-shadow-secondary);
-  /* align-items: center; */
-  animation: entrance 1s ease-in-out;
+  flex-direction: column;
+  animation: entrance 0.5s ease-in-out;
+}
+
+.auth-options-links {
+  display: flex;
+  flex-direction: column;
+  color: blue;
+  margin: 1rem 0;
+}
+
+.auth-options-links p {
+  cursor: pointer;
 }
 
 @keyframes entrance {
   from {
     position: absolute;
-    bottom: 100%;
+    top: -100%;
   }
   to {
-    bottom: 0%;
+    top: 0%;
   }
 }
 
 @media screen and (max-width: 700px) {
-  .sign-in-container {
+  .login-container {
     /* background: url("../../../public/images/signupS.jpg"); */
     /* background-size: contain; */
     /* background-repeat: no-repeat; */
   }
-  .sign-form {
+  .login-form {
     width: 50%;
     margin: auto;
     font-size: 20px;
   }
 }
 @media screen and (max-width: 600px) {
-  .sign-form {
+  .login-form {
     width: 60%;
     font-size: larger;
   }

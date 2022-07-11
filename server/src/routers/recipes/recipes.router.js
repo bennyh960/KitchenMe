@@ -1,7 +1,7 @@
 const express = require("express");
 const chalk = require("chalk");
 const Recipe = require("../../db/models/recipes/recipes.model");
-
+const sharp = require("sharp");
 const multer = require("multer");
 const auth = require("../../middleware/auth");
 const router = new express.Router();
@@ -11,7 +11,7 @@ const upload = multer({
     fileSize: 2e6,
   },
   fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
+    if (!file.originalname.match(/\.(png|jpg|jpeg|jfif)$/)) {
       cb(new Error("Please upload an image with max size of 2MB"));
     }
     cb(undefined, true); //accept the upload
@@ -26,7 +26,8 @@ router.post("/recipes/new", auth, upload.single("image"), async (req, res) => {
       owner: req.user._id,
     });
     if (req.file) {
-      recipe.image = req.file.buffer;
+      const buffer = await sharp(req.file.buffer).png().toBuffer();
+      recipe.image = buffer;
     }
     await recipe.save();
     res.status(201).send(recipe);
@@ -53,7 +54,8 @@ router.get("/recipes/public", async (req, res) => {
 router.get("/recipes/user", auth, async (req, res) => {
   try {
     // await req.user.populate("recipes").execPopulate(); //its seems its no longer a function
-    await req.user.populate("recipes");
+
+    await req.user.populate({ path: "recipes", options: { sort: { createdAt: -1 } } });
     res.send({ recipes: req.user.recipes, owner: req.user.name });
   } catch (e) {
     res.status(500).send(e.message);

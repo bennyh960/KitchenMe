@@ -46,7 +46,8 @@
   /* border: 1px solid black; */
   /* top: 0; */
 }
-.fa-icon-float {
+.fa-icon-float,
+.fa-icon-float-left {
   cursor: pointer;
   position: absolute;
   right: 10px;
@@ -54,6 +55,10 @@
   background-color: var(--bg-secondary-color);
   padding: 15px;
   border-radius: 50%;
+}
+
+.fa-icon-float-left {
+  left: 10px;
 }
 
 /* hover description in app.css */
