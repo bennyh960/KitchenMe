@@ -10,10 +10,12 @@ export default function Cover({ handleView, avatar }) {
   const [file, setFile] = useState();
   const [prevUrl, setPrevUrl] = useState();
   const [isValid, setIsValid] = useState(true);
+  // const [updateUi, setUpdateUi] = useState(false);
   const filePickerRef = useRef();
 
   useEffect(() => {
     if (!file) {
+      // console.log("not file");
       return;
     }
     const fileReader = new FileReader();
@@ -34,7 +36,7 @@ export default function Cover({ handleView, avatar }) {
       setFile(pickedFile);
       setIsValid(true);
       fileIsValid = true;
-      console.log(pickedFile);
+      // console.log(pickedFile);
     } else {
       setIsValid(false);
       fileIsValid = false;
@@ -44,18 +46,31 @@ export default function Cover({ handleView, avatar }) {
   const handleUploadProfileImage = async () => {
     // todo loader on
     // axios
-    const { data } = await usersApi.users.post(
-      "/me/avatar",
-      { file },
-      {
+    // console.log(file);
+    const obj = {
+      test: "its seems that in order to use multypart contnet type i must use multypart ",
+      avatar: file,
+    };
+    try {
+      const { data } = await usersApi.userUploadAvatar.post("", obj, {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          "Content-Type": "multipart/form-data",
         },
-      }
-    );
+      });
+
+      // console.log(data);
+    } catch (error) {
+      // todo handle error to client
+      // todo user must know that max size is 2mb
+      console.log(error);
+    }
+
     // updateUi();
     // todo loader off
-    setPrevUrl("");
+    // setPrevUrl("");
+    // setUpdateUi((p) => !p);
+    window.location.reload(); // its very dificult to update ui due to multy compnenet use this avatar (posts ,menu , cover)
   };
 
   return (

@@ -23,7 +23,7 @@ export default function ProfilePage({ avatar, name, email, topRated, myRank, cre
   };
 
   useEffect(() => {
-    console.log(location.pathname);
+    // console.log(location.pathname);
   }, [location]);
 
   return (

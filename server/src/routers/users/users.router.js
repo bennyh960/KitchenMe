@@ -61,18 +61,36 @@ router.post("/users/logout", auth, async (req, res) => {
 });
 
 // =====================================================
+// * Get User by ID
+router.get("/users/profile/:userId", async (req, res) => {
+  try {
+    console.log(req.params);
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).send("Error:User not found");
+    }
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+// =====================================================
 // * upload image
 router.post(
   "/users/me/avatar",
   auth,
   multerUpload.single("avatar"),
   async (req, res) => {
+    // console.log("benny", req.file);
     const buffer = await sharp(req.file.buffer).resize({ width: 200, height: 200 }).png().toBuffer();
     req.user.avatar = buffer;
+    req.user.avatar = req.file.buffer;
     await req.user.save();
     res.send("Image uploaded as png file");
   },
   (error, req, res, next) => {
+    // res.status(400).send("=======================");
     res.status(400).send({ error: error.message });
   }
 );

@@ -19,11 +19,15 @@ const getUserRecipes = axios.create({
     Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
   },
 });
+const getFriendsPostsRouter = axios.create({
+  baseURL: `${url}/recipes/friends`,
+});
 
 const recipiesAPI = {
   createNewRecipe,
   getPublicRecipes,
   getUserRecipes,
+  getFriendsPostsRouter,
 };
 
 export default recipiesAPI;

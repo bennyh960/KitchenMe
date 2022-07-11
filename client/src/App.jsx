@@ -3,10 +3,8 @@ import "./App.css";
 // import Signin from "./components/signin/signin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProfilePage from "./components/profilePage/profile";
+import OtherProfilePage from "./components/profileOthers/otherProfile";
 import Topbar from "./components/topBar/topbar";
-// import Addrecipe from "./components/profilePage/add-recipe/addrecipe";
-// import LogIn from "./components/login/login";
-// import ForgotPassword from "./components/login/forgotpassword";
 import { useState, useEffect } from "react";
 import Homepage from "./components/hompage/Homepage";
 import usersApi from "./api/usersApi";
@@ -35,7 +33,7 @@ function App() {
       return;
     }
 
-    console.log(user.user);
+    // console.log(user.user);
 
     const userOn = JSON.parse(localStorage.getItem("user"));
     setUser((p) => {
@@ -77,7 +75,6 @@ function App() {
               }
             />
           )}
-          {/* <Route path="/feed" element={<Post />} /> //cause error due to post have properties */}
           {user.token && (
             <Route
               path="/feed"
@@ -93,10 +90,7 @@ function App() {
               }
             />
           )}
-          {/* <Route path="/users/new" element={<Signin />} />
-          <Route path="/users/login" element={<LogIn />} />
-          <Route path="/users/login/passwordForgot" element={<ForgotPassword />} /> */}
-          {/* <Route path="/addNewRecipe" element={<Addrecipe />} /> */}
+          <Route path="/users/profile/:id" element={<OtherProfilePage />} /> //cause error due to post have properties
         </Routes>
       </BrowserRouter>
     </div>

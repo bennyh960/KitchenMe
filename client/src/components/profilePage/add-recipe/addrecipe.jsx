@@ -32,10 +32,11 @@ export default function Addrecipe({ updateUi }) {
     const { data } = await recipiesAPI.createNewRecipe.post("", formData, {
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        "Content-Type": "multipart/form-data",
       },
     });
     updateUi();
-    // setOpenEditor(false);
+    setOpenEditor(false);
     setTitle({ name: "", description: "", category: "" });
   };
 

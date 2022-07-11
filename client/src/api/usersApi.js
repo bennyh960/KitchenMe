@@ -18,13 +18,21 @@ const logoutRouter = axios.create({
 const users = axios.create({
   baseURL: `${url}/users`,
 });
+const userUploadAvatar = axios.create({
+  baseURL: `${url}/users/me/avatar`,
+});
+const getOtherProfile = axios.create({
+  baseURL: `${url}/users/profile`,
+});
 
 const usersApi = {
   users,
+  userUploadAvatar,
   newUserRouter,
   findUserRouter,
   logoutRouter,
   resetPassword,
+  getOtherProfile,
 };
 
 export default usersApi;

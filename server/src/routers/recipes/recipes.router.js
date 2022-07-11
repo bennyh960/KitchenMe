@@ -4,6 +4,7 @@ const Recipe = require("../../db/models/recipes/recipes.model");
 const sharp = require("sharp");
 const multer = require("multer");
 const auth = require("../../middleware/auth");
+const User = require("../../db/models/users/users.model");
 const router = new express.Router();
 
 const upload = multer({
@@ -60,6 +61,18 @@ router.get("/recipes/user", auth, async (req, res) => {
   } catch (e) {
     res.status(500).send(e.message);
     console.log(chalk.red(e.message));
+  }
+});
+//* Get others recipes
+router.get("/recipes/friends/:id", async (req, res) => {
+  try {
+    const friend = await User.findById(req.params.id);
+
+    await friend.populate({ path: "recipes", options: { sort: { createdAt: -1 } } });
+    res.send({ recipes: friend.recipes, owner: friend.name });
+  } catch (e) {
+    res.status(500).send(e.message);
+    console.log(chalk.red.inverse(e.message));
   }
 });
 

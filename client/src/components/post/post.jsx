@@ -66,11 +66,11 @@ export default function Post({ title, category, ingredients, instructions, image
                 <i className="tasks icon large"></i>
               </button>
             </li>
-            <li className={activeView[3]}>
+            {/* <li className={activeView[3]}>
               <button onClick={videoView}>
                 <i className="youtube icon large"></i>
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
