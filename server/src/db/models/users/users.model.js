@@ -40,6 +40,9 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: Buffer,
     },
+    friends: Array,
+    pending: Array,
+    notifications: Array,
     tokens: [
       {
         token: {

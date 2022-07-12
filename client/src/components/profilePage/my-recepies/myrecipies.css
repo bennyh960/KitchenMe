@@ -1,0 +1,117 @@
+.my-recipes-container {
+  width: 90vw;
+  margin: 3rem auto;
+  /* background-color: red; */
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* background-image: url("../../../../public/images/coverL.jpg"); */
+  /* background-image: url("../../../../public/images/signup.jpg"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  background-image: linear-gradient(
+    pink,
+    white,
+    pink,
+    white,
+    pink,
+    pink,
+    white,
+    white,
+    white,
+    rgb(238, 96, 96),
+    pink,
+    white,
+    white
+  );
+  box-shadow: var(--box-shadow-primary);
+  border-radius: 10px;
+}
+
+.my-recipes-searchbar,
+.categories-container,
+.recipes-container {
+  box-shadow: var(--box-shadow-primary);
+  width: 80%;
+  margin: 1rem auto;
+  border-radius: 5px;
+}
+
+.my-recipes-searchbar {
+  height: 4rem;
+  /* padding: 0 3rem; */
+}
+
+.categories-container {
+  border: 1px solid black;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.categories-container > div {
+  width: 20%;
+  height: 2rem;
+  border: 1px solid black;
+  background-color: gray;
+  box-shadow: var(--box-shadow-primary);
+}
+
+.categories-container h2 {
+  width: 90%;
+  text-align: center;
+}
+
+.recipes-container {
+  display: flex;
+  gap: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  box-shadow: var(--box-shadow-primary);
+  padding-top: 2rem;
+  background-image: url("../../../../public/images/coverL.jpg");
+}
+
+.recipes-container > * {
+  width: 30%;
+  min-width: 200px;
+  min-height: 200px;
+  /* border: 1px solid black; */
+  box-shadow: var(--box-shadow-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: aliceblue; */
+  background-color: #8ec5fc;
+  background-image: linear-gradient(237deg, #8ec5fc 0%, #e0c3fc 25%, #ffffff 85%, #ffffff 100%);
+
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all ease-in-out 0.3s;
+}
+
+.recipe-image {
+  width: 95%;
+  height: 100%;
+  border-radius: 15px;
+  margin-bottom: 5%;
+}
+
+.recipes-container > *:hover {
+  transform: scale(1.03);
+}
+
+.recipe-title-one {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2rem;
+  font-weight: bold;
+}

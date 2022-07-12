@@ -1,0 +1,43 @@
+.dropdown-content {
+  /* display: none; */
+  position: absolute;
+  top: 70%;
+  background-color: #f6f6f6;
+  min-width: 70%;
+  /* min-width: 1/0px; */
+  max-width: 70%;
+  overflow: auto;
+  border: 1px solid #ddd;
+  border-top: transparent;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
+.dd-result {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0.6rem auto;
+}
+
+.searched-person-img {
+  /* height: 80%; */
+  width: 15%;
+  border-radius: 50%;
+}

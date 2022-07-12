@@ -33,18 +33,18 @@ export default function ProfileNav({ handleView }) {
   return (
     <div className="profile-navbar">
       <div className="profile-nav-left">Rank</div>
-      <div className={`profile-nav-center ${activeLink[0]}`} id="profile-recipes" onClick={handleActive}>
-        {/* <Link to={"/recipes/me"}>My Recipies</Link> */}My Recipies
-      </div>
+      {/* <div className={`profile-nav-center ${activeLink[2]}`} id="profile-photos" onClick={handleActive}>
+        Photos
+      </div> */}
       <div className="profile-nav-right">
         <div className={activeLink[1]} id="profile-posts" onClick={handleActive}>
-          {/* <Link to={"/posts/me"}>Posts</Link> */}Posts
+          Posts
         </div>
-        <div id="profile-photos" className={activeLink[2]} onClick={handleActive}>
-          {/* <Link to={"/phots/me"}>Photos</Link> */}Photos
+        <div id="profile-recipes" className={activeLink[0]} onClick={handleActive}>
+          My Recipies
         </div>
         <div id="profile-friends" className={activeLink[3]} onClick={handleActive}>
-          {/* <Link to={"/friends/me"}>Friends</Link> */}Friends
+          Friends
         </div>
       </div>
     </div>

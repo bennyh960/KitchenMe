@@ -90,7 +90,12 @@ function App() {
               }
             />
           )}
-          <Route path="/users/profile/:id" element={<OtherProfilePage />} /> //cause error due to post have properties
+          {/* <Route path="/users/profile/:id" element={<OtherProfilePage />} /> //cause error due to post have properties */}
+          <Route
+            path="/users/profile/:id"
+            element={<OtherProfilePage currentUserPendingList={user.user.pending} currentUserId={user.user._id} />}
+          />{" "}
+          //cause error due to post have properties
         </Routes>
       </BrowserRouter>
     </div>

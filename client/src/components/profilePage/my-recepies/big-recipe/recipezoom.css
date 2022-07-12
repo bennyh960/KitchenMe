@@ -1,0 +1,79 @@
+.confirm-container {
+  display: flex;
+  /* margin-top: 0rem; */
+  /* min-height: 55rem; */
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 3px;
+  width: 95%;
+  margin: 10px auto;
+  background-color: aliceblue;
+}
+
+.title-confirm-recipe {
+  padding: 5px;
+}
+
+.title-confirm-recipe h1 {
+  margin: 15px auto;
+  padding: 5px;
+  width: 95%;
+  border-radius: 10px;
+  background-color: var(--bg-navbar-color);
+  box-shadow: 20px 20px 50px 10px pink inset;
+}
+
+.ingredient-confirm {
+  display: flex;
+  /* flex: 1; */
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 30%;
+  margin-left: 1rem;
+  height: fit-content;
+}
+
+.instructions-confirm {
+  width: 50%;
+  /* flex: 5; */
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin: 0 2rem;
+  padding: 5px;
+  text-align: left;
+  line-height: 3rem;
+  /* padding-left: 3rem; */
+}
+
+.instruction-row-confirm {
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+  /* min-height: 2rem; */
+}
+
+.float-step-num {
+  position: absolute;
+  top: -1.7rem;
+  background-color: black;
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.ingredient-row-confirm {
+  padding: 1rem;
+  border-bottom: black 1px dotted;
+}
+
+#edit-delete {
+  border: 1px solid black;
+  width: 80%;
+  margin-left: 10%;
+}

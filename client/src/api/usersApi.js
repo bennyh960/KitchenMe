@@ -24,6 +24,12 @@ const userUploadAvatar = axios.create({
 const getOtherProfile = axios.create({
   baseURL: `${url}/users/profile`,
 });
+const getUserLists = axios.create({
+  baseURL: `${url}/user/lists`,
+});
+const sendFriendRequest = axios.create({
+  baseURL: `${url}/users/friend/request`,
+});
 
 const usersApi = {
   users,
@@ -33,6 +39,8 @@ const usersApi = {
   logoutRouter,
   resetPassword,
   getOtherProfile,
+  sendFriendRequest,
+  getUserLists,
 };
 
 export default usersApi;

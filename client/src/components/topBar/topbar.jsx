@@ -13,8 +13,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import PopupNanMenu from "./popUpMenu/popup";
+import DropDownResult from "./dropdownSearch/dropDownResult";
 export default function Topbar({ avatar, name, isUser }) {
   const [isPopUpMenue, setIsPopUp] = useState(false);
+  const [showSearch, setShowSearch] = useState(true);
+  const [searchMethode, setSearchMethode] = useState("people");
+  const [rotation, setRotation] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearchInput = ({ target: { value } }) => {
+    setSearchInput((p) => value);
+    // console.log(searchInput);
+  };
 
   // useEffect(() => {
   //   if (isPopUpMenue) {
@@ -27,8 +37,19 @@ export default function Topbar({ avatar, name, isUser }) {
     // console.log("activate cb function for outside");
     setIsPopUp(false);
   };
+  const handleClickOutsideSearch = () => {
+    // console.log("activate cb function for outside");
+    setSearchInput("");
+    setShowSearch(false);
+  };
+
+  const handleSearchMethode = () => {
+    searchMethode === "recipes" ? setSearchMethode("people") : setSearchMethode("recipes");
+    setRotation("rotation");
+  };
 
   const ref = useOutsideClick(handleClickOutside);
+  const refSearch = useOutsideClick(handleClickOutsideSearch);
 
   return (
     <nav className="topbar-container">
@@ -65,14 +86,31 @@ export default function Topbar({ avatar, name, isUser }) {
           {/* default/Video/instructions/ingredient */}
         </div>
       </div>
-      <div className="topbar-search">
+      <div className="topbar-search" ref={refSearch} onClick={() => setShowSearch(true)}>
         <FontAwesomeIcon icon={faSearch} className={"search-icon"} />
-        <input type="text" placeholder="Search" id="searchbar" />
+        <input
+          type="text"
+          placeholder={`Search ${searchMethode}...`}
+          id="searchbar"
+          value={searchInput}
+          onChange={handleSearchInput}
+        />
+
+        <DropDownResult searchMethode={searchMethode} name={searchInput} resetSearch={showSearch} />
       </div>
-      <div className="logo">
-        <Link to="/">
-          <img src={process.env.PUBLIC_URL + "images/logo64.png"} alt="logo" />
-        </Link>
+      <div className={`logo ${rotation}`} onClick={handleSearchMethode}>
+        {searchMethode === "recipes" && (
+          <img src={process.env.PUBLIC_URL + "/images/logo64.png"} alt="logo" height={35} className={`${rotation}`} />
+        )}
+        {searchMethode === "people" && (
+          <img
+            className={`${rotation}`}
+            src={process.env.PUBLIC_URL + "/images/peopleSearch.jpg"}
+            alt="logo"
+            height={35}
+            style={{ borderRadius: "50%" }}
+          />
+        )}
       </div>
     </nav>
   );

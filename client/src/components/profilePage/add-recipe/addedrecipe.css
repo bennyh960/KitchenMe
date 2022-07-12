@@ -250,3 +250,9 @@ thead th {
     height: 15rem;
   }
 }
+
+.select-category {
+  max-height: 100px;
+  overflow-y: scroll;
+  /* background-color: red; */
+}

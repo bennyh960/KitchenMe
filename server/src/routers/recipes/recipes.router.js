@@ -5,6 +5,8 @@ const sharp = require("sharp");
 const multer = require("multer");
 const auth = require("../../middleware/auth");
 const User = require("../../db/models/users/users.model");
+const mongoose = require("mongoose");
+
 const router = new express.Router();
 
 const upload = multer({
@@ -66,7 +68,11 @@ router.get("/recipes/user", auth, async (req, res) => {
 //* Get others recipes
 router.get("/recipes/friends/:id", async (req, res) => {
   try {
+    console.log(req.params);
+    // objectId = mongoose.Types.ObjectId(req.params.id);
+    // const friend = await User.findById(objectId);
     const friend = await User.findById(req.params.id);
+    // const friend = await User.findOne({ _id: req.params.id });
 
     await friend.populate({ path: "recipes", options: { sort: { createdAt: -1 } } });
     res.send({ recipes: friend.recipes, owner: friend.name });

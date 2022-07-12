@@ -4,6 +4,7 @@ import IngredientAdd from "./addIngredients/ingredientsadd";
 import InstructionsAdd from "./addInstructions/instructionsadd";
 // import { Carousel } from "react-responsive-carousel";
 // import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import Select from "react-select";
 import UploadSubmit from "./uploadFiles/uploadSubmit";
 import ConfirmRecipe from "./confirmPage/confirm";
 import { Link } from "react-router-dom";
@@ -12,6 +13,12 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // import axios from "axios";
+
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
 
 // const rowsArr = [1, 2, 3];
 export default function Addrecipe({ updateUi }) {
@@ -91,6 +98,7 @@ export default function Addrecipe({ updateUi }) {
     setTitle((prev) => {
       return { ...prev, [name]: value };
     });
+    console.log(titleCategory);
   };
 
   return (
@@ -100,6 +108,22 @@ export default function Addrecipe({ updateUi }) {
           {/* <img src={process.env.PUBLIC_URL + "/images/logo64.png"} alt="logo" width={35} height={35} /> */}
           Add New Recipe
         </div>
+        <select className="ui select select-category" onChange={handleChange} name="category">
+          <option value="" disabled selected>
+            Select Category*
+          </option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Appetizer">Appetizer</option>
+          <option value="Salad">Salad</option>
+          <option value="Side-dish">Side-dish</option>
+          <option value="Baked-goods">Baked-goods</option>
+          <option value="Vegetarian">Vegetarian</option>
+          <option value="Holiday">Holiday</option>
+          <option value="Junk-Food">Junk-Food</option>
+          <option value="Fast-Food">Fast-Food</option>
+        </select>
         <div className="ui input ">
           <input
             type="text"
@@ -110,7 +134,7 @@ export default function Addrecipe({ updateUi }) {
             name="name"
           />
         </div>
-        <div className="ui input ">
+        {/* <div className="ui input ">
           <input
             type="text"
             placeholder="Recipe Cetegory*..."
@@ -119,7 +143,11 @@ export default function Addrecipe({ updateUi }) {
             name="category"
             style={{ backgroundColor: bgMandatory }}
           />
-        </div>
+        </div> */}
+        {/* <div className="ui input "> */}
+        {/* <Select options={options} onChange={(e) => console.log(e)} value={{ label: "x" }} /> */}
+
+        {/* </div> */}
         <div className="ui input ">
           <input
             type="text"

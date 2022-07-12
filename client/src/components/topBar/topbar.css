@@ -14,6 +14,16 @@
 
 .logo {
   margin: auto 2rem;
+  cursor: pointer;
+}
+
+.rotation {
+  /* transform: ; */
+  /* border: black 2px solid; */
+
+  transform: rotateX(360deg);
+
+  animation: rotation 0.5s ease-in-out 0.2s;
 }
 
 .topbar-user {
@@ -49,27 +59,32 @@
 }
 
 .topbar-search {
-  /* box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset; */
-  /* border: 1px solid black; */
   flex: 1.5;
   display: flex;
   justify-content: space-around;
   align-items: center;
   position: relative;
+  top: 0;
+  /* border: 1px solid black; */
 }
 
 #searchbar {
+  position: relative;
   padding: 1rem 2rem;
   border: none;
   border-radius: 20px;
-  background-color: var(--bg-secondary-color);
+  /* background-color: var(--bg-secondary-color); */
+  background-color: #f6f6f6;
   outline: none;
+
   /* border: 1px solid black; */
 }
 
 .search-icon {
   position: absolute;
-  right: 35px;
+  right: 20%;
+  /* top: 0; */
+  /* margin-right: 35px; */
   z-index: 10;
 }
 
@@ -92,7 +107,8 @@
   }
   .search-icon {
     background-color: var(--bg-secondary-color);
-    padding: 1.8rem;
+    padding: 1.3rem;
+    top: 20%;
     border-radius: 50%;
     margin: auto;
     cursor: pointer;
@@ -108,7 +124,7 @@
   .topbar-search:hover .search-icon {
     padding: 1rem;
     /* display: none; */
-    z-index: -100;
+    /* z-index: -100; */
   }
 
   .topbar-user div {
