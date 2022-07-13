@@ -1,0 +1,55 @@
+.dropdown-content-notifications {
+  /* display: none; */
+  position: absolute;
+  top: 90%;
+  left: -50%;
+  background-color: #f6f6f6;
+  overflow: auto;
+  border: 1px solid #ddd;
+  border-top: transparent;
+  max-height: 40vh;
+  border-radius: 15px;
+  z-index: 1111111;
+  box-shadow: var(--box-shadow-primary);
+  animation: popupNotification 0.3s ease-in;
+}
+
+@keyframes popupNotification {
+  from {
+    height: 0px;
+    background-color: black;
+  }
+  to {
+    height: fit-content;
+    max-height: 40vh;
+
+    background-color: #ddd;
+  }
+}
+
+.dropdown-content-notifications a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content-notifications a:hover {
+  background-color: #ddd;
+}
+
+.dd-result-notifications {
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  width: 200px;
+  margin: 0.6rem auto;
+}
+
+.searched-person-img {
+  width: 35px;
+  height: 35px;
+  /* min-width: 50px; */
+  /* min-height: 50px; */
+  border-radius: 50%;
+}

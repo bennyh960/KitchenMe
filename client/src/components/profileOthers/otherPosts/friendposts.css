@@ -5,6 +5,7 @@
   justify-content: center;
 }
 .add-friend-btn,
+.accept-friend-btn,
 .cancle-friend-btn {
   min-width: 15rem;
   background-color: #e83ea9;
@@ -19,18 +20,28 @@
   font-weight: bold;
 }
 
+.accept-friend-btn {
+  background-color: #37c4ecce;
+  color: #3e44e8;
+}
+
 .cancle-friend-btn {
   background-color: #e83eaace;
   color: rgba(0, 0, 0, 0.568);
 }
 
 .add-friend-btn > *,
+.accept-friend-btn > *,
 .cancle-friend-btn > * {
   margin: 0 2rem;
 }
 
 .add-friend-btn :hover {
   background-color: #e83eaace;
+}
+.accept-friend-btn :hover {
+  /* background-color: #3e7fe8ce; */
+  color: black;
 }
 .cancle-friend-btn:hover {
   background-color: #e83ea9;

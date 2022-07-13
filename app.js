@@ -9,6 +9,7 @@ dotenv.config();
 require("./server/src/db/mongoose");
 const recipeRouter = require("./server/src/routers/recipes/recipes.router");
 const userRouter = require("./server/src/routers/users/users.router");
+// const notificationRoter = require("./server/src/routers/notifications/notification.router");
 
 //* i guess it would be important when change from dev to prod
 // const publicPath = path.join(__dirname, "../client/build");
@@ -24,6 +25,7 @@ app.use(cors());
 // app use router
 app.use(recipeRouter);
 app.use(userRouter);
+// app.use(notificationRoter);
 
 // * Step to connect heroku
 if (process.env.NODE_ENV === "production") {

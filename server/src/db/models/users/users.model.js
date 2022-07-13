@@ -41,8 +41,15 @@ const userSchema = new mongoose.Schema(
       type: Buffer,
     },
     friends: Array,
-    pending: Array,
-    notifications: Array,
+    pending: [
+      {
+        note: String,
+        pendingId: String,
+        content: String,
+      },
+    ],
+    // pending: [mongoose.Schema.Types.ObjectId],
+    // notifications: Array,
     tokens: [
       {
         token: {
@@ -62,6 +69,12 @@ userSchema.virtual("recipes", {
   localField: "_id",
   foreignField: "owner",
 });
+// ! pause useing this
+// userSchema.virtual("notifications", {
+//   ref: "Notification",
+//   localField: "_id",
+//   foreignField: "owner",
+// });
 
 // * Public data to share
 userSchema.methods.toJSON = function () {

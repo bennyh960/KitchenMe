@@ -8,12 +8,12 @@ export default function DropDownResult({ searchMethode, name, resetSearch }) {
 
   useEffect(() => {
     const searchPeople = async () => {
-      const { data } = await usersApi.users.get(`/${name}`);
-      console.log(data);
+      const { data } = await usersApi.users.get(`/${name}`); //*search by name with regex
+      // console.log(data);
       setSearchresultPeople(data);
     };
 
-    console.log(resetSearch);
+    // console.log(resetSearch);
     if (name && resetSearch) {
       setTimeout(() => {
         searchPeople();
@@ -27,8 +27,9 @@ export default function DropDownResult({ searchMethode, name, resetSearch }) {
   const drawResult = () => {
     return searchResultPeople.map((person) => {
       return (
-        <Link to={`/users/profile/${person._id}`}>
-          <div key={person._id} className="line dd-result">
+        // <Link to={`/users/profile/${person._id}`} key={person._id} >
+        <Link to={{ pathname: `/users/profile/${person._id}`, state: { key: person._id } }} key={person._id}>
+          <div className="line dd-result">
             {person.avatar && (
               <img
                 src={`http://localhost:5000/users/${person._id}/avatar`}

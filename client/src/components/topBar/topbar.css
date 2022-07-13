@@ -88,6 +88,39 @@
   z-index: 10;
 }
 
+/** notification */
+
+.notification-bell-container,
+.notification-messanger-container {
+  position: relative;
+  /* border: 1px solid black; */
+  height: fit-content !important;
+}
+
+.bell-icon,
+.messanger-icon {
+  position: relative;
+}
+
+.notification-num,
+.messanger-num {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  /* padding: 0.3rem; */
+  width: 20px;
+  height: 20px !important;
+  color: #f6f6f6;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgb(31, 212, 31);
+}
+
+/*  */
+
 @media screen and (max-width: 700px) {
   .topbar-search {
     /* position: relative; */
@@ -132,6 +165,13 @@
     height: 100%;
     /* background-color: aliceblue; */
   }
+  .notification-bell-container,
+  .notification-messanger-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .fa-icon {
@@ -150,32 +190,8 @@
 
 .container-left-icons-menu {
   position: relative;
+  /* border: 1px solid black; */
 }
-
-/* FLIPING EVENT */
-/* .flip-img-container {
-  perspective: 1000px;
-}
-.flip-inner {
-  position: relative;
-  transform-style: preserve-3d;
-} */
-
-/* .flip-img-container:active .flip-inner {
-  transform: rotateY(180deg);
-} */
-
-/* .flip-front,
-.flip-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-.flip-back {
-  transform: rotateY(180deg);
-} */
 
 .flip-back {
   transform: rotateX(360deg);

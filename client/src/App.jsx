@@ -15,20 +15,23 @@ import Authenticate from "./components/authenticate/authenticate";
 function App() {
   const [isUserLogedIn, setIsUserLogedIn] = useState(false);
   const [user, setUser] = useState({
-    user: "",
+    user: { pending: [], friends: [] },
     token: "",
   });
+  const [pendingList, setPendingList] = useState([]);
   const [avatar, setAvatar] = useState("https://identix.state.gov/qotw/images/no-photo.gif");
 
   const isUser = (bool) => {
     setIsUserLogedIn(bool);
   };
-
+  const updatePendingList = (list) => {
+    setPendingList(list);
+  };
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     if (!token) {
       setUser((p) => {
-        return { user: "", token: "" };
+        return { user: { pending: [], friends: [] }, token: "" };
       });
       return;
     }
@@ -53,10 +56,42 @@ function App() {
     getAvatar();
   }, [isUserLogedIn]);
 
+  useEffect(() => {
+    const updateUserData = async () => {
+      // if (user.user && user.user._id) {
+      const userOn = JSON.parse(localStorage.getItem("user"));
+      const { data } = await usersApi.getOtherProfile.get(userOn._id);
+      // console.log(userOn, data);
+      // data = updatePendingListByRemoveSelf(data.pending, data);
+      console.log(data.name, "loged in and update data");
+      localStorage.setItem("user", JSON.stringify(data));
+      setUser((prev) => {
+        return { ...prev, user: data };
+      });
+    };
+    updateUserData();
+  }, [, pendingList]);
+
+  function updatePendingListByRemoveSelf(pendingListIncludeSelf, obj) {
+    return { ...obj, pending: pendingListIncludeSelf.filter((pending) => pending.content !== "") };
+  }
+  useEffect(() => {
+    // const pendingWitoutSelf = user.pending.filter((pending) => pending.content !== "");
+    // setPendingList(pendingWitoutSelf);
+  }, []);
+
   return (
     <div>
       <BrowserRouter>
-        {user.token && <Topbar avatar={avatar} name={user.user.name} isUser={isUser} />}
+        {(user.token || isUserLogedIn) && (
+          <Topbar
+            avatar={avatar}
+            name={user.user.name}
+            isUser={isUser}
+            pendingList={user.user.pending}
+            updatePendingList={updatePendingList}
+          />
+        )}
         {!user.token && <Authenticate isUser={isUser} />}
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -93,7 +128,13 @@ function App() {
           {/* <Route path="/users/profile/:id" element={<OtherProfilePage />} /> //cause error due to post have properties */}
           <Route
             path="/users/profile/:id"
-            element={<OtherProfilePage currentUserPendingList={user.user.pending} currentUserId={user.user._id} />}
+            element={
+              <OtherProfilePage
+                currentUserPendingList={user.user.pending}
+                currentUserId={user.user._id}
+                userFriendsList={user.user.friends}
+              />
+            }
           />{" "}
           //cause error due to post have properties
         </Routes>
@@ -104,6 +145,14 @@ function App() {
 
 export default App;
 
-// TODO : fix image bugs
-// TODO : create recipes album
-// TODO : create freinds
+// TODO : fix image bugs - understand how to use avatar image in prod mode
+// TODO : fix logout bug
+// TODO : make recipes album functional (including edit and delete )
+// TODO : fix delete friend request bug
+// TODO : set notifications apeare when (friend request , friend upload new post)
+// TODO : make posts can be - comments, like and ranks
+// TODO : Make friends page
+// TODO : CHAT
+// TODO : Adds
+
+// TODO : ITS SEMS THAT I GOT TO CONTROL NOTIFICATION BY ROUTE OF PENDING DATA EACH CLICK

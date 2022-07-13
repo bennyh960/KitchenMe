@@ -22,24 +22,30 @@ const userUploadAvatar = axios.create({
   baseURL: `${url}/users/me/avatar`,
 });
 const getOtherProfile = axios.create({
-  baseURL: `${url}/users/profile`,
+  baseURL: `${url}/users/profile`, //ep : /:userId
 });
 const getUserLists = axios.create({
   baseURL: `${url}/user/lists`,
 });
-const sendFriendRequest = axios.create({
-  baseURL: `${url}/users/friend/request`,
+// * send request and answere with different endpoints('/request','/accept')
+const friendshipRouter = axios.create({
+  baseURL: `${url}/users/friend`,
+});
+
+const userNotifications = axios.create({
+  baseURL: `${url}/user/notifications`,
 });
 
 const usersApi = {
   users,
+  userNotifications,
   userUploadAvatar,
   newUserRouter,
   findUserRouter,
   logoutRouter,
   resetPassword,
   getOtherProfile,
-  sendFriendRequest,
+  friendshipRouter,
   getUserLists,
 };
 

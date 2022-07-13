@@ -39,5 +39,7 @@
 .searched-person-img {
   /* height: 80%; */
   width: 15%;
+  min-width: 30px;
+  min-height: 30px;
   border-radius: 50%;
 }

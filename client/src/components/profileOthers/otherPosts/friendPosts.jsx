@@ -1,7 +1,5 @@
 import Post from "../../post/post";
-
 import "./friendposts.css";
-
 import Aboutme from "../../profilePage/about-me/aboutme";
 import React, { useEffect, useState } from "react";
 import recipiesAPI from "../../../api/recipes.users.Api";
@@ -9,8 +7,8 @@ import usersApi from "../../../api/usersApi";
 import Loader2 from "../../loaders/loader2/loader2";
 import getTime from "./time";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {} from "@fortawesome/free-brands-svg-icons";
 import { faUserPlus, faEraser, faUserLargeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
 
 export default function Friendposts({
   name,
@@ -20,6 +18,7 @@ export default function Friendposts({
   createdAt,
   friendId,
   currentUserPendingList,
+  userFriendsList,
   currentUserId,
 }) {
   const [isLoading, setLoading] = useState(false);
@@ -27,6 +26,9 @@ export default function Friendposts({
   const [owner, setOwner] = useState("");
   const [updateNewPostUi, setUpdateUi] = useState(false);
   const [buttonDisplay, setButtonDisplay] = useState("add");
+
+  const location = useLocation();
+  // const { from } = location.state
 
   // * Manage friend request
   // useEffect(()=>{
@@ -51,26 +53,39 @@ export default function Friendposts({
       }
     };
     getUserPosts();
-  }, [, updateNewPostUi, friendId]);
+  }, [, updateNewPostUi, friendId, location.key]);
 
   useEffect(() => {
+    console.log(location);
     //* Get user current pending list currentUserId
     const getUserPendingList = async () => {
       try {
         const { data } = await usersApi.getUserLists.get(`/${currentUserId}`);
+
         if (data.friends.includes(friendId)) {
-          setButtonDisplay("remove");
+          setButtonDisplay((p) => "remove");
           console.log("already friends, click for remove friend");
-        } else if (data.pending.includes(friendId)) {
-          setButtonDisplay("cancle");
+        } else if (
+          data.pending.find((waitList) => waitList.pendingId === friendId && waitList.note === "requestedId")
+        ) {
+          console.log("user send request to this id");
+          setButtonDisplay((p) => "cancle");
+        } else if (data.pending.find((waitList) => waitList.pendingId === friendId && waitList.note === "senderId")) {
+          console.log("this id send u request");
+          setButtonDisplay((p) => "answere");
         }
       } catch (error) {
         console.log(error.message);
       }
-      // if (currentUserPendingList && currentUserPendingList.includes(friendId)) {
     };
-    getUserPendingList();
-  }, [, updateNewPostUi, friendId, buttonDisplay]);
+    currentUserId && getUserPendingList();
+
+    // console.log(userFriendsList);
+    if (userFriendsList && userFriendsList.includes(friendId)) {
+      // console.log(userFriendsList.includes(friendId));
+      setButtonDisplay("remove");
+    }
+  }, [, updateNewPostUi, friendId, buttonDisplay, location.key]);
 
   const updateUi = () => {
     setUpdateUi((p) => !p);
@@ -97,29 +112,43 @@ export default function Friendposts({
     });
   };
 
-  const handleFriendRequest = async () => {
-    const { data, status } = await usersApi.sendFriendRequest.post(
-      "",
+  // * ===================================================================== Friend membership section ==================================
+  const handleFriendRequest = async (actionEndPoint) => {
+    const headers = {
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+    };
+
+    //* update pending list
+    const { data, status } = await usersApi.friendshipRouter.post(
+      actionEndPoint,
       { id: friendId },
       {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-        },
+        headers,
       }
     );
-    if (status === 201 && buttonDisplay === "add") setButtonDisplay("cancle");
+    if (status === 201) {
+      if (actionEndPoint === "/request" && buttonDisplay === "add") {
+        setButtonDisplay((p) => "cancle");
+      }
+      if (actionEndPoint === "/accept") {
+        console.log("should remove id from pending list and update button ");
+        setButtonDisplay((p) => "remove");
+        handleCancleRequest();
+      }
+    }
     console.log(data, status);
+
+    // *update notifications db
   };
 
   const handleCancleRequest = async () => {
-    // console.log(JSON.parse(localStorage.getItem("token")));
-    // const token = await JSON.parse(localStorage.getItem("token"));
-    const { data, status } = await usersApi.sendFriendRequest.patch("/cancle", {
+    console.log("CANCLE PENDING ONGOING");
+    const { data, status } = await usersApi.friendshipRouter.patch("request/cancle", {
       userId: currentUserId,
       friendId,
     });
     console.log(data);
-    if (status === 202 && buttonDisplay === "cancle") setButtonDisplay("add");
+    if (status === 202 && buttonDisplay === "cancle") setButtonDisplay((p) => "add");
     updateUi();
   };
 
@@ -139,9 +168,14 @@ export default function Friendposts({
       <div className="my-post-right-container">
         <div className="add-friend-btn-container">
           {buttonDisplay === "add" && (
-            <button className="add-friend-btn" onClick={handleFriendRequest}>
+            <button className="add-friend-btn" onClick={(e) => handleFriendRequest("/request")}>
               <span>Add Friend</span> <FontAwesomeIcon icon={faUserPlus} size={"2xl"} color={"white"} />
             </button>
+          )}
+          {buttonDisplay === "answere" && (
+            <button className="accept-friend-btn" onClick={(e) => handleFriendRequest("/accept")}>
+              <span>Accept Request</span> <FontAwesomeIcon icon={faUserPlus} size={"2xl"} color={"white"} />
+            </button> //Todo on future add - reject button in order to clean pending list // or clean pending by time
           )}
           {buttonDisplay === "cancle" && (
             <button className="cancle-friend-btn" onClick={handleCancleRequest}>

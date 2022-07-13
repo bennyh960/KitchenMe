@@ -5,6 +5,7 @@ const auth = require("../../middleware/auth.js");
 const multerUpload = require("../../middleware/multer");
 // const multer = require("multer");
 const sharp = require("sharp");
+const mongoose = require("mongoose");
 
 const router = new express.Router();
 
@@ -151,17 +152,54 @@ router.get("/users/:name", async (req, res) => {
 });
 
 // ===================== Social -friend request
-// * send friend request
+// *Add friend Accept friend request -backup
+router.post("/users/friend/accept", auth, async (req, res) => {
+  try {
+    if (req.body.id === req.user._id) throw new Error("user cant add himself to friends");
+    const friend = await User.findOne({ _id: req.body.id });
+    if (!friend) throw new Error("friend not found ");
+
+    if (friend.friends.includes(req.user._id) || req.user.friends.includes(friend._id)) {
+      throw new Error("friend already in friends list");
+    }
+
+    friend.friends.push(req.user._id);
+    await friend.save();
+    req.user.friends.push(friend._id);
+
+    await req.user.save();
+    res.status(201).send(`${req.user.name} start freindship with ${friend.name}`);
+
+    // due to time limit for this project i remove pending by call again the cancle pending request
+    // what mean it will take more time to generate friendship
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
+// * send friend requestt
 router.post("/users/friend/request", auth, async (req, res) => {
   try {
     if (req.body.id === req.user._id) throw new Error("user cant add himself to friends");
-    const friend = await User.findOne({ _id: req.body.id, pending: { $ne: req.user._id } });
+    const friend = await User.findOne({
+      _id: req.body.id,
+      "pending.content": { $ne: req.user._id },
+      friends: { $ne: req.user._id },
+    });
     if (!friend) throw new Error("friend not found or already pending");
 
-    friend.pending.push(req.user._id);
+    // friend.pending.push( req.user._id);
+    const userNameOneWord = req.user.name.split(" ");
+    friend.pending.unshift({
+      note: "senderId",
+      pendingId: req.user._id,
+      content: `${userNameOneWord.length > 1 ? userNameOneWord[0] : req.user.name} want be your friend`,
+    });
 
     await friend.save();
-    req.user.pending.push(friend._id);
+
+    // req.user.pending.push(friend._id);
+    req.user.pending.unshift({ note: "requestedId", pendingId: friend._id, content: "" });
+
     await req.user.save();
     res.status(201).send("pending");
   } catch (e) {
@@ -171,15 +209,17 @@ router.post("/users/friend/request", auth, async (req, res) => {
 // * Cancle friend request
 router.patch("/users/friend/request/cancle", async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body.userId === req.body.friendId) throw new Error("user cant delete himself ");
-    // const friend = await User.findOne({ _id: req.body.friendId, pending: { $in: [req.body.userId] } });
-    // const friend = await User.findOne({ _id: req.body.friendId });
+
+    const ReqUserId = await mongoose.Types.ObjectId(req.body.userId);
+    const ReqFriendId = await mongoose.Types.ObjectId(req.body.friendId);
+
     const friend = await User.updateOne(
       { _id: req.body.friendId },
       {
         $pull: {
-          pending: [req.body.userId],
+          pending: { content: ReqUserId },
         },
       },
       { new: true }
@@ -188,23 +228,11 @@ router.patch("/users/friend/request/cancle", async (req, res) => {
       { _id: req.body.userId },
       {
         $pull: {
-          pending: [req.body.friendId],
+          pending: { content: ReqFriendId },
         },
       },
       { new: true }
     );
-
-    // const user = await User.findOne({ _id: req.body.userId, pending: { $in: [req.body.friendId] } });
-    // const user = await User.findOne({ _id: req.body.userId });
-    // if (!friend) throw new Error("friend not pending");
-    // if (!user) throw new Error("user not pending");
-
-    // friend.pending = Array.from(friend.pending).filter((id) => id !== req.body.userId);
-    // await friend.save();
-
-    // user.pending = Array.from(user.pending).filter((id) => id !== req.body.friendId);
-    // await user.save();
-    // console.log(chalk.yellow(user.pending.includes(req.body.friendId)));
 
     res.status(202).send({ user, friend });
     // res.status(202).send("cancle");

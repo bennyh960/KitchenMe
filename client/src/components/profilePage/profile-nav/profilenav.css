@@ -30,7 +30,9 @@
 .profile-nav-right {
   display: flex;
   justify-content: space-around;
-  width: 30%;
+  width: 40%;
+  min-width: 220px;
+  /* border: 1px solid black; */
 }
 
 .profile-nav-right > div {
@@ -41,7 +43,18 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  /* border: 1px solid black; */
+  width: fit-content;
 }
+
+/* .profile-nav-right > *:last-child {
+  background-color: red;
+  display: flex;
+  justify-self: flex-end;
+  justify-items: flex-end;
+  align-self: flex-end;
+  margin-right: 0;
+} */
 .profile-nav-right > div:hover {
   border-bottom: 3px solid var(--bg-navbar-color);
 }

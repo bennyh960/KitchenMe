@@ -11,15 +11,20 @@ import {
   faUser,
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+// import { Link, useLocation } from "react-router-dom";
+
 import PopupNanMenu from "./popUpMenu/popup";
 import DropDownResult from "./dropdownSearch/dropDownResult";
-export default function Topbar({ avatar, name, isUser }) {
+import NotificationsDD from "./notifications/notifications";
+
+export default function Topbar({ avatar, name, isUser, pendingList, updatePendingList }) {
   const [isPopUpMenue, setIsPopUp] = useState(false);
   const [showSearch, setShowSearch] = useState(true);
   const [searchMethode, setSearchMethode] = useState("people");
   const [rotation, setRotation] = useState("");
   const [searchInput, setSearchInput] = useState("");
+  const [notificationPopUp, setShowNotificationPopUp] = useState(false);
+  // const location = useLocation();
 
   const handleSearchInput = ({ target: { value } }) => {
     setSearchInput((p) => value);
@@ -27,10 +32,8 @@ export default function Topbar({ avatar, name, isUser }) {
   };
 
   // useEffect(() => {
-  //   if (isPopUpMenue) {
-  //     setIsPopUp(false);
-  //   }
-  // }, []);
+  //   console.log(location);
+  // }, [pendingList]);
 
   // i dont like this methode
   const handleClickOutside = () => {
@@ -38,9 +41,12 @@ export default function Topbar({ avatar, name, isUser }) {
     setIsPopUp(false);
   };
   const handleClickOutsideSearch = () => {
-    // console.log("activate cb function for outside");
     setSearchInput("");
     setShowSearch(false);
+  };
+
+  const handleClickOutsideNotifications = () => {
+    setShowNotificationPopUp(false);
   };
 
   const handleSearchMethode = () => {
@@ -50,6 +56,7 @@ export default function Topbar({ avatar, name, isUser }) {
 
   const ref = useOutsideClick(handleClickOutside);
   const refSearch = useOutsideClick(handleClickOutsideSearch);
+  const refNotifications = useOutsideClick(handleClickOutsideNotifications);
 
   return (
     <nav className="topbar-container">
@@ -69,8 +76,19 @@ export default function Topbar({ avatar, name, isUser }) {
           )}
 
           {/* </Link> */}
-          <FontAwesomeIcon icon={faFacebookMessenger} className={"fa-icon"} />
-          <FontAwesomeIcon icon={faBell} className={"fa-icon"} />
+          <div className="notification-messanger-container">
+            <FontAwesomeIcon icon={faFacebookMessenger} className={"fa-icon messanger-icon"} />
+            <div className="messanger-num">6</div>
+          </div>
+          <div
+            className="notification-bell-container"
+            onClick={() => setShowNotificationPopUp((p) => !p)}
+            ref={refNotifications}
+          >
+            <FontAwesomeIcon icon={faBell} className={"fa-icon bell-icon"} />
+            {pendingList && pendingList.length > 0 && <div className="notification-num">{pendingList.length}</div>}
+            {notificationPopUp && <NotificationsDD pendingList={pendingList} updatePendingList={updatePendingList} />}
+          </div>
         </div>
       </div>
       <div className="topbar-post-view">
@@ -123,7 +141,6 @@ function useOutsideClick(callback) {
   useEffect(() => {
     const handleClick = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        // console.log("click outside ");
         callback();
       }
     };
