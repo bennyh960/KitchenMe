@@ -3,15 +3,13 @@ import "./chat.css";
 import messangerApi from "../../api/messangerApi";
 import usersApi from "../../api/usersApi";
 import { io } from "socket.io-client";
-// import { scrollIntoView } from "react-select/dist/declarations/src/utils";
 
 export default function Chat({ friendsList, userId }) {
   const [message, setMessage] = useState("");
   const [friend, setFriend] = useState({ id: "", name: "" });
   const [messagesHistory, setMessagesHistory] = useState([]);
-  const [arriavalMessage, setArrivalMessage] = useState(null);
-  const socket = useRef();
-  const scrollRef = useRef();
+  const socket = useref();
+
   // * Handle Avatar Bug - in future determine in docuemnt is avatar set
   const validAvatar = async (friendId) => {
     try {
@@ -72,9 +70,8 @@ export default function Chat({ friendsList, userId }) {
         console.log(error.msg);
       }
     };
-    if (friend) {
-      getAllMessages();
-    }
+    getAllMessages();
+    // console.log(friend);
   }, [friend]);
 
   const handleMessageInput = ({ target: { value } }) => {
@@ -98,25 +95,12 @@ export default function Chat({ friendsList, userId }) {
     }
 
     setMessage("");
-
-    // *socket
-    socket.current.emit("send-msg", {
-      to: friend.id,
-      from: userId,
-      message,
-    });
-
-    // update Ui with socket
-    // [...messagesHistory].push
-    setMessagesHistory((prev) => {
-      return [...prev, { fromSelf: true, message }];
-    });
   };
 
   const drawAllMessagesInBody = () => {
-    return messagesHistory.map((msg, idx) => {
+    return messagesHistory.map((msg) => {
       return (
-        <div ref={scrollRef} key={idx} className={`message-text ${msg.fromSelf ? "sended" : "rechived"}`}>
+        <div className={`message-text ${msg.fromSelf ? "sended" : "rechived"}`}>
           <div className="content-msg">
             <p>{msg.message}</p>
           </div>
@@ -124,33 +108,6 @@ export default function Chat({ friendsList, userId }) {
       );
     });
   };
-
-  // * Socket client
-  useEffect(() => {
-    if (userId) {
-      socket.current = io("http://localhost:5000");
-      socket.current.emit("add-user", userId);
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    if (socket.current) {
-      socket.current.on("msg-recieve", (msg) => {
-        setArrivalMessage({ fromSelf: false, message: msg });
-        // console.log(arriavalMessage);
-        console.log({ msg });
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    arriavalMessage && setMessagesHistory((prev) => [...prev, arriavalMessage]);
-  }, [arriavalMessage]);
-
-  // set scroll down auto
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
-  }, [messagesHistory]);
 
   return (
     <div className="chat-container-bruto">
