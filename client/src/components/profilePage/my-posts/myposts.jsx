@@ -9,7 +9,7 @@ import recipiesAPI from "../../../api/recipes.users.Api";
 import Loader2 from "../../loaders/loader2/loader2";
 import getTime from "./time";
 
-export default function Myposts({ avatar, name, email, topRated, myRank, createdAt, token }) {
+export default function Myposts({ avatar, name, email, topRated, myRank, createdAt, friendsList }) {
   const [isLoading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [owner, setOwner] = useState("");
@@ -58,6 +58,21 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
     });
   };
 
+  const drawTenBestFreinds = () => {
+    // friendsList={friendsList}
+    // console.log(friendsList.slice(0, 10));
+    return friendsList.slice(0, 12).map((friendId) => {
+      return (
+        <Link to={`/users/profile/${friendId}`}>
+          <div className="friend-container ">
+            <img src={`http://localhost:5000/users/${friendId}/avatar`} alt="" />
+            <p>hc name</p>
+          </div>
+        </Link>
+      );
+    });
+  };
+
   return (
     <div className="my-posts-container">
       <div className="my-post-left-container">
@@ -75,18 +90,9 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
         <Aboutme name={name} email={email} myRank={myRank} topRated={topRated} />
         <div className="white-box user-friends">
           <h2 style={{ margin: "15px" }} className="line">
-            My Friends:
+            My Top Friends:
           </h2>
-          <div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <div className="top-friends-container">{drawTenBestFreinds()}</div>
         </div>
         <div className="white-box user-recipes">
           <h2 style={{ margin: "15px" }} className="line">

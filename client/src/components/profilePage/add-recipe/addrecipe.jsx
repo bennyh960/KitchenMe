@@ -1,24 +1,13 @@
-import React, { useState, useContext, createContext, useEffect } from "react";
+import React, { useState } from "react";
 import "./addedrecipe.css";
 import IngredientAdd from "./addIngredients/ingredientsadd";
 import InstructionsAdd from "./addInstructions/instructionsadd";
-// import { Carousel } from "react-responsive-carousel";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-// import Select from "react-select";
-import UploadSubmit from "./uploadFiles/uploadSubmit";
+
 import ConfirmRecipe from "./confirmPage/confirm";
-import { Link } from "react-router-dom";
+
 import recipiesAPI from "../../../api/recipes.users.Api";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
-// import axios from "axios";
-
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
 
 // const rowsArr = [1, 2, 3];
 export default function Addrecipe({ updateUi }) {
@@ -36,7 +25,7 @@ export default function Addrecipe({ updateUi }) {
 
   const postNewRecipe = async (isPublic) => {
     formData.public = isPublic;
-    const { data } = await recipiesAPI.createNewRecipe.post("", formData, {
+    await recipiesAPI.createNewRecipe.post("", formData, {
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         "Content-Type": "multipart/form-data",
@@ -108,8 +97,8 @@ export default function Addrecipe({ updateUi }) {
           {/* <img src={process.env.PUBLIC_URL + "/images/logo64.png"} alt="logo" width={35} height={35} /> */}
           Add New Recipe
         </div>
-        <select className="ui select select-category" onChange={handleChange} name="category">
-          <option value="" disabled selected>
+        <select className="ui select select-category" onChange={handleChange} name="category" defaultValue={"default"}>
+          <option value="default" disabled>
             Select Category*
           </option>
           <option value="Breakfast">Breakfast</option>
@@ -134,20 +123,7 @@ export default function Addrecipe({ updateUi }) {
             name="name"
           />
         </div>
-        {/* <div className="ui input ">
-          <input
-            type="text"
-            placeholder="Recipe Cetegory*..."
-            onChange={handleChange}
-            value={titleCategory.category}
-            name="category"
-            style={{ backgroundColor: bgMandatory }}
-          />
-        </div> */}
-        {/* <div className="ui input "> */}
-        {/* <Select options={options} onChange={(e) => console.log(e)} value={{ label: "x" }} /> */}
 
-        {/* </div> */}
         <div className="ui input ">
           <input
             type="text"
@@ -169,12 +145,8 @@ export default function Addrecipe({ updateUi }) {
         <Carousel
           infiniteLoop={true}
           emulateTouch={true}
-          // onSwipeMove={onSwipeMove}
           showThumbs={false}
-          // dynamicHeight={true}
-          // stopOnHover={true}
           showArrows={false}
-          // selectedItem={currentSlide}
           showIndicators={false}
           showStatus={false}
         >

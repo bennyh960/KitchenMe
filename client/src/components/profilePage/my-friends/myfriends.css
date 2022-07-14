@@ -1,0 +1,28 @@
+.my-friends-container {
+  width: 90vw;
+  margin: 3rem auto;
+  min-height: 300px;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-image: linear-gradient(
+    white,
+    pink,
+    white,
+    pink,
+    white,
+    pink,
+    pink,
+    white,
+    white,
+    white,
+    pink,
+    white,
+    white
+  );
+  box-shadow: var(--box-shadow-nav);
+  border-radius: 10px;
+}

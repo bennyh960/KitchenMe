@@ -16,14 +16,16 @@ import {
 import PopupNanMenu from "./popUpMenu/popup";
 import DropDownResult from "./dropdownSearch/dropDownResult";
 import NotificationsDD from "./notifications/notifications";
+import usersApi from "../../api/usersApi";
 
-export default function Topbar({ avatar, name, isUser, pendingList, updatePendingList }) {
+export default function Topbar({ avatar, name, isUser, userId, pendingList, updatePendingList, updateFriendListProp }) {
   const [isPopUpMenue, setIsPopUp] = useState(false);
   const [showSearch, setShowSearch] = useState(true);
   const [searchMethode, setSearchMethode] = useState("people");
   const [rotation, setRotation] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [notificationPopUp, setShowNotificationPopUp] = useState(false);
+  const [notifications, setNotifications] = useState([pendingList]);
   // const location = useLocation();
 
   const handleSearchInput = ({ target: { value } }) => {
@@ -31,9 +33,11 @@ export default function Topbar({ avatar, name, isUser, pendingList, updatePendin
     // console.log(searchInput);
   };
 
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [pendingList]);
+  useEffect(() => {
+    if (userId) {
+      updateNotification();
+    }
+  }, []);
 
   // i dont like this methode
   const handleClickOutside = () => {
@@ -48,6 +52,14 @@ export default function Topbar({ avatar, name, isUser, pendingList, updatePendin
   const handleClickOutsideNotifications = () => {
     setShowNotificationPopUp(false);
   };
+
+  async function updateNotification() {
+    const { data } = await usersApi.getUserLists.get(`/${userId}`);
+    const validNotifications = data.pending.filter((pending) => pending.content !== "");
+    setNotifications(validNotifications);
+    updateFriendListProp(data.friends);
+    console.log(validNotifications, data.pending);
+  }
 
   const handleSearchMethode = () => {
     searchMethode === "recipes" ? setSearchMethode("people") : setSearchMethode("recipes");
@@ -82,12 +94,17 @@ export default function Topbar({ avatar, name, isUser, pendingList, updatePendin
           </div>
           <div
             className="notification-bell-container"
-            onClick={() => setShowNotificationPopUp((p) => !p)}
+            onClick={() => {
+              updateNotification();
+              setShowNotificationPopUp((p) => !p);
+            }}
             ref={refNotifications}
           >
             <FontAwesomeIcon icon={faBell} className={"fa-icon bell-icon"} />
-            {pendingList && pendingList.length > 0 && <div className="notification-num">{pendingList.length}</div>}
-            {notificationPopUp && <NotificationsDD pendingList={pendingList} updatePendingList={updatePendingList} />}
+            {notifications && notifications.length > 0 && (
+              <div className="notification-num">{notifications.length}</div>
+            )}
+            {notificationPopUp && <NotificationsDD pendingList={notifications} updatePendingList={updatePendingList} />}
           </div>
         </div>
       </div>

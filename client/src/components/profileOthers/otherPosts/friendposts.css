@@ -103,20 +103,20 @@
 }
 
 /* temp box */
-.user-friends > div {
+/* .user-friends > div {
   margin: auto;
   width: 95%;
-  /* border: 1px solid black; */
+ 
   display: flex;
   flex-wrap: wrap;
-}
+} */
 
-.user-friends > div > div {
+/* .user-friends > div > div {
   width: 7rem;
   height: 7rem;
   background-color: red;
   margin: 0.5rem;
-}
+} */
 
 /* media query */
 @media screen and (max-width: 800px) {

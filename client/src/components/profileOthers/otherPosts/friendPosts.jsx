@@ -132,8 +132,8 @@ export default function Friendposts({
       }
       if (actionEndPoint === "/accept") {
         console.log("should remove id from pending list and update button ");
-        setButtonDisplay((p) => "remove");
         handleCancleRequest();
+        setButtonDisplay((p) => "remove");
       }
     }
     console.log(data, status);

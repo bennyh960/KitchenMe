@@ -2,6 +2,7 @@
   --btn-primary-hover-color: rgba(234, 241, 241, 0.822);
   --bg-secondary-color: #f3f3f3f9;
   --bg-navbar-color: #ff0854;
+  --box-shadow-nav: 20px 20px 50px 10px pink inset;
   --weak-line-color: rgba(200, 200, 200, 0.895);
   --box-shadow-primary: 0 1px 1px 2px rgb(196, 195, 195);
   --box-shadow-secondary: 0 3px 15px 8px rgb(163, 160, 160);

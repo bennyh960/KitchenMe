@@ -219,7 +219,7 @@ router.patch("/users/friend/request/cancle", async (req, res) => {
       { _id: req.body.friendId },
       {
         $pull: {
-          pending: { content: ReqUserId },
+          pending: { pendingId: ReqUserId },
         },
       },
       { new: true }
@@ -228,7 +228,7 @@ router.patch("/users/friend/request/cancle", async (req, res) => {
       { _id: req.body.userId },
       {
         $pull: {
-          pending: { content: ReqFriendId },
+          pending: { pendingId: ReqFriendId },
         },
       },
       { new: true }

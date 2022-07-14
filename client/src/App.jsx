@@ -20,6 +20,7 @@ function App() {
   });
   const [pendingList, setPendingList] = useState([]);
   const [avatar, setAvatar] = useState("https://identix.state.gov/qotw/images/no-photo.gif");
+  const [friendsList, setFriendsList] = useState([]);
 
   const isUser = (bool) => {
     setIsUserLogedIn(bool);
@@ -60,25 +61,28 @@ function App() {
     const updateUserData = async () => {
       // if (user.user && user.user._id) {
       const userOn = JSON.parse(localStorage.getItem("user"));
-      const { data } = await usersApi.getOtherProfile.get(userOn._id);
-      // console.log(userOn, data);
-      // data = updatePendingListByRemoveSelf(data.pending, data);
-      console.log(data.name, "loged in and update data");
-      localStorage.setItem("user", JSON.stringify(data));
-      setUser((prev) => {
-        return { ...prev, user: data };
-      });
+      if (userOn) {
+        const { data } = await usersApi.getOtherProfile.get(userOn._id);
+        // console.log(userOn, data);
+        // data = updatePendingListByRemoveSelf(data.pending, data);
+        console.log(data.name, "loged in and update data");
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser((prev) => {
+          return { ...prev, user: data };
+        });
+      }
     };
     updateUserData();
-  }, [, pendingList]);
+  }, [pendingList, friendsList]);
 
-  function updatePendingListByRemoveSelf(pendingListIncludeSelf, obj) {
-    return { ...obj, pending: pendingListIncludeSelf.filter((pending) => pending.content !== "") };
-  }
-  useEffect(() => {
-    // const pendingWitoutSelf = user.pending.filter((pending) => pending.content !== "");
-    // setPendingList(pendingWitoutSelf);
-  }, []);
+  const updateFriendListProp = (friendsListArg) => {
+    setFriendsList(friendsListArg);
+    // console.log(friendsListArg);
+  };
+
+  // function updatePendingListByRemoveSelf(pendingListIncludeSelf, obj) {
+  //   return { ...obj, pending: pendingListIncludeSelf.filter((pending) => pending.content !== "") };
+  // }
 
   return (
     <div>
@@ -90,6 +94,8 @@ function App() {
             isUser={isUser}
             pendingList={user.user.pending}
             updatePendingList={updatePendingList}
+            userId={user.user._id}
+            updateFriendListProp={updateFriendListProp}
           />
         )}
         {!user.token && <Authenticate isUser={isUser} />}
@@ -106,6 +112,7 @@ function App() {
                   email={user.user.email}
                   myRank={"4.3"}
                   topRated={"PIZZA 3 STARS"}
+                  friendsList={friendsList}
                 />
               }
             />
@@ -121,6 +128,7 @@ function App() {
                   email={user.user.email}
                   myRank={"4.3"}
                   topRated={"PIZZA 3 STARS"}
+                  friendsList={friendsList}
                 />
               }
             />
@@ -135,8 +143,7 @@ function App() {
                 userFriendsList={user.user.friends}
               />
             }
-          />{" "}
-          //cause error due to post have properties
+          />
         </Routes>
       </BrowserRouter>
     </div>

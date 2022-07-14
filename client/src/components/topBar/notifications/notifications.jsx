@@ -13,12 +13,6 @@ export default function NotificationsDD({ pendingList, updatePendingList }) {
       return false;
     }
   };
-  //   useEffect(() => {
-  //     if (pendingList) {
-  //       setNewPending((p) => pendingList.filter((pending) => pending.contet !== ""));
-  //       updatePendingList(newPendingList);
-  //     }
-  //   }, []);
 
   const drawResult = () => {
     return pendingList.map((pending) => {
