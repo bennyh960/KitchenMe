@@ -33,7 +33,7 @@ function FriendCard({ id, name, rank }) {
   return (
     <div className="friend-card white-box">
       <div className="image-card ">
-        <img src={`http://localhost:5000/users/${id}/avatar`} alt={id + name} className={"friend-card-image"} />
+        <img src={`http://localhost:5000/users/${id}/avatar`} alt="" className={"friend-card-image"} />
       </div>
       <div className="friend-card-content">
         <a className="header">{name}</a>

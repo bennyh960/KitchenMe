@@ -148,7 +148,7 @@ function App() {
           />
           <Route path="/profile/recipes" element={<MyRecipies />} />
           <Route path="profile/myfriends" element={<MyFriends friendsList={friendsList} />} />
-          <Route path="/chat" element={<Chat friendsList={friendsList} />} />
+          <Route path="/chat" element={<Chat friendsList={friendsList} userId={user.user._id} />} />
         </Routes>
       </BrowserRouter>
     </div>

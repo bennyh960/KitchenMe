@@ -4,7 +4,8 @@
   width: 80vw;
   margin: 3rem auto;
   height: 75vh;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  box-shadow: var(--box-shadow-primary);
   background-image: linear-gradient(pink, red, pink, red);
 }
 
@@ -31,7 +32,7 @@
   min-height: 300px;
   /* overflow-y: scroll; */
   margin: 0.5% auto;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 /**============================================== FRIENDS CHAT =====================================*/
 
@@ -69,21 +70,83 @@
   overflow-y: scroll;
 }
 
-.freinds-container-chat > div {
+/* ============== friend box */
+
+.freinds-container-chat .friend-box-chat {
   border: 1px solid black;
   width: 97%;
   margin: 5px auto;
   padding: 1.3rem 0;
   border-radius: 10px;
+  display: flex;
+  background-color: white;
 }
 
+.friend-img-chat {
+  /* border: 1px solid black; */
+  align-self: center;
+}
+
+.chat-small-avatar {
+  max-width: 30px;
+  height: 30px;
+}
+
+.friend-box-data {
+  margin-left: 5px;
+  width: 100%;
+  /* border: 1px solid black; */
+}
+.friend-box-content {
+  display: flex;
+  font-size: 10px;
+  width: 90%;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.friend-box-name-container {
+  display: flex;
+  /* width: 100%; */
+  justify-content: space-between;
+}
+.friend-box-name {
+  max-height: 3rem;
+  overflow: hidden;
+}
+
+.friend-box-unread {
+  /* padding: 0px 3px; */
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  background-color: #1fd41f;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: white;
+
+  border-radius: 50%;
+}
+
+.friend-box-last-msg,
+.friend-box-last-msg-time {
+  max-height: 2.5rem;
+  /* overflow: hidden; */
+  /* border: 1px solid black; */
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.friend-box-last-msg {
+  max-width: 60%;
+}
 /**============================================== BODY CHAT =====================================*/
 .chat-body-container {
   flex: 1;
   min-width: 250px;
   height: 100%;
-  overflow-y: scroll;
-  border: 1px solid black;
+  /* overflow-y: scroll; */
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
 }
@@ -92,7 +155,7 @@
   width: 100%;
   height: 90%;
   overflow-y: scroll;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   background: wheat;
   display: flex;
   flex-direction: column;
@@ -103,17 +166,38 @@
   width: 100%;
   height: 10%;
   min-height: 3rem;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: row;
 }
 
 .chat-input input {
   flex: 9;
+  padding: 5px;
   /* width: 90%; */
+  /* border: none; */
 }
 
 .imogi-chat {
   flex: 1;
   border: 1px solid black;
+}
+
+/* * body chat msg */
+.message-text {
+  border: #1fd41f 1px solid;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.message-text.sended {
+  background: #1fd41f;
+}
+.message-text.rechived {
+  align-self: flex-end;
+  text-align: right;
+  background: pink;
+  /* justify-self: flex-end; */
 }
