@@ -2,32 +2,20 @@
   width: 90vw;
   margin: 3rem auto;
   /* background-color: red; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* background-image: url("../../../../public/images/coverL.jpg"); */
-  /* background-image: url("../../../../public/images/signup.jpg"); */
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
-  background-image: linear-gradient(
-    pink,
-    white,
-    pink,
-    white,
-    pink,
-    pink,
-    white,
-    white,
-    white,
-    rgb(238, 96, 96),
-    pink,
-    white,
-    white
-  );
   box-shadow: var(--box-shadow-primary);
   border-radius: 10px;
+  position: relative;
+}
+
+.zoom-container {
+  position: fixed;
+  top: 8rem;
 }
 
 .my-recipes-searchbar,
@@ -39,13 +27,18 @@
   border-radius: 5px;
 }
 
+.my-recipe-logo-image {
+  width: 90%;
+  height: fit-content;
+}
+
 .my-recipes-searchbar {
   height: 4rem;
   /* padding: 0 3rem; */
 }
 
 .categories-container {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
@@ -57,9 +50,71 @@
 .categories-container > div {
   width: 20%;
   height: 2rem;
-  border: 1px solid black;
-  background-color: gray;
+  /* border: 1px solid black; */
+  cursor: pointer;
+  background-color: var(--bg-navbar-color);
+  /* padding: 2px; */
+  color: white;
+  /* font-weight: bold; */
+  text-align: center;
+  border-radius: 5px;
   box-shadow: var(--box-shadow-primary);
+  transition: all ease-in-out 0.3s;
+}
+
+.categories-container > div:hover {
+  transform: scale(0.9);
+}
+
+.categories-container > div:nth-child(2),
+.recipes-container .Breakfast {
+  background-color: #4681f4;
+  position: relative;
+}
+.categories-container > div:nth-child(3),
+.recipes-container .Lunch {
+  background-color: #5dbea3;
+  position: relative;
+}
+.categories-container > div:nth-child(4),
+.recipes-container .Dinner {
+  position: relative;
+  background-color: #4681f4;
+}
+.categories-container > div:nth-child(5),
+.recipes-container .Appetizer {
+  background-color: #f44336;
+  position: relative;
+}
+.categories-container > div:nth-child(6),
+.recipes-container .Salad {
+  background-color: #a881af;
+  position: relative;
+}
+.categories-container > div:nth-child(7),
+.recipes-container .Side-dish {
+  background-color: #33b249;
+  position: relative;
+}
+.categories-container > div:nth-child(8),
+.recipes-container .Baked-goods {
+  background-color: #ffbd03;
+  position: relative;
+}
+.categories-container > div:nth-child(9),
+.recipes-container .Vegetarian {
+  background-color: #180d0d;
+  position: relative;
+}
+.categories-container > div:nth-child(10),
+.recipes-container .Holiday {
+  background-color: #dd7973;
+  position: relative;
+}
+.categories-container > div:nth-child(11),
+.recipes-container .Fast-Food {
+  background-color: #a133b2;
+  position: relative;
 }
 
 .categories-container h2 {
@@ -76,13 +131,14 @@
   flex-wrap: wrap;
   box-shadow: var(--box-shadow-primary);
   padding-top: 2rem;
-  background-image: url("../../../../public/images/coverL.jpg");
+  /* background-image: url("../../../../public/images/coverL.jpg"); */
 }
 
 .recipes-container > * {
   width: 30%;
   min-width: 200px;
   min-height: 200px;
+  max-height: 250px;
   /* border: 1px solid black; */
   box-shadow: var(--box-shadow-primary);
   display: flex;
@@ -91,18 +147,22 @@
   justify-content: center;
   /* background-color: aliceblue; */
   background-color: #8ec5fc;
-  background-image: linear-gradient(237deg, #8ec5fc 0%, #e0c3fc 25%, #ffffff 85%, #ffffff 100%);
-
+  /* background-image: linear-gradient(237deg, #8ec5fc 0%, #e0c3fc 25%, #ffffff 85%, #ffffff 100%); */
   border-radius: 15px;
   cursor: pointer;
   transition: all ease-in-out 0.3s;
 }
+
+/* .recipes-container .Breakfast {
+  background-color: #180d0d;
+} */
 
 .recipe-image {
   width: 95%;
   height: 100%;
   border-radius: 15px;
   margin-bottom: 5%;
+  max-height: 150px;
 }
 
 .recipes-container > *:hover {
@@ -114,4 +174,13 @@
   justify-content: space-between;
   font-size: 2rem;
   font-weight: bold;
+}
+
+.loading-absolute-container {
+  position: absolute;
+  top: 50vh;
+  /* width: 100%; */
+  /* height: 100vh; */
+  /* box-shadow: none; */
+  background-color: rgba(255, 255, 255, 0.334);
 }

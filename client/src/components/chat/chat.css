@@ -1,0 +1,119 @@
+.chat-container-bruto {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin: 3rem auto;
+  height: 75vh;
+  border: 1px solid black;
+  background-image: linear-gradient(pink, red, pink, red);
+}
+
+.close-btn-chat {
+  background-color: aliceblue;
+  /* box-shadow: var(--box-shadow-primary); */
+
+  padding-left: 1px;
+}
+
+.close-btn-chat div {
+  border: 1px solid black;
+  width: fit-content;
+  padding: 0 2px;
+  cursor: pointer;
+}
+
+.chat-container {
+  /* background-image: none; */
+  background-color: aliceblue;
+  display: flex;
+  width: 99%;
+  height: 92%;
+  min-height: 300px;
+  /* overflow-y: scroll; */
+  margin: 0.5% auto;
+  border: 1px solid black;
+}
+/**============================================== FRIENDS CHAT =====================================*/
+
+.friends-window-chat {
+  width: 30%;
+  min-width: 150px;
+  /* height: 99%; */
+  /* overflow-y: scroll; */
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  /* position: relative; */
+}
+
+.search-freinds-chat-input {
+  /* border: 1px solid black; */
+  /* position: fixed; */
+  /* top: -20px; */
+}
+
+.search-freinds-chat-input input {
+  width: 98%;
+  padding: 5px 0;
+  margin: 2px;
+  border-radius: 5px;
+}
+
+.freinds-container-chat {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  max-height: 95%;
+  height: 100%;
+  /* background-color: blue; */
+  overflow-y: scroll;
+}
+
+.freinds-container-chat > div {
+  border: 1px solid black;
+  width: 97%;
+  margin: 5px auto;
+  padding: 1.3rem 0;
+  border-radius: 10px;
+}
+
+/**============================================== BODY CHAT =====================================*/
+.chat-body-container {
+  flex: 1;
+  min-width: 250px;
+  height: 100%;
+  overflow-y: scroll;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-body {
+  width: 100%;
+  height: 90%;
+  overflow-y: scroll;
+  border: 1px solid black;
+  background: wheat;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.chat-input {
+  width: 100%;
+  height: 10%;
+  min-height: 3rem;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+}
+
+.chat-input input {
+  flex: 9;
+  /* width: 90%; */
+}
+
+.imogi-chat {
+  flex: 1;
+  border: 1px solid black;
+}

@@ -1,33 +1,58 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./myfriends.css";
 export default function MyFriends({ friendsList }) {
+  const drawFriends = () => {
+    return friendsList.map((friend) => {
+      return (
+        <Link to={`/users/profile/${friend.friendId}`} key={friend.friendId}>
+          <FriendCard id={friend.friendId} name={friend.name} rank={friend.rank} />
+        </Link>
+      );
+    });
+  };
+
   return (
     <div className="my-friends-container">
-      Myfriends
-      {FriendCard()}
+      <h1 className="line my-friends-title">My Friends:</h1>
+      <div className="friends-cards-container">{drawFriends()}</div>
     </div>
   );
 }
 
-function FriendCard() {
+function FriendCard({ id, name, rank }) {
+  function DrawRanks() {
+    const arr = [];
+    for (let i = 0; i < rank; i++) {
+      arr.push(i);
+    }
+    return arr.map((star) => {
+      return <i className="star icon yellow"></i>;
+    });
+  }
   return (
-    <div className="ui card">
-      <div className="image">
-        <img src="/images/avatar2/large/kristy.png" />
+    <div className="friend-card white-box">
+      <div className="image-card ">
+        <img src={`http://localhost:5000/users/${id}/avatar`} alt={id + name} className={"friend-card-image"} />
       </div>
-      <div className="content">
-        <a className="header">Kristy</a>
-        <div className="meta">
-          <span className="date">Joined in 2013</span>
-        </div>
-        <div className="description">Kristy is an art director living in New York.</div>
-      </div>
-      <div className="extra content">
-        <a>
+      <div className="friend-card-content">
+        <a className="header">{name}</a>
+        <div className="extra content">
           <i className="user icon"></i>
           22 Friends
-        </a>
+        </div>
+        <div className="rank-friend">{DrawRanks(rank)}</div>
       </div>
     </div>
   );
+}
+
+{
+  /* <div className="join-in-friend"> */
+}
+{
+  /* <span className="date">Joined in 2013</span> */
+}
+{
+  /* </div> */
 }

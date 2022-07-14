@@ -29,18 +29,25 @@ const userSchema = new mongoose.Schema(
       trim: true,
       // minlength: 7 //TODO remove note
     },
-    age: {
+    rank: {
       type: Number,
+      default: 1,
       validate(value) {
-        if (value < 5) {
-          throw new Error("This site is not for kids...");
+        if (value < 0) {
+          throw new Error("cant get lower than 0...");
         }
       },
     },
     avatar: {
       type: Buffer,
     },
-    friends: Array,
+    friends: [
+      {
+        friendId: String,
+        name: String,
+        rank: Number,
+      },
+    ],
     pending: [
       {
         note: String,

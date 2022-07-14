@@ -56,13 +56,14 @@ export default function Friendposts({
   }, [, updateNewPostUi, friendId, location.key]);
 
   useEffect(() => {
-    console.log(location);
+    // console.log(location);
     //* Get user current pending list currentUserId
     const getUserPendingList = async () => {
       try {
         const { data } = await usersApi.getUserLists.get(`/${currentUserId}`);
-
-        if (data.friends.includes(friendId)) {
+        // console.log(data);
+        const checkFriendship = data.friends.find((friend) => friend.friendId === friendId);
+        if (checkFriendship && checkFriendship.friendId === friendId) {
           setButtonDisplay((p) => "remove");
           console.log("already friends, click for remove friend");
         } else if (

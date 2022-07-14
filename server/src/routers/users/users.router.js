@@ -163,9 +163,10 @@ router.post("/users/friend/accept", auth, async (req, res) => {
       throw new Error("friend already in friends list");
     }
 
-    friend.friends.push(req.user._id);
+    friend.friends.push({ friendId: req.user._id, name: req.user.name, rank: req.user.rank });
     await friend.save();
-    req.user.friends.push(friend._id);
+    // req.user.friends.push(friend._id);//!backup line
+    req.user.friends.push({ friendId: friend._id, name: friend.name, rank: friend.rank });
 
     await req.user.save();
     res.status(201).send(`${req.user.name} start freindship with ${friend.name}`);

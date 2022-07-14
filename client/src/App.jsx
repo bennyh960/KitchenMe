@@ -9,6 +9,9 @@ import { useState, useEffect } from "react";
 import Homepage from "./components/hompage/Homepage";
 import usersApi from "./api/usersApi";
 import Authenticate from "./components/authenticate/authenticate";
+import MyRecipies from "./components/profilePage/my-recepies/MyRecipies";
+import MyFriends from "./components/profilePage/my-friends/Myfriends";
+import Chat from "./components/chat/chat";
 
 // ! img profile src is from localhost hardcoded - when build need to fix
 
@@ -133,7 +136,6 @@ function App() {
               }
             />
           )}
-          {/* <Route path="/users/profile/:id" element={<OtherProfilePage />} /> //cause error due to post have properties */}
           <Route
             path="/users/profile/:id"
             element={
@@ -144,6 +146,9 @@ function App() {
               />
             }
           />
+          <Route path="/profile/recipes" element={<MyRecipies />} />
+          <Route path="profile/myfriends" element={<MyFriends friendsList={friendsList} />} />
+          <Route path="/chat" element={<Chat friendsList={friendsList} />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -155,11 +160,9 @@ export default App;
 // TODO : fix image bugs - understand how to use avatar image in prod mode
 // TODO : fix logout bug
 // TODO : make recipes album functional (including edit and delete )
-// TODO : fix delete friend request bug
+
 // TODO : set notifications apeare when (friend request , friend upload new post)
 // TODO : make posts can be - comments, like and ranks
-// TODO : Make friends page
+
 // TODO : CHAT
 // TODO : Adds
-
-// TODO : ITS SEMS THAT I GOT TO CONTROL NOTIFICATION BY ROUTE OF PENDING DATA EACH CLICK

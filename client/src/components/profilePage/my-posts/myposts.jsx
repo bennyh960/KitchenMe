@@ -59,13 +59,11 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
   };
 
   const drawTenBestFreinds = () => {
-    // friendsList={friendsList}
-    // console.log(friendsList.slice(0, 10));
-    return friendsList.slice(0, 12).map((friendId) => {
+    return friendsList.slice(0, 12).map((friend) => {
       return (
-        <Link to={`/users/profile/${friendId}`}>
+        <Link to={`/users/profile/${friend.friendId}`}>
           <div className="friend-container ">
-            <img src={`http://localhost:5000/users/${friendId}/avatar`} alt="" />
+            <img src={`http://localhost:5000/users/${friend.friendId}/avatar`} alt="" />
             <p>hc name</p>
           </div>
         </Link>

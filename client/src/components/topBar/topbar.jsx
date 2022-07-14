@@ -10,8 +10,10 @@ import {
   faPersonShelter,
   faUser,
   faCircleXmark,
+  faPeopleGroup,
+  faHouse,
 } from "@fortawesome/free-solid-svg-icons";
-// import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import PopupNanMenu from "./popUpMenu/popup";
 import DropDownResult from "./dropdownSearch/dropDownResult";
@@ -57,8 +59,9 @@ export default function Topbar({ avatar, name, isUser, userId, pendingList, upda
     const { data } = await usersApi.getUserLists.get(`/${userId}`);
     const validNotifications = data.pending.filter((pending) => pending.content !== "");
     setNotifications(validNotifications);
+    console.log(data);
     updateFriendListProp(data.friends);
-    console.log(validNotifications, data.pending);
+    // console.log(validNotifications, data.pending);
   }
 
   const handleSearchMethode = () => {
@@ -110,14 +113,19 @@ export default function Topbar({ avatar, name, isUser, userId, pendingList, upda
       </div>
       <div className="topbar-post-view">
         <div>
-          {window.location.pathname === "/profile/me" ? (
+          <Link to={"/"}>
+            <FontAwesomeIcon icon={faHouse} className={"fa-icon hompage-icon"} />
+          </Link>
+          <Link to="/profile/me">
             <FontAwesomeIcon icon={faPersonShelter} className={"fa-icon"} />
-          ) : (
-            <FontAwesomeIcon icon={faUser} className={"fa-icon"} />
-          )}
-          <FontAwesomeIcon icon={faYoutube} className={"fa-icon"} />
-          <FontAwesomeIcon icon={faIndent} className={"fa-icon"} />
-          <FontAwesomeIcon icon={faListDots} className={"fa-icon"} />
+          </Link>
+
+          <Link to="profile/myfriends">
+            <FontAwesomeIcon icon={faPeopleGroup} className={"fa-icon"} />
+          </Link>
+          <Link to="/profile/recipes">
+            <FontAwesomeIcon icon={faListDots} className={"fa-icon"} />
+          </Link>
           {/* default/Video/instructions/ingredient */}
         </div>
       </div>

@@ -1,15 +1,16 @@
 import React from "react";
-
+import { Buffer } from "buffer";
 import "./recipezoom.css";
 
-export default function RecipeZoom() {
+export default function RecipeZoom({ data, popUpClose }) {
   const formData = {
-    name: "aaa",
-    category: "bbb",
-    instructions: [1, 2, 3, 4, 5],
-    ingredients: [1, 2, 3, 4, 5],
+    name: data.name,
+    category: data.category,
+    instructions: data.instructions || [],
+    ingredients: data.ingredients || [],
   };
 
+  console.log(data);
   const drawIngrediernts = () => {
     return [...formData.ingredients].map((item, i, arr) => {
       return (
@@ -35,6 +36,9 @@ export default function RecipeZoom() {
     <div className="title-confirm-recipe white-box">
       <h1>
         {formData.name} Recipe - {formData.category}
+        <span onClick={() => popUpClose(false)} className="close-btn">
+          X
+        </span>
       </h1>
       <div className="confirm-container">
         <div className="ingredient-confirm">
@@ -48,7 +52,15 @@ export default function RecipeZoom() {
           {drawInstructions()}
         </div>
 
-        <img src="http://localhost:3000/images/peopleSearch.jpg" alt="" />
+        {data.image ? (
+          <img
+            src={`data:image/png;base64, ${Buffer.from(data.image).toString("base64")}`}
+            alt=""
+            className="recipe-image"
+          />
+        ) : (
+          <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="recipe-image" />
+        )}
       </div>
       <div className="ui buttons" id="edit-delete">
         <button className="ui pink button" id="cancle-upload-recipe">
