@@ -97,7 +97,8 @@ userSchema.methods.toJSON = function () {
 // * UserSchema Generate Ahuthentication token methode - post register or login
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.authTokenSW);
+  // const token = jwt.sign({ _id: user._id.toString() }, process.env.authTokenSW);
+  const token = jwt.sign({ _id: user._id.toString() }, "dontForgetUseEnvFile");
   // console.log(token);
   user.tokens.push({ token });
   await user.save();
