@@ -143,7 +143,7 @@ export default function Chat({ friendsList, userId }) {
         // console.log({ msg });
       });
     }
-  }, []);
+  }, [message]);
 
   useEffect(() => {
     arriavalMessage && setMessagesHistory((prev) => [...prev, arriavalMessage]);
