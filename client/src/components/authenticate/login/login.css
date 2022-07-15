@@ -16,7 +16,11 @@
 }
 
 .login-form {
-  width: 300px;
+  width: 30%;
+  height: 55%;
+  min-width: 300px;
+  max-width: 350px;
+
   /* height: 40%; */
   border-radius: 15px;
   background-color: white;
@@ -25,6 +29,7 @@
   display: flex;
   box-shadow: var(--box-shadow-secondary);
   flex-direction: column;
+  justify-content: space-evenly;
   animation: entrance 0.5s ease-in-out;
 }
 
@@ -51,9 +56,9 @@
 
 @media screen and (max-width: 700px) {
   .login-container {
-    /* background: url("../../../public/images/signupS.jpg"); */
-    /* background-size: contain; */
-    /* background-repeat: no-repeat; */
+    background: url("../../../../public/images/signupM.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
   }
   .login-form {
     width: 50%;

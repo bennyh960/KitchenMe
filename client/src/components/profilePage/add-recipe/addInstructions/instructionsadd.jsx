@@ -10,7 +10,8 @@ export default function InstructionsAdd({ instructionsObjHandler }) {
 
   useEffect(() => {
     instructionsObjHandler(instructionsList);
-  }, [instructionsList, instructionsObjHandler]);
+    // eslint-disable-next-line
+  }, [instructionsList]);
 
   const addRowToData = (data, idx) => {
     // const checkValidRow = instructionsList.find((row) => row.instruction === data.instruction);

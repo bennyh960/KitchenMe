@@ -107,7 +107,7 @@ function App() {
         )}
         {!user.token && <Authenticate isUser={isUser} />}
         <Routes>
-          {user.token && <Route path="/" element={<Homepage />} />}
+          {user.token && isUserLogedIn && <Route path="/" element={<Homepage />} />}
           {user.token && (
             <Route
               path="/profile/me"

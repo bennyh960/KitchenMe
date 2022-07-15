@@ -9,7 +9,8 @@ export default function IngredientAdd({ ingredientObjHandler }) {
   useEffect(() => {
     ingredientObjHandler(arrOfrowsObject);
     // console.log(arrOfrowsObject);
-  }, [arrOfrowsObject, ingredientObjHandler]);
+    // eslint-disable-next-line
+  }, [arrOfrowsObject]);
 
   const addRowToData = (data, idx) => {
     // console.log(data);
