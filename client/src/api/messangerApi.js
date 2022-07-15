@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // *dev url
-const url = "http://localhost:5000";
+// const url = "http://localhost:5000";
+const url = "";
 
 const messangerApi = axios.create({
   baseURL: `${url}/api/messages`,
