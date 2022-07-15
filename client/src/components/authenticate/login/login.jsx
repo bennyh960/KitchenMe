@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
 import usersApi from "../../../api/usersApi";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function LogIn({ handleClickTo, isUser }) {
   const [isSubmit, setIsSubmit] = useState(false);

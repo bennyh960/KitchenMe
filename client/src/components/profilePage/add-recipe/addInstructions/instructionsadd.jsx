@@ -3,14 +3,14 @@ import "./instructions.css";
 
 // const rowsArr = [1, 2, 3];
 export default function InstructionsAdd({ instructionsObjHandler }) {
-  const [rowsArr, setNumOfRows] = useState([0]);
+  // const [rowsArr, setNumOfRows] = useState([0]);
   const [instructionsList, setInstructionsList] = useState([]);
   const [addRowArg, setAddRowArg] = useState([]);
   // const [step, setStep] = useState(1);
 
   useEffect(() => {
     instructionsObjHandler(instructionsList);
-  }, [instructionsList]);
+  }, [instructionsList, instructionsObjHandler]);
 
   const addRowToData = (data, idx) => {
     // const checkValidRow = instructionsList.find((row) => row.instruction === data.instruction);
@@ -122,20 +122,11 @@ function InstructionArea({ removeRow, index, step, rowObj }) {
           {isSaved && (
             <button onClick={(e) => handleRemoveRow(e, index)}>
               <i className="trash alternate icon"></i>
+              {/*  <i className="edit icon"></i> */}
             </button>
           )}
         </td>
       </tr>
     )
   );
-}
-
-{
-  /* <i className="edit icon"></i> */
-}
-{
-  /* <i className="trash alternate icon"></i> */
-}
-{
-  /* <i className="save outline icon"></i> */
 }

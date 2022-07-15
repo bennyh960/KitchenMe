@@ -24,7 +24,7 @@ export default function Aboutme({ name, topRated, myRank, email, hideEdit }) {
           {myRank} stars
         </span>
         <span>
-          <b>Top-Rated :</b> <a href="">{topRated}</a>
+          <b>Top-Rated :</b> <a href="/profile/recipes">{topRated}</a>
         </span>
       </div>
     </div>

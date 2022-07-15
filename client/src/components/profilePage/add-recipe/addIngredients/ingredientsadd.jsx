@@ -9,7 +9,7 @@ export default function IngredientAdd({ ingredientObjHandler }) {
   useEffect(() => {
     ingredientObjHandler(arrOfrowsObject);
     // console.log(arrOfrowsObject);
-  }, [arrOfrowsObject]);
+  }, [arrOfrowsObject, ingredientObjHandler]);
 
   const addRowToData = (data, idx) => {
     // console.log(data);

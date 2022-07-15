@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./topbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookMessenger, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookMessenger } from "@fortawesome/free-brands-svg-icons";
 import {
   faSearch,
   faBell,
-  faIndent,
   faListDots,
   faPersonShelter,
-  faUser,
   faCircleXmark,
   faPeopleGroup,
   faHouse,
@@ -39,7 +37,8 @@ export default function Topbar({ avatar, name, isUser, userId, pendingList, upda
     if (userId) {
       updateNotification();
     }
-  }, []);
+    // eslint-disable-next-line
+  }, [userId]);
 
   // i dont like this methode
   const handleClickOutside = () => {
@@ -59,7 +58,7 @@ export default function Topbar({ avatar, name, isUser, userId, pendingList, upda
     const { data } = await usersApi.getUserLists.get(`/${userId}`);
     const validNotifications = data.pending.filter((pending) => pending.content !== "");
     setNotifications(validNotifications);
-    console.log(data);
+    // console.log(data);
     updateFriendListProp(data.friends);
     // console.log(validNotifications, data.pending);
   }
@@ -90,11 +89,12 @@ export default function Topbar({ avatar, name, isUser, userId, pendingList, upda
             </div>
           )}
 
-          {/* </Link> */}
-          <div className="notification-messanger-container">
-            <FontAwesomeIcon icon={faFacebookMessenger} className={"fa-icon messanger-icon"} />
-            <div className="messanger-num">6</div>
-          </div>
+          <Link to={"/chat"}>
+            <div className="notification-messanger-container">
+              <FontAwesomeIcon icon={faFacebookMessenger} className={"fa-icon messanger-icon"} />
+              <div className="messanger-num">6</div>
+            </div>
+          </Link>
           <div
             className="notification-bell-container"
             onClick={() => {
@@ -175,6 +175,7 @@ function useOutsideClick(callback) {
     return () => {
       document.removeEventListener("click", handleClick, true);
     };
+    // eslint-disable-next-line
   }, []);
 
   return ref;

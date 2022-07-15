@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import "./profilenav.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 export default function ProfileNav({ handleView }) {
   const [activeLink, setActive] = useState(["", "active", "", ""]);
   //   const [view, setView] = useState("myPosts");

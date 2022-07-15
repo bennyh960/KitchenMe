@@ -36,9 +36,9 @@ export default function Chat({ friendsList, userId }) {
           <div className="friend-img-chat ">
             {/* <img src={process.env.PUBLIC_URL + "/images/avatarEx.png"} alt="" className="chat-small-avatar" /> */}
             {validAvatar(friend.friendId) ? (
-              <img src={`http://localhost:5000/users/${friend.friendId}/avatar`} className="chat-small-avatar" />
+              <img src={`http://localhost:5000/users/${friend.friendId}/avatar`} className="chat-small-avatar" alt="" />
             ) : (
-              <img src={"https://identix.state.gov/qotw/images/no-photo.gif"} className="chat-small-avatar" />
+              <img src={"https://identix.state.gov/qotw/images/no-photo.gif"} className="chat-small-avatar" alt="" />
             )}
           </div>
           <div className="friend-box-data">
@@ -75,7 +75,7 @@ export default function Chat({ friendsList, userId }) {
     if (friend) {
       getAllMessages();
     }
-  }, [friend]);
+  }, [friend, userId, message]);
 
   const handleMessageInput = ({ target: { value } }) => {
     setMessage(value);
@@ -85,14 +85,16 @@ export default function Chat({ friendsList, userId }) {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!message) return;
-    console.log(message);
+    // console.log(message);
 
     try {
-      const { data } = messangerApi.post("/addmsg", {
+      // const { data } = await messangerApi.post("/addmsg", {
+      await messangerApi.post("/addmsg", {
         from: userId,
         to: friend.id,
         message,
       });
+      // console.log(data);
     } catch (error) {
       console.log(error.msg);
     }
@@ -138,7 +140,7 @@ export default function Chat({ friendsList, userId }) {
       socket.current.on("msg-recieve", (msg) => {
         setArrivalMessage({ fromSelf: false, message: msg });
         // console.log(arriavalMessage);
-        console.log({ msg });
+        // console.log({ msg });
       });
     }
   }, []);

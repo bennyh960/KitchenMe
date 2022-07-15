@@ -17,7 +17,8 @@ export default function MyRecipies() {
       setLoading(true);
       // const { data } = await recipiesAPI.getPublicRecipes(""); //! dont delete this is useful for public posts
       const {
-        data: { recipes, owner },
+        // data: { recipes, owner },
+        data: { recipes },
       } = await recipiesAPI.getUserRecipes("", {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

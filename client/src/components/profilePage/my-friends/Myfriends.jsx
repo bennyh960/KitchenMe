@@ -36,6 +36,7 @@ function FriendCard({ id, name, rank }) {
         <img src={`http://localhost:5000/users/${id}/avatar`} alt="" className={"friend-card-image"} />
       </div>
       <div className="friend-card-content">
+        {/* eslint-disable-next-line */}
         <a className="header">{name}</a>
         <div className="extra content">
           <i className="user icon"></i>
@@ -45,14 +46,4 @@ function FriendCard({ id, name, rank }) {
       </div>
     </div>
   );
-}
-
-{
-  /* <div className="join-in-friend"> */
-}
-{
-  /* <span className="date">Joined in 2013</span> */
-}
-{
-  /* </div> */
 }

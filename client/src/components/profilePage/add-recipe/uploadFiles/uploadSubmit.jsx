@@ -18,23 +18,23 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
     };
     fileReader.readAsDataURL(file);
     imgUploadHandler(file);
-  }, [file]);
+  }, [file, imgUploadHandler]);
 
   const pickImageHandler = () => {
     filePickerRef.current.click();
   };
   const pickHandler = (e) => {
     let pickedFile;
-    let fileIsValid = isValid;
+    // let fileIsValid = isValid;
     if (e.target.files && e.target.files.length === 1) {
       pickedFile = e.target.files[0];
       setFile(pickedFile);
       setIsValid(true);
-      fileIsValid = true;
+      // fileIsValid = true;
       console.log(pickedFile);
     } else {
       setIsValid(false);
-      fileIsValid = false;
+      // fileIsValid = false;
     }
   };
 

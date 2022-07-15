@@ -11,7 +11,7 @@ export default function CoverOther({ friendId, avatar }) {
           <img
             src={`http://localhost:5000/users/${friendId}/avatar`}
             className="profile-image"
-            alt="profile image"
+            alt="profile avatar"
             style={{ cursor: "auto" }}
           />
         </div>

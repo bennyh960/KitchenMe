@@ -31,7 +31,7 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
       setLoading(false);
     };
     getUserPosts();
-  }, [, updateNewPostUi]);
+  }, [updateNewPostUi]);
 
   const updateUi = () => {
     setUpdateUi((p) => !p);

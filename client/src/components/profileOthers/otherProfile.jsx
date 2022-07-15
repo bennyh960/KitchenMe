@@ -5,7 +5,7 @@ import usersApi from "../../api/usersApi";
 import "./profile.css";
 import Friendposts from "./otherPosts/friendPosts";
 
-export default function OtherProfilePage({ currentUserPendingList, currentUserId, userFriendsList }) {
+export default function OtherProfilePage({ currentUserId, userFriendsList }) {
   const [friend, setFriend] = useState({});
   let { id } = useParams();
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function OtherProfilePage({ currentUserPendingList, currentUserId
     };
     // console.log(id);
     getFriendData();
-  }, [, id]);
+  }, [id]);
 
   return (
     <div className="profile-page">
@@ -26,7 +26,7 @@ export default function OtherProfilePage({ currentUserPendingList, currentUserId
       <Friendposts
         userFriendsList={userFriendsList}
         currentUserId={currentUserId}
-        currentUserPendingList={currentUserPendingList}
+        // currentUserPendingList={currentUserPendingList}
         friendId={id}
         name={friend.name}
         createdAt={friend.createdAt}

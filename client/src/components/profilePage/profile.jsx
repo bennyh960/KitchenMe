@@ -18,9 +18,9 @@ export default function ProfilePage({ avatar, name, email, topRated, myRank, cre
     setView(viewSelected);
   };
 
-  const addNewRecipe = (activeNewRecipe) => {
-    setView(activeNewRecipe);
-  };
+  // const addNewRecipe = (activeNewRecipe) => {
+  //   setView(activeNewRecipe);
+  // };
 
   useEffect(() => {
     // console.log(location.pathname);

@@ -6,7 +6,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ClassicPost from "./classic";
 import IngredientTable from "./table";
 import Instructions from "./instructions";
-import Video from "./video";
+// import Video from "./video";
 
 // todo : add rating if we got time
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,10 +29,10 @@ export default function Post({ title, category, ingredients, instructions, image
     setActiveView(["active-view", "", "", ""]);
     setCurrentSlide(0);
   };
-  const videoView = () => {
-    setActiveView(["", "", "", "active-view"]);
-    setCurrentSlide(3);
-  };
+  // const videoView = () => {
+  //   setActiveView(["", "", "", "active-view"]);
+  //   setCurrentSlide(3);
+  // };
 
   const onSwipeMove = () => {
     console.log("move");

@@ -87,6 +87,10 @@ function App() {
   //   return { ...obj, pending: pendingListIncludeSelf.filter((pending) => pending.content !== "") };
   // }
 
+  // useEffect(() => {
+  //   if (!isUserLogedIn) user.token = "";
+  // }, [isUserLogedIn, user]);
+
   return (
     <div>
       <BrowserRouter>
@@ -103,7 +107,7 @@ function App() {
         )}
         {!user.token && <Authenticate isUser={isUser} />}
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          {user.token && <Route path="/" element={<Homepage />} />}
           {user.token && (
             <Route
               path="/profile/me"

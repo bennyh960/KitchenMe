@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const chalk = require("chalk");
 
 // const password = "cJdVCPdEriOTlmGr";
-// const dbURL = `mongodb+srv://bennyh960:${password}@cluster0.eic8q.mongodb.net/myDB-tasks?retryWrites=true&w=majority`;
+// const MONGODB_URI = `mongodb+srv://bennyh960:${password}@cluster0.eic8q.mongodb.net/myDB-tasks?retryWrites=true&w=majority`;
 mongoose
-  .connect("mongodb://127.0.0.1:27017/kitchenMe", {
+  .connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/kitchenMe", {
     // mongoose
     // .connect(dbURL, {
 

@@ -1,7 +1,7 @@
 const Messagnger = require("../../db/models/chat-messanger/message.model");
 
 module.exports.addMessage = async (req, res, next) => {
-  console.log("add message controler test");
+  // console.log("add message controler test");
   try {
     const { from, to, message } = req.body;
     const data = await Messagnger.create({
@@ -17,7 +17,7 @@ module.exports.addMessage = async (req, res, next) => {
   }
 };
 module.exports.getAllMessages = async (req, res, next) => {
-  console.log("get all messages message controler test");
+  // console.log("get all messages message controler test");
   try {
     const { from, to } = req.body;
     const messages = await Messagnger.find({
@@ -33,7 +33,7 @@ module.exports.getAllMessages = async (req, res, next) => {
       };
     });
 
-    console.log(messagesArr);
+    // console.log(messagesArr);
     res.send(messagesArr);
   } catch (error) {
     next(error);

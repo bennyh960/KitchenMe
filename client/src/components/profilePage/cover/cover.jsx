@@ -9,7 +9,7 @@ import usersApi from "../../../api/usersApi";
 export default function Cover({ handleView, avatar }) {
   const [file, setFile] = useState();
   const [prevUrl, setPrevUrl] = useState();
-  const [isValid, setIsValid] = useState(true);
+  // const [isValid, setIsValid] = useState(true);
   // const [updateUi, setUpdateUi] = useState(false);
   const filePickerRef = useRef();
 
@@ -30,16 +30,17 @@ export default function Cover({ handleView, avatar }) {
   };
   const pickHandler = (e) => {
     let pickedFile;
-    let fileIsValid = isValid;
+    // let fileIsValid = isValid;
     if (e.target.files && e.target.files.length === 1) {
       pickedFile = e.target.files[0];
       setFile(pickedFile);
-      setIsValid(true);
-      fileIsValid = true;
+      // setIsValid(true);
+      // fileIsValid = true;
       // console.log(pickedFile);
     } else {
-      setIsValid(false);
-      fileIsValid = false;
+      // setIsValid(false);
+      // fileIsValid = false;
+      console.log("i disabled is valid logic due to not use, if error think about it, in cover.jsx file");
     }
   };
 
@@ -52,7 +53,7 @@ export default function Cover({ handleView, avatar }) {
       avatar: file,
     };
     try {
-      const { data } = await usersApi.userUploadAvatar.post("", obj, {
+      await usersApi.userUploadAvatar.post("", obj, {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
           "Content-Type": "multipart/form-data",
@@ -77,8 +78,8 @@ export default function Cover({ handleView, avatar }) {
     <div className="cover-container">
       <div className="cover-image">
         <div>
-          {prevUrl && <img src={prevUrl} className="profile-image" alt="profile image" />}
-          {!prevUrl && <img src={avatar} className="profile-image" alt="profile image" />}
+          {prevUrl && <img src={prevUrl} className="profile-image" alt="profile avatar big" />}
+          {!prevUrl && <img src={avatar} className="profile-image" alt="profile avatar big alternate" />}
 
           {!prevUrl && (
             <div onClick={pickImageHandler}>

@@ -17,7 +17,7 @@ export default function Friendposts({
   myRank,
   createdAt,
   friendId,
-  currentUserPendingList,
+  // currentUserPendingList,
   userFriendsList,
   currentUserId,
 }) {
@@ -49,11 +49,11 @@ export default function Friendposts({
         // console.log(owner, recipes);
       } catch (error) {
         console.log(error);
-        console.log("error:", "/${friendId}", friendId);
+        console.log("error:", "friendId:", friendId);
       }
     };
     getUserPosts();
-  }, [, updateNewPostUi, friendId, location.key]);
+  }, [updateNewPostUi, friendId, location.key]);
 
   useEffect(() => {
     // console.log(location);
@@ -86,7 +86,7 @@ export default function Friendposts({
       // console.log(userFriendsList.includes(friendId));
       setButtonDisplay("remove");
     }
-  }, [, updateNewPostUi, friendId, buttonDisplay, location.key]);
+  }, [currentUserId, userFriendsList, updateNewPostUi, friendId, buttonDisplay, location.key]);
 
   const updateUi = () => {
     setUpdateUi((p) => !p);
