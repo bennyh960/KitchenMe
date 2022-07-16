@@ -18,7 +18,8 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
     };
     fileReader.readAsDataURL(file);
     imgUploadHandler(file);
-  }, [file, imgUploadHandler]);
+    // }, [file, imgUploadHandler]);
+  }, [file]);
 
   const pickImageHandler = () => {
     filePickerRef.current.click();
