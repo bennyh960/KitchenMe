@@ -1,9 +1,9 @@
 const express = require("express");
 const chalk = require("chalk");
 const cors = require("cors");
-// const dotenv = require("dotenv");
+const dotenv = require("dotenv");
 const socket = require("socket.io");
-// dotenv.config();
+dotenv.config();
 
 // my files import
 require("./server/src/db/mongoose");
