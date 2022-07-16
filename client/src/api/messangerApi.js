@@ -5,7 +5,8 @@ const url = "http://localhost:5000";
 // const url = "";
 
 const messangerApi = axios.create({
-  baseURL: `${url}/api/messages`,
+  // baseURL: `${url}/api/messages`,
+  baseURL: `/api/messages`,
 });
 
 // EP 1 : "/addmsg"

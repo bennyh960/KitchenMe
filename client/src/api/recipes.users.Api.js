@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // *dev url
-const url = "http://localhost:5000";
-// const url = "";
+// const url = "http://localhost:5000";
+const url = "";
 
 const createNewRecipe = axios.create({
   baseURL: `${url}/recipes/new`,
