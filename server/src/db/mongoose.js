@@ -6,7 +6,7 @@ const DB_Name = "MeetBacH";
 const MONGODB_URI = `mongodb+srv://bennyh960:${password}@cluster0.eic8q.mongodb.net/${DB_Name}?retryWrites=true&w=majority`;
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/kitchenMe", {
-    autoIndex: true,
+    // autoIndex: true,
     useNewUrlParser: true,
   })
   .then(() => {
