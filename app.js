@@ -24,19 +24,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+// * Step to connect heroku
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("/*", (req, res) => {
+    req.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
+
 // app use router
 app.use(recipeRouter);
 app.use(userRouter);
 app.use("/api/messages", messangerRouter);
 // app.use(notificationRoter);
-
-// * Step to connect heroku
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    req.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
 
 const server = app.listen(PORT, () => {
   console.log(chalk.green("Server run on port ", PORT));
