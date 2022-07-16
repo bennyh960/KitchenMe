@@ -22,7 +22,14 @@ const PORT = process.env.PORT || 5000;
 // app use
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.resolve(__dirname, "../client.build")));
 app.use(cors());
+
+// app use router
+app.use(recipeRouter);
+app.use(userRouter);
+app.use("/api/messages", messangerRouter);
+// app.use(notificationRoter);
 
 // * Step to connect heroku
 if (process.env.NODE_ENV === "production") {
@@ -31,12 +38,6 @@ if (process.env.NODE_ENV === "production") {
     req.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
 }
-
-// app use router
-app.use(recipeRouter);
-app.use(userRouter);
-app.use("/api/messages", messangerRouter);
-// app.use(notificationRoter);
 
 const server = app.listen(PORT, () => {
   console.log(chalk.green("Server run on port ", PORT));
