@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: Buffer,
     },
+    isAvatar: {
+      type: Boolean,
+      default: false,
+    },
     friends: [
       {
         friendId: String,

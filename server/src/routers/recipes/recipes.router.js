@@ -44,10 +44,15 @@ router.post("/recipes/new", auth, upload.single("image"), async (req, res) => {
 });
 
 // *Get recipes
-router.get("/recipes/public", async (req, res) => {
+router.get("/recipes/public", auth, async (req, res) => {
+  // console.log(req.body)
   try {
-    const recipes = await Recipe.find().sort("-updatedAt");
+    const recipes = await Recipe.find({ owner: { $in: [...req.user.friends.map((f) => f.friendId)] } }).sort(
+      "-updatedAt"
+    );
+
     res.send(recipes);
+    console.log(req.user.friends.map((f) => f.friendId));
   } catch (e) {
     res.status(404).send(e.message);
   }

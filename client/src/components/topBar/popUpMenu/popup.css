@@ -4,6 +4,8 @@
   left: 5px;
   min-width: fit-content;
   max-width: 100px;
+  /* min-height: 250px; */
+  /* background-color: red; */
   animation: popUpleftRight 0.2s ease-out;
 }
 
@@ -21,6 +23,7 @@
     top: calc(50% + 10px);
     overflow-y: scroll;
     min-height: 250px;
+    /* height: fit-content; */
     /* min-width: 200px; */
   }
   .popup-menu > * {

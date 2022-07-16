@@ -1,0 +1,28 @@
+.posts-container {
+  width: 60vw;
+  min-width: 35rem;
+  margin: auto;
+}
+
+/* media query */
+@media screen and (max-width: 650) {
+  .posts-container {
+    width: 70vw;
+    min-width: 35rem;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 550) {
+  .posts-container {
+    width: 80vw;
+    min-width: 35rem;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 430) {
+  .posts-container {
+    width: 95vw;
+    min-width: 35rem;
+    margin: auto;
+  }
+}

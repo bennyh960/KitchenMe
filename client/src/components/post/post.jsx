@@ -1,20 +1,33 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./post.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ClassicPost from "./classic";
 import IngredientTable from "./table";
 import Instructions from "./instructions";
+import { Link } from "react-router-dom";
 // import Video from "./video";
 
 // todo : add rating if we got time
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faRightFromBracket, faGear, faEdit, faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function Post({ title, category, ingredients, instructions, image, avatar, name, time, description }) {
+export default function Post({
+  title,
+  category,
+  ingredients,
+  instructions,
+  image,
+  avatar,
+  name,
+  time,
+  description,
+  owner,
+}) {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [avatarValid, setAvatar] = useState("https://identix.state.gov/qotw/images/no-photo.gif");
   // console.log("time:", time);
 
   const tableView = () => {
@@ -42,7 +55,13 @@ export default function Post({ title, category, ingredients, instructions, image
     <div className="post-container">
       <div className="post-user">
         <div style={{ display: "flex" }}>
-          <img src={avatar} alt="post avatar" className="user-poster-img" />
+          {owner ? (
+            <Link to={`/users/profile/${owner}`}>
+              <img src={avatar} alt="post avatar" className="user-poster-img" />
+            </Link>
+          ) : (
+            <img src={avatar} alt="post avatar" className="user-poster-img" />
+          )}
           <div className="poster-user-name">
             <div className="username-post">{name.split(" ")[0]}</div>
             {/* <div className="username-post">{name}</div> */}

@@ -19,7 +19,7 @@ export default function PopupNanMenu({ name, isUser }) {
       }
     );
     localStorage.clear();
-    isUser(false);
+    isUser((p) => false);
     navigate("/");
   };
   return (
