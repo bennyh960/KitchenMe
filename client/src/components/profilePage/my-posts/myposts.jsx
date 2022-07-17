@@ -43,8 +43,8 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
       return (
         <Post
           key={post._id}
-          title={`${post.name}`}
-          category={`${post.category}`}
+          title={post.name}
+          category={post.category}
           ingredients={post.ingredients}
           instructions={post.instructions}
           image={post.image}
