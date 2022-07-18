@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./login.css";
 import usersApi from "../../../api/usersApi";
 import { useNavigate } from "react-router-dom";
+// import { useCookies } from "react-cookie";
 
-export default function LogIn({ handleClickTo, isUser }) {
+export default function LogIn({ handleClickTo, isUser, setAuth }) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("\n");
+  // const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
-  // const location = useLocation();
-  // useEffect(() => {
-  //   if (location.state) isUser(location.state.isUser);
-  // }, []);
 
   const handleChange = ({ target: { value, name } }) => {
     setMessage("\n");
@@ -33,13 +31,12 @@ export default function LogIn({ handleClickTo, isUser }) {
       // todo remove loader
       isUser(true);
       localStorage.setItem("token", JSON.stringify(data.token));
+      localStorage.setItem("user", JSON.stringify(data.user));
+      setAuth({ user: data.user, token: data.token });
+
       // todo - store user without secret data
 
-      localStorage.setItem("user", JSON.stringify(data.user));
-      navigate("/feed");
-      // navigate("/feed", {
-      //   state: data.user,
-      // });
+      navigate("/");
     } catch (error) {
       setMessage(error.message);
     }

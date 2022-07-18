@@ -18,7 +18,16 @@ import DropDownResult from "./dropdownSearch/dropDownResult";
 import NotificationsDD from "./notifications/notifications";
 import usersApi from "../../api/usersApi";
 
-export default function Topbar({ avatar, name, isUser, userId, pendingList, updatePendingList, updateFriendListProp }) {
+export default function Topbar({
+  avatar,
+  name,
+  isUser,
+  userId,
+  pendingList,
+  updatePendingList,
+  updateFriendListProp,
+  setAuth,
+}) {
   const [isPopUpMenue, setIsPopUp] = useState(false);
   const [showSearch, setShowSearch] = useState(true);
   const [searchMethode, setSearchMethode] = useState("people");
@@ -76,7 +85,7 @@ export default function Topbar({ avatar, name, isUser, userId, pendingList, upda
     <nav className="topbar-container">
       <div className="topbar-user">
         <div className="container-left-icons-menu" ref={ref}>
-          {isPopUpMenue && <PopupNanMenu name={name} isUser={isUser} />}
+          {isPopUpMenue && <PopupNanMenu name={name} isUser={isUser} setAuth={setAuth} />}
           {/* <Link to={"/profile/me"}> */}
 
           {!isPopUpMenue && (

@@ -3,13 +3,17 @@ import "./coverOther.css";
 // import { Buffer } from "buffer";
 // import { useEffect, useState } from "react";
 
-export default function CoverOther({ friendId, avatar }) {
+export default function CoverOther({ friendId, isAvatar }) {
   return (
     <div className="cover-container">
       <div className="cover-image">
         <div>
           <img
-            src={`http://localhost:5000/users/${friendId}/avatar`}
+            src={
+              isAvatar
+                ? `http://localhost:5000/users/${friendId}/avatar`
+                : "https://identix.state.gov/qotw/images/no-photo.gif"
+            }
             className="profile-image"
             alt="profile avatar"
             style={{ cursor: "auto" }}

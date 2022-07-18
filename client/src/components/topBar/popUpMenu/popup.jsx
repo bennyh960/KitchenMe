@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faGear, faEdit } from "@fortawesome/free-solid-svg-icons";
 import usersApi from "../../../api/usersApi";
 
-export default function PopupNanMenu({ name, isUser }) {
+export default function PopupNanMenu({ name, isUser, setAuth }) {
   const navigate = useNavigate();
   //! token should arrive from prop
   const handleLogOut = async () => {
@@ -15,12 +15,14 @@ export default function PopupNanMenu({ name, isUser }) {
       {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
       }
     );
     localStorage.clear();
     isUser((p) => false);
-    navigate("/");
+    setAuth({ user: undefined, token: null });
+    navigate("/login");
   };
   return (
     <div className="white-box popup-menu">

@@ -6,7 +6,7 @@ export default function MyFriends({ friendsList }) {
     return friendsList.map((friend) => {
       return (
         <Link to={`/users/profile/${friend.friendId}`} key={friend.friendId}>
-          <FriendCard id={friend.friendId} name={friend.name} rank={friend.rank} />
+          <FriendCard id={friend.friendId} name={friend.name} rank={friend.rank} isAvatar={friend.isAvatar} />
         </Link>
       );
     });
@@ -20,7 +20,7 @@ export default function MyFriends({ friendsList }) {
   );
 }
 
-function FriendCard({ id, name, rank }) {
+function FriendCard({ id, name, rank, isAvatar }) {
   function DrawRanks() {
     const arr = [];
     for (let i = 0; i < rank; i++) {
@@ -33,7 +33,11 @@ function FriendCard({ id, name, rank }) {
   return (
     <div className="friend-card white-box">
       <div className="image-card ">
-        <img src={`http://localhost:5000/users/${id}/avatar`} alt="" className={"friend-card-image"} />
+        {isAvatar ? (
+          <img src={`http://localhost:5000/users/${id}/avatar`} alt="" className={"friend-card-image"} />
+        ) : (
+          <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} />
+        )}
       </div>
       <div className="friend-card-content">
         {/* eslint-disable-next-line */}

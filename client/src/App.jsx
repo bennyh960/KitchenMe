@@ -17,106 +17,107 @@ import Chat from "./components/chat/chat";
 
 function App() {
   const [isUserLogedIn, setIsUserLogedIn] = useState(false);
-  const [user, setUser] = useState({
-    user: { pending: [], friends: [] },
-    token: "",
-  });
+  // const [user, setUser] = useState({
+  //   user: { pending: [], friends: [] },
+  //   token: "",
+  // });
   const [pendingList, setPendingList] = useState([]);
   const [avatar, setAvatar] = useState("https://identix.state.gov/qotw/images/no-photo.gif");
   const [friendsList, setFriendsList] = useState([]);
+  const [authDetailes, setAuthentication] = useState({ user: undefined, token: null });
 
   const isUser = (bool) => {
     setIsUserLogedIn(bool);
   };
+
+  const setAuth = (obj) => {
+    setAuthentication(obj);
+  };
+
   const updatePendingList = (list) => {
     setPendingList(list);
   };
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (token && user) {
+      setAuthentication({ token, user });
+    } else if (!isUserLogedIn) {
+      console.log(isUserLogedIn);
+      setAuthentication({ user: undefined, token: null });
+    }
+    // console.log(user);
+  }, [isUserLogedIn]);
+
+  useEffect(() => {
+    const token = authDetailes.token;
     if (!token) {
-      setUser((p) => {
-        return { user: { pending: [], friends: [] }, token: "" };
-      });
+      console.log("no auth ");
       return;
     }
 
-    // console.log(user.user);
-
-    const userOn = JSON.parse(localStorage.getItem("user"));
-    setUser((p) => {
-      return { user: userOn, token };
-    });
     const getAvatar = async () => {
       try {
-        await usersApi.users.get(`/${userOn._id}/avatar`);
+        await usersApi.users.get(`/${authDetailes.user._id}/avatar`);
         // ! can cause problem - in production i should paste the url
-        setAvatar(`http://localhost:5000/users/${userOn._id}/avatar`);
+        setAvatar(`http://localhost:5000/users/${authDetailes.user._id}/avatar`);
       } catch (error) {
         setAvatar("https://identix.state.gov/qotw/images/no-photo.gif");
         console.log(error.message);
       }
     };
 
-    getAvatar();
-  }, [isUserLogedIn]);
+    if (authDetailes.user.isAvatar) {
+      getAvatar();
+    }
+  }, [authDetailes, isUserLogedIn]);
 
   useEffect(() => {
+    // console.log("===========================================================================");
     const updateUserData = async () => {
-      // if (user.user && user.user._id) {
-      const userOn = JSON.parse(localStorage.getItem("user"));
-      if (userOn) {
-        const { data } = await usersApi.getOtherProfile.get(userOn._id);
-        // console.log(userOn, data);
-        // data = updatePendingListByRemoveSelf(data.pending, data);
+      if (authDetailes.user) {
+        const { data } = await usersApi.getOtherProfile.get(authDetailes.user._id);
         console.log(data.name, "loged in and update data");
-        localStorage.setItem("user", JSON.stringify(data));
-        setUser((prev) => {
-          return { ...prev, user: data };
-        });
       }
     };
     updateUserData();
-  }, [pendingList, friendsList]);
+  }, [pendingList, friendsList, authDetailes]);
 
   const updateFriendListProp = (friendsListArg) => {
     setFriendsList(friendsListArg);
     // console.log(friendsListArg);
   };
 
-  // function updatePendingListByRemoveSelf(pendingListIncludeSelf, obj) {
-  //   return { ...obj, pending: pendingListIncludeSelf.filter((pending) => pending.content !== "") };
-  // }
-
-  // useEffect(() => {
-  //   if (!isUserLogedIn) user.token = "";
-  // }, [isUserLogedIn, user]);
-
   return (
     <div>
       <BrowserRouter>
-        {(user.token || isUserLogedIn) && (
+        {(authDetailes.token || isUserLogedIn) && (
           <Topbar
             avatar={avatar}
-            name={user.user.name}
+            name={authDetailes.user.name}
             isUser={isUser}
-            pendingList={user.user.pending}
+            setAuth={setAuth}
+            pendingList={authDetailes.user.pending}
             updatePendingList={updatePendingList}
-            userId={user.user._id}
+            userId={authDetailes.user._id}
             updateFriendListProp={updateFriendListProp}
           />
         )}
-        {!user.token && <Authenticate isUser={isUser} />}
         <Routes>
-          {user.token && <Route path="/" element={<Homepage />} />}
-          {user.token && (
+          {!authDetailes.token && (
+            <Route path={"/login"} element={<Authenticate isUser={isUser} setAuth={setAuth} />} />
+          )}
+          <Route path="/" element={<Homepage token={authDetailes.token} />} />
+          {authDetailes.token && (
             <Route
               path="/profile/me"
               element={
                 <ProfilePage
                   avatar={avatar}
-                  name={user.user.name}
-                  createdAt={user.user.createdAt}
-                  email={user.user.email}
+                  name={authDetailes.user.name}
+                  createdAt={authDetailes.user.createdAt}
+                  email={authDetailes.user.email}
                   myRank={"4.3"}
                   topRated={"PIZZA 3 STARS"}
                   friendsList={friendsList}
@@ -124,15 +125,15 @@ function App() {
               }
             />
           )}
-          {user.token && (
+          {authDetailes.token && (
             <Route
               path="/feed"
               element={
                 <ProfilePage
                   avatar={avatar}
-                  name={user.user.name}
-                  createdAt={user.user.createdAt}
-                  email={user.user.email}
+                  name={authDetailes.user.name}
+                  createdAt={authDetailes.user.createdAt}
+                  email={authDetailes.user.email}
                   myRank={"4.3"}
                   topRated={"PIZZA 3 STARS"}
                   friendsList={friendsList}
@@ -144,15 +145,18 @@ function App() {
             path="/users/profile/:id"
             element={
               <OtherProfilePage
-                currentUserPendingList={user.user.pending}
-                currentUserId={user.user._id}
-                userFriendsList={user.user.friends}
+                currentUserPendingList={authDetailes.user && authDetailes.user.pending}
+                currentUserId={authDetailes.user && authDetailes.user._id}
+                userFriendsList={authDetailes.user && authDetailes.user.friends}
               />
             }
           />
           <Route path="/profile/recipes" element={<MyRecipies />} />
           <Route path="profile/myfriends" element={<MyFriends friendsList={friendsList} />} />
-          <Route path="/chat" element={<Chat friendsList={friendsList} userId={user.user._id} />} />
+          <Route
+            path="/chat"
+            element={<Chat friendsList={friendsList} userId={authDetailes.user && authDetailes.user._id} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

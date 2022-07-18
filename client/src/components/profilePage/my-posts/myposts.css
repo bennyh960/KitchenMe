@@ -71,15 +71,19 @@
   align-items: center;
   justify-content: center;
   padding-top: 5px;
-  width: 6rem;
-  height: 6rem;
+  width: 7rem;
+  height: 7rem;
   box-shadow: var(--box-shadow-nav);
   margin: 0.5rem;
   border-radius: 5px;
-  border: 2px rgb(243, 188, 188) solid;
+  font-size: 1.5rem;
+  /* border: 2px rgb(243, 188, 188) solid; */
+  border: 2px black solid;
   cursor: pointer;
   /* align-items: center; */
   transition: all 0.5s ease-in;
+  overflow: hidden;
+  /* min-height: 80%; */
 }
 
 .friend-container:hover {
@@ -89,9 +93,9 @@
 
 .friend-container img {
   width: 30%;
-  min-width: 35px;
+  min-width: 3.5rem;
   height: 30%;
-  min-height: 35px;
+  min-height: 3.5rem;
   border-radius: 50%;
   /* background-color: aqua; */
 }

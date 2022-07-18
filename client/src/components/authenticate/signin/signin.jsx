@@ -4,7 +4,7 @@ import PasswordMeter from "./passwordmeter";
 import { useNavigate } from "react-router-dom";
 import usersApi from "../../../api/usersApi";
 
-export default function Signin({ handleClickTo, isUser }) {
+export default function Signin({ handleClickTo, isUser, setAuth }) {
   const [showPasswordMeter, setPasswordMeter] = useState(false);
   const [showConfirmPass, setConfirmPass] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -26,12 +26,14 @@ export default function Signin({ handleClickTo, isUser }) {
       // console.log(usersApi);
       const { data } = await usersApi.newUserRouter.post("", formData);
 
-      localStorage.setItem("token", JSON.stringify(data.token));
       // todo - store user without secret data
 
+      localStorage.setItem("token", JSON.stringify(data.token));
       localStorage.setItem("user", JSON.stringify(data.user));
+      setAuth({ user: data.user, token: data.token });
+
       isUser(true);
-      navigate("/feed", {
+      navigate("/profile/me", {
         state: data.user,
       });
       // todo remove loader

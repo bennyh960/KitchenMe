@@ -22,7 +22,7 @@ export default function OtherProfilePage({ currentUserId, userFriendsList }) {
 
   return (
     <div className="profile-page">
-      <CoverOther friendId={friend._id} avatar={friend.avatar} />
+      <CoverOther friendId={friend._id} isAvatar={friend.isAvatar} />
       <Friendposts
         userFriendsList={userFriendsList}
         currentUserId={currentUserId}

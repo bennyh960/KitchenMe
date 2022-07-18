@@ -106,6 +106,7 @@ router.post(
     const buffer = await sharp(req.file.buffer).resize({ width: 200, height: 200 }).png().toBuffer();
     req.user.avatar = buffer;
     req.user.avatar = req.file.buffer;
+    req.user.isAvatar = true;
     await req.user.save();
     res.send("Image uploaded as png file");
   },

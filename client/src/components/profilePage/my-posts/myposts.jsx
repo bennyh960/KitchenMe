@@ -63,7 +63,16 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
       return (
         <Link to={`/users/profile/${friend.friendId}`} key={friend.friendId}>
           <div className="friend-container ">
-            <img src={`http://localhost:5000/users/${friend.friendId}/avatar`} alt="" />
+            {friend.isAvatar ? (
+              <img
+                src={`http://localhost:5000/users/${friend.friendId}/avatar`}
+                alt=""
+                className={"friend-card-image"}
+              />
+            ) : (
+              <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} />
+            )}
+
             <p>hc name</p>
           </div>
         </Link>

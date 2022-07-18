@@ -1,26 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import recipiesAPI from "../../api/recipes.users.Api";
 import Loader2 from "../loaders/loader2/loader2";
 import Post from "../post/post";
 import Addrecipe from "../profilePage/add-recipe/addrecipe";
 import getTime from "../profilePage/my-posts/time";
+// import { AuthContext } from "../../App";
 
 import "./homepage.css";
 
-export default function Homepage({ isUser, friendsList }) {
+export default function Homepage({ isUser, friendsList, token }) {
+  // const authHeader = useContext(AuthContext);
   console.log("home");
   const [publicPosts, setPublicPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [updateNewPost, setUpdateNew] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+    console.log(token);
+  }, []);
 
   const updateNewUi = () => {
     setUpdateNew((p) => !p);
   };
 
   useEffect(() => {
+    // if (!token) {
+    //   console.log("no token so return");
+    //   return;
+    // }
     const getRecipes = async () => {
-      // const StoredPosts = JSON.parse(localStorage.getItem("posts"));
-      // setPublicPosts(StoredPosts);
       setIsLoading(true);
       const { data } = await recipiesAPI.getPublicRecipes.get("", {
         headers: {
@@ -29,14 +43,15 @@ export default function Homepage({ isUser, friendsList }) {
         },
       });
 
-      // if (StoredPosts && data.length > StoredPosts.length) {
-      // localStorage.setItem("posts", data);
       setPublicPosts(data);
-      // }
       setIsLoading(false);
     };
+
     try {
-      getRecipes();
+      if (token) {
+        getRecipes();
+        console.log(token);
+      } else return;
     } catch (error) {
       console.log(error);
       console.log("error from loading posts in homepage");
@@ -75,6 +90,7 @@ export default function Homepage({ isUser, friendsList }) {
   return (
     <div className="posts-container">
       <Addrecipe updateUi={updateNewUi} />
+
       {/* <div>some box for opening feed</div> */}
       {/* <div>conside to add add recipe</div> */}
       {isLoading && <Loader2 />}
