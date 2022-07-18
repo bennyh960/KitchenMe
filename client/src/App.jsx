@@ -60,7 +60,9 @@ function App() {
         // setAvatar(`http://localhost:5000/users/${authDetailes.user._id}/avatar`);
         // setAvatar(`http://${window.location.host}/users/${authDetailes.user._id}/avatar`);
         setAvatar(
-          process.env.NODE_ENV === "production" ? "" : `http://localhost:5000/users/${authDetailes.user._id}/avatar`
+          process.env.NODE_ENV === "production"
+            ? `/users/${authDetailes.user._id}/avatar`
+            : `http://localhost:5000/users/${authDetailes.user._id}/avatar`
         );
         // console.log(window.location.host, window.location);
       } catch (error) {
