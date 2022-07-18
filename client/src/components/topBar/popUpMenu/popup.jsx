@@ -28,7 +28,7 @@ export default function PopupNanMenu({ name, isUser, setAuth, token }) {
       console.log("========================================");
       console.log(error.message);
       console.log(token);
-      consoloe.log("log out error");
+      console.log("log out error");
       console.log("========================================");
     }
   };
