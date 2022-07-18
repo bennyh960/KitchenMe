@@ -7,6 +7,7 @@ import ClassicPost from "./classic";
 import IngredientTable from "./table";
 import Instructions from "./instructions";
 import { Link } from "react-router-dom";
+import Comments from "./comments/comments";
 // import Video from "./video";
 
 // todo : add rating if we got time
@@ -24,10 +25,13 @@ export default function Post({
   time,
   description,
   owner,
+  token,
+  postId,
 }) {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [avatarValid, setAvatar] = useState("https://identix.state.gov/qotw/images/no-photo.gif");
+  const [showComments, setShowComments] = useState(false);
+  // const [avatarValid, setAvatar] = useState("https://identix.state.gov/qotw/images/no-photo.gif");
   // console.log("time:", time);
 
   const tableView = () => {
@@ -49,6 +53,7 @@ export default function Post({
 
   const onSwipeMove = () => {
     console.log("move");
+    // console.log(postId);
   };
 
   return (
@@ -104,7 +109,7 @@ export default function Post({
           <span>{category}</span>
         </div>
         <div>
-          <i className="comments inline icon large"></i>6
+          <i className="Comments  inline icon large"></i>6
         </div>
       </div>
       <div className="post-content">
@@ -135,7 +140,7 @@ export default function Post({
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => setShowComments((prev) => !prev)}>
                 <i className="comments outline icon large"></i>Comment
               </button>
             </li>
@@ -146,6 +151,7 @@ export default function Post({
             </li>
           </ul>
         </div>
+        {showComments && <Comments avatar={avatar} token={token} postId={postId} />}
       </div>
     </div>
   );

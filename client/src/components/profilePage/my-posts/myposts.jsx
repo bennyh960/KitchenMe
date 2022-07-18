@@ -44,6 +44,7 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
       return (
         <Post
           key={post._id}
+          postId={post._id}
           title={post.name}
           category={post.category}
           ingredients={post.ingredients}
@@ -53,6 +54,7 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
           name={owner}
           description={post.description}
           time={getTime(post.updatedAt)}
+          token={token}
         />
       );
       // return <h1>xxxx</h1>;

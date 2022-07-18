@@ -75,6 +75,8 @@
 .ul-action-take {
   display: flex;
   justify-content: space-around;
+  border-top: 0.5px solid var(--weak-line-color);
+  border-bottom: 0.5px solid var(--weak-line-color);
 }
 
 .like-comment-counter {

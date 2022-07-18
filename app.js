@@ -11,6 +11,7 @@ require("./server/src/db/mongoose");
 const recipeRouter = require("./server/src/routers/recipes/recipes.router");
 const userRouter = require("./server/src/routers/users/users.router");
 const messangerRouter = require("./server/src/routers/messanger/messanger.router");
+const commentsRouter = require("./server/src/routers/comments/comments.router");
 // const notificationRoter = require("./server/src/routers/notifications/notification.router");
 
 //* i guess it would be important when change from dev to prod
@@ -28,6 +29,7 @@ app.use(cors());
 app.use(recipeRouter);
 app.use(userRouter);
 app.use("/api/messages", messangerRouter);
+app.use(commentsRouter);
 // app.use(notificationRoter);
 
 // * Step to connect heroku

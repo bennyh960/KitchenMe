@@ -78,6 +78,8 @@ export default function Homepage({ token }) {
           ingredients={post.ingredients}
           instructions={post.instructions}
           image={post.image}
+          postId={post._id}
+          token={token}
         />
       );
     });

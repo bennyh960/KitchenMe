@@ -54,11 +54,11 @@ function App() {
     }
 
     const getAvatar = async () => {
+      // const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`
       try {
         await usersApi.users.get(`/${authDetailes.user._id}/avatar`);
         // ! can cause problem - in production i should paste the url
-        // setAvatar(`http://localhost:5000/users/${authDetailes.user._id}/avatar`);
-        // setAvatar(`http://${window.location.host}/users/${authDetailes.user._id}/avatar`);
+
         setAvatar(
           process.env.NODE_ENV === "production"
             ? `/users/${authDetailes.user._id}/avatar`
@@ -126,6 +126,7 @@ function App() {
                 <ProfilePage
                   avatar={avatar}
                   name={authDetailes.user.name}
+                  userId={authDetailes.user._id}
                   createdAt={authDetailes.user.createdAt}
                   email={authDetailes.user.email}
                   myRank={"4.3"}

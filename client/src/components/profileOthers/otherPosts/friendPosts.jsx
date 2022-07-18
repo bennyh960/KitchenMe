@@ -108,6 +108,8 @@ export default function Friendposts({
           name={owner}
           description={post.description}
           time={getTime(post.updatedAt)}
+          postId={post._id}
+          token={token}
         />
       );
       // return <h1>xxxx</h1>;

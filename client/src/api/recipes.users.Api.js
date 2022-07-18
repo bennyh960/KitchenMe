@@ -29,11 +29,16 @@ const getFriendsPostsRouter = axios.create({
   // baseURL: `/recipes/friends`,
 });
 
+const postCommentsRouter = axios.create({
+  baseURL: `${url}/posts/comments`,
+});
+
 const recipiesAPI = {
   createNewRecipe,
   getPublicRecipes,
   getUserRecipes,
   getFriendsPostsRouter,
+  postCommentsRouter,
 };
 
 export default recipiesAPI;

@@ -120,21 +120,12 @@ router.get("/users/:id/avatar", async (req, res) => {
   try {
     if (!req.params.id) throw new Error();
     const user = await User.findById(req.params.id);
-    // console.log(chalk.yellow(user));
-    // console.log(chalk.yellow(user));
     if (!user || !user.avatar) {
       throw new Error();
     }
 
-    // if (!user.isAvatar) {
-    //   res.send({ url: "https://identix.state.gov/qotw/images/no-photo.gif" });
-    //   return;
-    // }
-
     res.set("Content-Type", "image/png");
     res.send(user.avatar);
-    // option 2 on client side : <img src="http://localhost:3000/users/userID/avatar" />
-    //example userID = 62ba0fb908e77757705f127e
   } catch (error) {
     res.status(400).send(error.message);
     console.log(chalk.red.inverse(error.message));

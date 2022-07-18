@@ -39,6 +39,7 @@ export default function ProfilePage({ avatar, name, email, topRated, myRank, cre
           topRated={topRated}
           friendsList={friendsList}
           token={token}
+          // userId={userId}
         />
       )}
       {view === "MyRecipies" && <MyRecipies token={token} />}
