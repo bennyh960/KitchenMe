@@ -9,20 +9,28 @@ export default function PopupNanMenu({ name, isUser, setAuth, token }) {
   const navigate = useNavigate();
   //! token should arrive from prop
   const handleLogOut = async () => {
-    await usersApi.logoutRouter.post(
-      "",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-        },
-      }
-    );
-    localStorage.clear();
-    isUser((p) => false);
-    setAuth({ user: undefined, token: null });
-    navigate("/login");
+    try {
+      await usersApi.logoutRouter.post(
+        "",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          },
+        }
+      );
+      localStorage.clear();
+      isUser((p) => false);
+      setAuth({ user: undefined, token: null });
+      navigate("/login");
+    } catch (error) {
+      console.log("========================================");
+      console.log(error.message);
+      console.log(token);
+      consoloe.log("log out error");
+      console.log("========================================");
+    }
   };
   return (
     <div className="white-box popup-menu">
