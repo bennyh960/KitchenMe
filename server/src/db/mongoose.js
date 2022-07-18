@@ -5,7 +5,7 @@ const chalk = require("chalk");
 // const DB_Name = "MeetBacH";
 // const MONGODB_URI = `mongodb+srv://bennyh960:${password}@cluster0.eic8q.mongodb.net/${DB_Name}?retryWrites=true&w=majority`;
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/mitbachDev", {
+  .connect(process.env.NODE_ENV === "production" ? process.env.MONGODB_URI : "mongodb://127.0.0.1:27017/mitbachDev", {
     // .connect("mongodb://127.0.0.1:27017/mitbachDev", {
     autoIndex: true,
     useNewUrlParser: true,

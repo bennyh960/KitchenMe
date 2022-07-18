@@ -57,7 +57,12 @@ function App() {
       try {
         await usersApi.users.get(`/${authDetailes.user._id}/avatar`);
         // ! can cause problem - in production i should paste the url
-        setAvatar(`http://localhost:5000/users/${authDetailes.user._id}/avatar`);
+        // setAvatar(`http://localhost:5000/users/${authDetailes.user._id}/avatar`);
+        // setAvatar(`http://${window.location.host}/users/${authDetailes.user._id}/avatar`);
+        setAvatar(
+          process.env.NODE_ENV === "production" ? "" : `http://localhost:5000/users/${authDetailes.user._id}/avatar`
+        );
+        // console.log(window.location.host, window.location);
       } catch (error) {
         setAvatar("https://identix.state.gov/qotw/images/no-photo.gif");
         console.log(error.message);
