@@ -85,6 +85,12 @@ function App() {
     // console.log(friendsListArg);
   };
 
+  useEffect(() => {
+    console.log("=================================================================");
+    console.log(authDetailes);
+    console.log("=================================================================");
+  });
+
   return (
     <div>
       <BrowserRouter>
