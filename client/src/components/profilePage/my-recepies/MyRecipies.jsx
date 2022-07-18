@@ -7,7 +7,7 @@ import { Buffer } from "buffer";
 
 // TODO MAKE SEARCH functional by category and by input
 
-export default function MyRecipies() {
+export default function MyRecipies({ token }) {
   const [isLoading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [data, setData] = useState({});
@@ -21,7 +21,8 @@ export default function MyRecipies() {
         data: { recipes },
       } = await recipiesAPI.getUserRecipes("", {
         headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -29,7 +30,7 @@ export default function MyRecipies() {
       setLoading(false);
     };
     getUserPosts();
-  }, [setRecipes]);
+  }, [setRecipes, token]);
 
   const DrawRecipes = () => {
     return recipes.map((recipe) => {

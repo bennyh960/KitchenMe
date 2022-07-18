@@ -17,10 +17,6 @@ import Chat from "./components/chat/chat";
 
 function App() {
   const [isUserLogedIn, setIsUserLogedIn] = useState(false);
-  // const [user, setUser] = useState({
-  //   user: { pending: [], friends: [] },
-  //   token: "",
-  // });
   const [pendingList, setPendingList] = useState([]);
   const [avatar, setAvatar] = useState("https://identix.state.gov/qotw/images/no-photo.gif");
   const [friendsList, setFriendsList] = useState([]);
@@ -94,6 +90,7 @@ function App() {
       <BrowserRouter>
         {(authDetailes.token || isUserLogedIn) && (
           <Topbar
+            token={authDetailes.token}
             avatar={avatar}
             name={authDetailes.user.name}
             isUser={isUser}
@@ -121,11 +118,12 @@ function App() {
                   myRank={"4.3"}
                   topRated={"PIZZA 3 STARS"}
                   friendsList={friendsList}
+                  token={authDetailes.token}
                 />
               }
             />
           )}
-          {authDetailes.token && (
+          {/* {authDetailes.token && (
             <Route
               path="/feed"
               element={
@@ -140,7 +138,7 @@ function App() {
                 />
               }
             />
-          )}
+          )} */}
           <Route
             path="/users/profile/:id"
             element={
@@ -148,10 +146,11 @@ function App() {
                 currentUserPendingList={authDetailes.user && authDetailes.user.pending}
                 currentUserId={authDetailes.user && authDetailes.user._id}
                 userFriendsList={authDetailes.user && authDetailes.user.friends}
+                token={authDetailes.token}
               />
             }
           />
-          <Route path="/profile/recipes" element={<MyRecipies />} />
+          <Route path="/profile/recipes" element={<MyRecipies token={authDetailes.token} />} />
           <Route path="profile/myfriends" element={<MyFriends friendsList={friendsList} />} />
           <Route
             path="/chat"
@@ -172,5 +171,4 @@ export default App;
 // TODO : set notifications apeare when (friend request , friend upload new post)
 // TODO : make posts can be - comments, like and ranks
 
-// TODO : CHAT
 // TODO : Adds

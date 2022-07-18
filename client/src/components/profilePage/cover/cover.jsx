@@ -6,7 +6,7 @@ import { faCamera, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import ProfileNav from "../profile-nav/profileNav";
 import usersApi from "../../../api/usersApi";
 
-export default function Cover({ handleView, avatar }) {
+export default function Cover({ handleView, avatar, token }) {
   const [file, setFile] = useState();
   const [prevUrl, setPrevUrl] = useState();
   // const [isValid, setIsValid] = useState(true);
@@ -55,7 +55,8 @@ export default function Cover({ handleView, avatar }) {
     try {
       await usersApi.userUploadAvatar.post("", obj, {
         headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });

@@ -9,7 +9,7 @@ import recipiesAPI from "../../../api/recipes.users.Api";
 import Loader2 from "../../loaders/loader2/loader2";
 import getTime from "./time";
 
-export default function Myposts({ avatar, name, email, topRated, myRank, createdAt, friendsList }) {
+export default function Myposts({ avatar, name, email, topRated, myRank, createdAt, friendsList, token }) {
   const [isLoading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [owner, setOwner] = useState("");
@@ -23,7 +23,8 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
         data: { recipes, owner },
       } = await recipiesAPI.getUserRecipes("", {
         headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setPosts(recipes);
@@ -31,7 +32,7 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
       setLoading(false);
     };
     getUserPosts();
-  }, [updateNewPostUi]);
+  }, [updateNewPostUi, token]);
 
   const updateUi = () => {
     setUpdateUi((p) => !p);
@@ -83,7 +84,7 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
   return (
     <div className="my-posts-container">
       <div className="my-post-left-container">
-        <Addrecipe updateUi={updateUi} />
+        <Addrecipe updateUi={updateUi} token={token} />
         {isLoading && <Loader2 />}
         {/* <Loader2 /> */}
         {/* <Post /> */}

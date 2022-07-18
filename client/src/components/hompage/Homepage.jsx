@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import recipiesAPI from "../../api/recipes.users.Api";
 import Loader2 from "../loaders/loader2/loader2";
@@ -9,7 +9,7 @@ import getTime from "../profilePage/my-posts/time";
 
 import "./homepage.css";
 
-export default function Homepage({ isUser, friendsList, token }) {
+export default function Homepage({ token }) {
   // const authHeader = useContext(AuthContext);
   console.log("home");
   const [publicPosts, setPublicPosts] = useState([]);
@@ -23,22 +23,19 @@ export default function Homepage({ isUser, friendsList, token }) {
       navigate("/login");
     }
     console.log(token);
-  }, []);
+  }, [navigate, token]);
 
   const updateNewUi = () => {
+    console.log(updateNewPost);
     setUpdateNew((p) => !p);
   };
 
   useEffect(() => {
-    // if (!token) {
-    //   console.log("no token so return");
-    //   return;
-    // }
     const getRecipes = async () => {
       setIsLoading(true);
       const { data } = await recipiesAPI.getPublicRecipes.get("", {
         headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
@@ -56,7 +53,7 @@ export default function Homepage({ isUser, friendsList, token }) {
       console.log(error);
       console.log("error from loading posts in homepage");
     }
-  }, [setPublicPosts]);
+  }, [setPublicPosts, token]);
 
   const drawPublicPosts = () => {
     const noAvatar = "https://identix.state.gov/qotw/images/no-photo.gif";
@@ -89,7 +86,7 @@ export default function Homepage({ isUser, friendsList, token }) {
 
   return (
     <div className="posts-container">
-      <Addrecipe updateUi={updateNewUi} />
+      <Addrecipe updateUi={updateNewUi} token={token} />
 
       {/* <div>some box for opening feed</div> */}
       {/* <div>conside to add add recipe</div> */}

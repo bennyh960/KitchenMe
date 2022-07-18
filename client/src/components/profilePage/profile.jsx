@@ -10,7 +10,7 @@ import MyFriends from "./my-friends/Myfriends";
 import { useLocation } from "react-router-dom";
 // import Addrecipe from "./add-recipe/addrecipe";
 
-export default function ProfilePage({ avatar, name, email, topRated, myRank, createdAt, friendsList }) {
+export default function ProfilePage({ avatar, name, email, topRated, myRank, createdAt, friendsList, token }) {
   const [view, setView] = useState("myPosts");
   let location = useLocation();
 
@@ -28,7 +28,7 @@ export default function ProfilePage({ avatar, name, email, topRated, myRank, cre
 
   return (
     <div className="profile-page">
-      <Cover handleView={handleView} avatar={avatar} name={name} />
+      <Cover handleView={handleView} avatar={avatar} name={name} token={token} />
       {view === "myPosts" && (
         <Myposts
           avatar={avatar}
@@ -38,9 +38,10 @@ export default function ProfilePage({ avatar, name, email, topRated, myRank, cre
           myRank={myRank}
           topRated={topRated}
           friendsList={friendsList}
+          token={token}
         />
       )}
-      {view === "MyRecipies" && <MyRecipies />}
+      {view === "MyRecipies" && <MyRecipies token={token} />}
       {/* {view === "MyPhotos" && <MyPhotos />} */}
       {view === "MyFriends" && <MyFriends friendsList={friendsList} />}
     </div>

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faGear, faEdit } from "@fortawesome/free-solid-svg-icons";
 import usersApi from "../../../api/usersApi";
 
-export default function PopupNanMenu({ name, isUser, setAuth }) {
+export default function PopupNanMenu({ name, isUser, setAuth, token }) {
   const navigate = useNavigate();
   //! token should arrive from prop
   const handleLogOut = async () => {
@@ -14,7 +14,7 @@ export default function PopupNanMenu({ name, isUser, setAuth }) {
       {},
       {
         headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          Authorization: `Bearer ${token}`,
           // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
       }

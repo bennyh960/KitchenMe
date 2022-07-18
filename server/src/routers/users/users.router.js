@@ -126,6 +126,11 @@ router.get("/users/:id/avatar", async (req, res) => {
       throw new Error();
     }
 
+    // if (!user.isAvatar) {
+    //   res.send({ url: "https://identix.state.gov/qotw/images/no-photo.gif" });
+    //   return;
+    // }
+
     res.set("Content-Type", "image/png");
     res.send(user.avatar);
     // option 2 on client side : <img src="http://localhost:3000/users/userID/avatar" />

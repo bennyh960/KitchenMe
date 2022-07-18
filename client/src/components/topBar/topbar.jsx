@@ -27,6 +27,7 @@ export default function Topbar({
   updatePendingList,
   updateFriendListProp,
   setAuth,
+  token,
 }) {
   const [isPopUpMenue, setIsPopUp] = useState(false);
   const [showSearch, setShowSearch] = useState(true);
@@ -85,19 +86,15 @@ export default function Topbar({
     <nav className="topbar-container">
       <div className="topbar-user">
         <div className="container-left-icons-menu" ref={ref}>
-          {isPopUpMenue && <PopupNanMenu name={name} isUser={isUser} setAuth={setAuth} />}
-          {/* <Link to={"/profile/me"}> */}
-
+          {isPopUpMenue && <PopupNanMenu name={name} isUser={isUser} setAuth={setAuth} token={token} />}
           {!isPopUpMenue && (
             <img src={avatar} alt="profile-img-logo" className="profile-img-icon" onClick={() => setIsPopUp(true)} />
           )}
-
           {isPopUpMenue && (
             <div className="flip-back" onClick={() => setIsPopUp(false)}>
               <FontAwesomeIcon icon={faCircleXmark} className={"fa-icon "} size={"lg"} />
             </div>
           )}
-
           <Link to={"/chat"}>
             <div className="notification-messanger-container">
               <FontAwesomeIcon icon={faFacebookMessenger} className={"fa-icon messanger-icon"} />

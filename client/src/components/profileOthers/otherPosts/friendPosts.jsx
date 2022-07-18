@@ -17,9 +17,9 @@ export default function Friendposts({
   myRank,
   createdAt,
   friendId,
-  // currentUserPendingList,
   userFriendsList,
   currentUserId,
+  token,
 }) {
   const [isLoading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -116,7 +116,8 @@ export default function Friendposts({
   // * ===================================================================== Friend membership section ==================================
   const handleFriendRequest = async (actionEndPoint) => {
     const headers = {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      Authorization: `Bearer ${token}`,
     };
 
     //* update pending list

@@ -5,7 +5,7 @@ import usersApi from "../../api/usersApi";
 import "./profile.css";
 import Friendposts from "./otherPosts/friendPosts";
 
-export default function OtherProfilePage({ currentUserId, userFriendsList }) {
+export default function OtherProfilePage({ currentUserId, userFriendsList, token }) {
   const [friend, setFriend] = useState({});
   let { id } = useParams();
   useEffect(() => {
@@ -33,6 +33,7 @@ export default function OtherProfilePage({ currentUserId, userFriendsList }) {
         email={friend.email}
         myRank={friend.myRank}
         topRated={friend.topRated}
+        token={token}
       />
     </div>
   );

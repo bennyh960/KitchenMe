@@ -10,7 +10,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // const rowsArr = [1, 2, 3];
-export default function Addrecipe({ updateUi }) {
+export default function Addrecipe({ updateUi, token }) {
   const [titleCategory, setTitle] = useState({ name: "", category: "", description: "" });
   const [isOpenEditor, setOpenEditor] = useState(false);
   const [formData, setFormData] = useState({
@@ -27,7 +27,8 @@ export default function Addrecipe({ updateUi }) {
     formData.public = isPublic;
     await recipiesAPI.createNewRecipe.post("", formData, {
       headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data",
       },
     });
