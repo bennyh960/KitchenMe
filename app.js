@@ -3,6 +3,7 @@ const chalk = require("chalk");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const socket = require("socket.io");
+const path = require("path");
 dotenv.config();
 
 // my files import
@@ -32,6 +33,9 @@ app.use("/api/messages", messangerRouter);
 // * Step to connect heroku
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
+  app.get("/*", function (req, res) {
+    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  });
 }
 
 const server = app.listen(PORT, () => {

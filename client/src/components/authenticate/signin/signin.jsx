@@ -29,7 +29,7 @@ export default function Signin({ handleClickTo, isUser, setAuth }) {
       // todo - store user without secret data
 
       localStorage.setItem("token", JSON.stringify(data.token));
-      localStorage.setItem("user", JSON.stringify(data.user));
+      // localStorage.setItem("user", JSON.stringify(data.user));
       setAuth({ user: data.user, token: data.token });
 
       isUser(true);
