@@ -57,15 +57,14 @@ export default function Homepage({ token }) {
 
   const drawPublicPosts = () => {
     const noAvatar = "https://identix.state.gov/qotw/images/no-photo.gif";
-
+    const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
     return publicPosts.map((post) => {
       return (
         <Post
           key={post._id}
           avatar={
-            `http://localhost:5000/users/${post.owner}/avatar`
-              ? `http://localhost:5000/users/${post.owner}/avatar`
-              : noAvatar
+            // `http://localhost:5000/users/${post.owner}/avatar`
+            `${url}/${post.owner}/avatar` ? `${url}/${post.owner}/avatar` : noAvatar
           }
           owner={post.owner}
           name={post.name}

@@ -60,16 +60,13 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
   };
 
   const drawTenBestFreinds = () => {
+    const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
     return friendsList.slice(0, 12).map((friend) => {
       return (
         <Link to={`/users/profile/${friend.friendId}`} key={friend.friendId}>
           <div className="friend-container ">
             {friend.isAvatar ? (
-              <img
-                src={`http://localhost:5000/users/${friend.friendId}/avatar`}
-                alt=""
-                className={"friend-card-image"}
-              />
+              <img src={`${url}/${friend.friendId}/avatar`} alt="" className={"friend-card-image"} />
             ) : (
               <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} />
             )}

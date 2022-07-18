@@ -15,16 +15,13 @@ export default function NotificationsDD({ pendingList, updatePendingList }) {
   };
 
   const drawResult = () => {
+    const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
     return pendingList.map((pending) => {
       return (
         <Link to={{ pathname: `/users/profile/${pending.pendingId}` }} key={pending.pendingId}>
           <div className="line dd-result-notifications">
             {validImageSrc() ? (
-              <img
-                src={`http://localhost:5000/users/${pending.pendingId}/avatar`}
-                alt="searched person"
-                className="searched-person-img"
-              />
+              <img src={`${url}/${pending.pendingId}/avatar`} alt="searched person" className="searched-person-img" />
             ) : (
               <img
                 src={`https://identix.state.gov/qotw/images/no-photo.gif`}

@@ -26,6 +26,8 @@ export default function Chat({ friendsList, userId }) {
 
   // * draw friend list in left window
   const drawFriendsList = () => {
+    const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
+
     return friendsList.map((friend) => {
       return (
         <div
@@ -36,7 +38,8 @@ export default function Chat({ friendsList, userId }) {
           <div className="friend-img-chat ">
             {/* <img src={process.env.PUBLIC_URL + "/images/avatarEx.png"} alt="" className="chat-small-avatar" /> */}
             {validAvatar(friend.friendId) ? (
-              <img src={`http://localhost:5000/users/${friend.friendId}/avatar`} className="chat-small-avatar" alt="" />
+              // <img src={`http://localhost:5000/users/${friend.friendId}/avatar`} className="chat-small-avatar" alt="" />
+              <img src={`${url}/${friend.friendId}/avatar`} className="chat-small-avatar" alt="" />
             ) : (
               <img src={"https://identix.state.gov/qotw/images/no-photo.gif"} className="chat-small-avatar" alt="" />
             )}
@@ -130,7 +133,9 @@ export default function Chat({ friendsList, userId }) {
   // * Socket client
   useEffect(() => {
     if (userId) {
-      socket.current = io("http://localhost:5000");
+      const url = process.env.NODE_ENV === "production" ? `` : `http://localhost:5000`;
+      // socket.current = io("http://localhost:5000");
+      socket.current = io(url);
       socket.current.emit("add-user", userId);
     }
   }, [userId]);

@@ -21,6 +21,7 @@ export default function MyFriends({ friendsList }) {
 }
 
 function FriendCard({ id, name, rank, isAvatar }) {
+  const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
   function DrawRanks() {
     const arr = [];
     for (let i = 0; i < rank; i++) {
@@ -34,7 +35,8 @@ function FriendCard({ id, name, rank, isAvatar }) {
     <div className="friend-card white-box">
       <div className="image-card ">
         {isAvatar ? (
-          <img src={`http://localhost:5000/users/${id}/avatar`} alt="" className={"friend-card-image"} />
+          // <img src={`http://localhost:5000/users/${id}/avatar`} alt="" className={"friend-card-image"} />
+          <img src={`${url}/${id}/avatar`} alt="" className={"friend-card-image"} />
         ) : (
           <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} />
         )}

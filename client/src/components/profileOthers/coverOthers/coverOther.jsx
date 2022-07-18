@@ -4,16 +4,13 @@ import "./coverOther.css";
 // import { useEffect, useState } from "react";
 
 export default function CoverOther({ friendId, isAvatar }) {
+  const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
   return (
     <div className="cover-container">
       <div className="cover-image">
         <div>
           <img
-            src={
-              isAvatar
-                ? `http://localhost:5000/users/${friendId}/avatar`
-                : "https://identix.state.gov/qotw/images/no-photo.gif"
-            }
+            src={isAvatar ? `${url}/${friendId}/avatar` : "https://identix.state.gov/qotw/images/no-photo.gif"}
             className="profile-image"
             alt="profile avatar"
             style={{ cursor: "auto" }}

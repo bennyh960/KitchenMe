@@ -94,6 +94,7 @@ export default function Friendposts({
 
   const drawPosts = () => {
     // console.log(posts);
+    const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
     return posts.map((post) => {
       return (
         <Post
@@ -103,7 +104,7 @@ export default function Friendposts({
           ingredients={post.ingredients}
           instructions={post.instructions}
           image={post.image}
-          avatar={`http://localhost:5000/users/${friendId}/avatar`}
+          avatar={`${url}/${friendId}/avatar`}
           name={owner}
           description={post.description}
           time={getTime(post.updatedAt)}

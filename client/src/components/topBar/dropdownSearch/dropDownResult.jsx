@@ -25,17 +25,14 @@ export default function DropDownResult({ searchMethode, name, resetSearch }) {
   }, [name, resetSearch]);
 
   const drawResult = () => {
+    const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
     return searchResultPeople.map((person) => {
       return (
         // <Link to={`/users/profile/${person._id}`} key={person._id} >
         <Link to={{ pathname: `/users/profile/${person._id}`, state: { key: person._id } }} key={person._id}>
           <div className="line dd-result">
             {person.avatar && (
-              <img
-                src={`http://localhost:5000/users/${person._id}/avatar`}
-                alt="searched person"
-                className="searched-person-img"
-              />
+              <img src={`${url}/${person._id}/avatar`} alt="searched person" className="searched-person-img" />
             )}
             {!person.avatar && (
               <img
