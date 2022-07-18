@@ -1,8 +1,11 @@
 {
-  "name": "chat-app-mern",
+  "name": "MeetBach-mern",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd client && npm run build",
