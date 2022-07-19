@@ -1,30 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import recipiesAPI from "../../../api/recipes.users.Api";
 import "./comments.css";
+import { UserContext } from "../../../App";
 
-export default function Comments({ avatar, token, postId }) {
+export default function Comments({ avatar, postId, getComments }) {
   const [commentInput, setInput] = useState("");
   const [isDisableInput, setDisableInput] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentsToShow, setCommentsToshow] = useState(2);
+
+  //   const [commentTodelete, setCommentToDel] = useState("");
+
+  const {
+    token,
+    user: { _id: userId },
+  } = useContext(UserContext);
 
   const handleInput = ({ target: { value } }) => {
     setInput(value);
   };
 
   useEffect(() => {
-    const getComments = async () => {
-      try {
-        const { data } = await recipiesAPI.postCommentsRouter.get(`/${postId}/?load=${commentsToShow}`);
-        setComments(data);
-        console.log(data);
-      } catch (error) {
-        console.log(error.message);
-      }
+    const getHereTheComments = async () => {
+      const commentsFromPosts = await getComments(commentsToShow);
+      setComments(commentsFromPosts);
     };
-
-    getComments();
+    // console.log(commentsFromPosts);
+    getHereTheComments();
   }, [isDisableInput, commentsToShow]);
+
+  //   useEffect(() => {
+  const handleDelete = async (commentTodelete) => {
+    // setCommentToDel((p) => commentIdArg);
+    try {
+      const { data } = await recipiesAPI.postCommentsRouter.delete(`/${postId}/delete/?commentId=${commentTodelete}`);
+
+      //   setCommentsToshow(data);
+      setComments(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  //   }, [commentsToShow]);
 
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -54,15 +72,21 @@ export default function Comments({ avatar, token, postId }) {
     const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
     return comments.map((comment) => {
       return (
-        <div className="comments-container">
+        <div className="comments-container" key={comment._id}>
           <div className="user-input">
             <img src={`${url}/${comment.owner}/avatar`} alt="comments-avatar" />
             <div className="comment-detailes">
               <b>{comment.name}</b>
               <p className="content-comment">{comment.content}</p>
-              <p className="edit-delete-comment">
-                <span>Edit</span> <span>Delete</span>
-              </p>
+              {comment.owner === userId && (
+                <p className="edit-delete-comment">
+                  <span className="edit-delete-btn-comment">Edit (todo)</span>
+
+                  <span className="edit-delete-btn-comment" onClick={() => handleDelete(comment._id)}>
+                    Delete
+                  </span>
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -84,7 +108,7 @@ export default function Comments({ avatar, token, postId }) {
           />
         </form>
       </div>
-      {drawComments()}
+      {comments && drawComments()}
       <div onClick={() => setCommentsToshow((p) => p + 3)} style={{ cursor: "pointer" }}>
         Load more comments...
       </div>

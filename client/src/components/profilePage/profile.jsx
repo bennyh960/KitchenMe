@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react";
-// import Post from "../post/post";
+import React, { useState, useEffect, useContext } from "react";
 import Cover from "./cover/cover";
-// import Addrecipe from "./add-recipe/addrecipe";
 import "./profile.css";
 import Myposts from "./my-posts/myposts";
 import MyRecipies from "./my-recepies/MyRecipies";
-// import MyPhotos from "./my_photos/MyPhotos";
 import MyFriends from "./my-friends/Myfriends";
 import { useLocation } from "react-router-dom";
-// import Addrecipe from "./add-recipe/addrecipe";
+import { UserContext } from "../../App";
 
-export default function ProfilePage({ avatar, name, email, topRated, myRank, createdAt, friendsList, token }) {
+// export default function ProfilePage({ avatar, name, email, topRated, myRank, createdAt, friendsList, token }) {
+export default function ProfilePage({ avatar, topRated }) {
   const [view, setView] = useState("myPosts");
+  const {
+    token,
+    user: { name, email, rank, createdAt, friends },
+  } = useContext(UserContext);
+
   let location = useLocation();
 
   const handleView = (viewSelected) => {
     setView(viewSelected);
   };
-
-  // const addNewRecipe = (activeNewRecipe) => {
-  //   setView(activeNewRecipe);
-  // };
 
   useEffect(() => {
     // console.log(location.pathname);
@@ -35,16 +34,15 @@ export default function ProfilePage({ avatar, name, email, topRated, myRank, cre
           name={name}
           createdAt={createdAt}
           email={email}
-          myRank={myRank}
+          myRank={rank}
           topRated={topRated}
-          friendsList={friendsList}
+          friendsList={friends}
           token={token}
-          // userId={userId}
         />
       )}
       {view === "MyRecipies" && <MyRecipies token={token} />}
       {/* {view === "MyPhotos" && <MyPhotos />} */}
-      {view === "MyFriends" && <MyFriends friendsList={friendsList} />}
+      {view === "MyFriends" && <MyFriends friendsList={friends} />}
     </div>
   );
 }

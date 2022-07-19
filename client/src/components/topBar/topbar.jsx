@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import "./topbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookMessenger } from "@fortawesome/free-brands-svg-icons";
@@ -17,38 +17,32 @@ import PopupNanMenu from "./popUpMenu/popup";
 import DropDownResult from "./dropdownSearch/dropDownResult";
 import NotificationsDD from "./notifications/notifications";
 import usersApi from "../../api/usersApi";
+import { UserContext } from "../../App";
 
-export default function Topbar({
-  avatar,
-  name,
-  isUser,
-  userId,
-  pendingList,
-  updatePendingList,
-  updateFriendListProp,
-  setAuth,
-  token,
-}) {
+export default function Topbar({ avatar, isUser, updatePendingList, updateFriendListProp, setAuth }) {
+  const userContext = useContext(UserContext);
+
   const [isPopUpMenue, setIsPopUp] = useState(false);
   const [showSearch, setShowSearch] = useState(true);
   const [searchMethode, setSearchMethode] = useState("people");
   const [rotation, setRotation] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [notificationPopUp, setShowNotificationPopUp] = useState(false);
-  const [notifications, setNotifications] = useState([pendingList]);
+  const [notifications, setNotifications] = useState([userContext.user.pending]);
   // const location = useLocation();
 
   const handleSearchInput = ({ target: { value } }) => {
     setSearchInput((p) => value);
     // console.log(searchInput);
+    console.log(userContext);
   };
 
   useEffect(() => {
-    if (userId) {
+    if (userContext.user._id) {
       updateNotification();
     }
     // eslint-disable-next-line
-  }, [userId]);
+  }, [userContext.user._id]);
 
   // i dont like this methode
   const handleClickOutside = () => {
@@ -65,7 +59,7 @@ export default function Topbar({
   };
 
   async function updateNotification() {
-    const { data } = await usersApi.getUserLists.get(`/${userId}`);
+    const { data } = await usersApi.getUserLists.get(`/${userContext.user._id}`);
     const validNotifications = data.pending.filter((pending) => pending.content !== "");
     setNotifications(validNotifications);
     // console.log(data);
@@ -86,7 +80,9 @@ export default function Topbar({
     <nav className="topbar-container">
       <div className="topbar-user">
         <div className="container-left-icons-menu" ref={ref}>
-          {isPopUpMenue && <PopupNanMenu name={name} isUser={isUser} setAuth={setAuth} token={token} />}
+          {isPopUpMenue && (
+            <PopupNanMenu name={userContext.user.name} isUser={isUser} setAuth={setAuth} token={userContext.token} />
+          )}
           {!isPopUpMenue && (
             <img src={avatar} alt="profile-img-logo" className="profile-img-icon" onClick={() => setIsPopUp(true)} />
           )}

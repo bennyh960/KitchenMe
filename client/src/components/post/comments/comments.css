@@ -61,3 +61,11 @@
   font-size: 10px;
   line-height: 0;
 }
+
+.edit-delete-btn-comment {
+  cursor: pointer;
+}
+
+.edit-delete-btn-comment:hover {
+  font-weight: bold;
+}

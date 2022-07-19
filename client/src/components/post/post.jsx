@@ -8,6 +8,8 @@ import IngredientTable from "./table";
 import Instructions from "./instructions";
 import { Link } from "react-router-dom";
 import Comments from "./comments/comments";
+import recipiesAPI from "../../api/recipes.users.Api";
+
 // import Video from "./video";
 
 // todo : add rating if we got time
@@ -25,14 +27,14 @@ export default function Post({
   time,
   description,
   owner,
-  token,
+  // token,
   postId,
 }) {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showComments, setShowComments] = useState(false);
-  // const [avatarValid, setAvatar] = useState("https://identix.state.gov/qotw/images/no-photo.gif");
-  // console.log("time:", time);
+  const [commentArrayLength, setCommentsArrayLength] = useState("");
+  const [showStars, setShowStars] = useState(false);
 
   const tableView = () => {
     setActiveView(["", "active-view", "", ""]);
@@ -55,6 +57,25 @@ export default function Post({
     console.log("move");
     // console.log(postId);
   };
+
+  const getComments = async (commentsToShow) => {
+    try {
+      const {
+        data: { data, length },
+      } = await recipiesAPI.postCommentsRouter.get(`/${postId}/?load=${commentsToShow}`);
+      // setComments(data);
+
+      setCommentsArrayLength(length);
+      // console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getComments(1);
+  }, []);
 
   return (
     <div className="post-container">
@@ -109,7 +130,8 @@ export default function Post({
           <span>{category}</span>
         </div>
         <div>
-          <i className="Comments  inline icon large"></i>6
+          <i className="comments inline icon large"></i>
+          {commentArrayLength}
         </div>
       </div>
       <div className="post-content">
@@ -135,12 +157,22 @@ export default function Post({
         <div className="action-take">
           <ul className="ul-action-take">
             <li>
-              <button>
-                <i className="thumbs up outline icon large"></i>Like
+              <button
+                onClick={() => {
+                  setShowComments(false);
+                  setShowStars((prev) => !prev);
+                }}
+              >
+                <i className="star inline icon yellow large"></i>Vote
               </button>
             </li>
             <li>
-              <button onClick={() => setShowComments((prev) => !prev)}>
+              <button
+                onClick={() => {
+                  setShowComments((prev) => !prev);
+                  setShowStars(false);
+                }}
+              >
                 <i className="comments outline icon large"></i>Comment
               </button>
             </li>
@@ -151,7 +183,8 @@ export default function Post({
             </li>
           </ul>
         </div>
-        {showComments && <Comments avatar={avatar} token={token} postId={postId} />}
+        {showComments && <Comments avatar={avatar} postId={postId} getComments={getComments} />}
+        {showStars && 10}
       </div>
     </div>
   );

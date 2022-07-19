@@ -19,6 +19,7 @@ router.post("/posts/comments", auth, async (req, res) => {
       comment = new Comment({
         postId: req.body.postId,
         blog: [{ owner: req.user._id, name: req.user.name, content: req.body.content }],
+        // updatedAt: new Date() //todo bug to fix later
       });
     }
 
@@ -37,26 +38,43 @@ router.get("/posts/comments/:postId/", async (req, res) => {
   // console.log(req.query);
   const comment = await Comment.findOne({ postId: req.params.postId });
   try {
-    if (!comment) {
+    if (!comment || comment.blog.length === 0) {
       console.log("no comments");
       res.send([]);
+      return;
     }
-    res.send(comment.blog.reverse().slice(0, parseInt(req.query.load)));
-    // console.log(comment);
+    res.send({ data: comment.blog.reverse().slice(0, parseInt(req.query.load)), length: comment.blog.length });
+    console.log(comment.blog.length);
   } catch (error) {
-    console.log(error.message);
+    console.log(chalk.red(error.message));
     res.status(404).send(error.message);
   }
 });
 
-// router.get("/recipes/public", async (req, res) => {
-//   try {
-//     const recipes = await Recipe.find().sort("-updatedAt");
-//     res.send(recipes);
-//   } catch (e) {
-//     res.status(404).send(e.message);
-//   }
-// });
+router.delete("/posts/comments/:postId/delete", async (req, res) => {
+  try {
+    const comment = await Comment.findOne({ postId: req.params.postId, "blog._id": req.query.commentId });
+    if (!comment || comment.blog.length === 0) {
+      console.log("no comments");
+      res.send([]);
+      return;
+    }
+
+    // console.log(req.query.commentId);
+    const newComentBlog = comment.blog.filter((c) => {
+      // console.log(c._id.toString());
+      return c._id.toString() !== req.query.commentId;
+    });
+
+    comment.blog = newComentBlog;
+    await comment.save();
+
+    res.send(comment.blog);
+  } catch (e) {
+    res.status(404).send(e.message);
+    console.log(e.message);
+  }
+});
 
 // //* Get user recipes
 // router.get("/user/comments", auth, async (req, res) => {

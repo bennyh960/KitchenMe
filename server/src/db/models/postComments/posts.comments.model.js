@@ -24,6 +24,9 @@ const commentsSchema = new mongoose.Schema(
           trim: true,
           required: true,
         },
+        // updatedAt: {
+        //   type: String,
+        // },
       },
     ],
   },

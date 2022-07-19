@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProfilePage from "./components/profilePage/profile";
 import OtherProfilePage from "./components/profileOthers/otherProfile";
 import Topbar from "./components/topBar/topbar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import Homepage from "./components/hompage/Homepage";
 import usersApi from "./api/usersApi";
 import Authenticate from "./components/authenticate/authenticate";
@@ -14,6 +14,8 @@ import MyFriends from "./components/profilePage/my-friends/Myfriends";
 import Chat from "./components/chat/chat";
 
 // ! img profile src is from localhost hardcoded - when build need to fix
+
+export const UserContext = createContext();
 
 function App() {
   const [isUserLogedIn, setIsUserLogedIn] = useState(false);
@@ -27,6 +29,11 @@ function App() {
   };
 
   const setAuth = (obj) => {
+    // iin order to reduce size of context
+    // const objContextWithoutAvatarBuffer = { ...obj };
+    // delete objContextWithoutAvatarBuffer.user.avatar;
+    // console.log(objContextWithoutAvatarBuffer);
+
     setAuthentication(obj);
   };
 
@@ -100,78 +107,46 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
-        {(authDetailes.token || isUserLogedIn) && (
-          <Topbar
-            token={authDetailes.token}
-            avatar={avatar}
-            name={authDetailes.user.name}
-            isUser={isUser}
-            setAuth={setAuth}
-            pendingList={authDetailes.user.pending}
-            updatePendingList={updatePendingList}
-            userId={authDetailes.user._id}
-            updateFriendListProp={updateFriendListProp}
-          />
-        )}
-        <Routes>
-          {!authDetailes.token && (
-            <Route path={"/login"} element={<Authenticate isUser={isUser} setAuth={setAuth} />} />
+      <UserContext.Provider value={authDetailes}>
+        <BrowserRouter>
+          {(authDetailes.token || isUserLogedIn) && (
+            <Topbar
+              avatar={avatar}
+              isUser={isUser}
+              setAuth={setAuth}
+              updatePendingList={updatePendingList}
+              updateFriendListProp={updateFriendListProp}
+            />
           )}
-          <Route path="/" element={<Homepage token={authDetailes.token} />} />
-          {authDetailes.token && (
+          <Routes>
+            {!authDetailes.token && (
+              <Route path={"/login"} element={<Authenticate isUser={isUser} setAuth={setAuth} />} />
+            )}
+            <Route path="/" element={<Homepage token={authDetailes.token} />} />
+            {authDetailes.token && (
+              <Route path="/profile/me" element={<ProfilePage avatar={avatar} topRated={"PIZZA 3 STARS"} />} />
+            )}
+
             <Route
-              path="/profile/me"
+              path="/users/profile/:id"
               element={
-                <ProfilePage
-                  avatar={avatar}
-                  name={authDetailes.user.name}
-                  userId={authDetailes.user._id}
-                  createdAt={authDetailes.user.createdAt}
-                  email={authDetailes.user.email}
-                  myRank={"4.3"}
-                  topRated={"PIZZA 3 STARS"}
-                  friendsList={friendsList}
+                <OtherProfilePage
+                  currentUserPendingList={authDetailes.user && authDetailes.user.pending}
+                  currentUserId={authDetailes.user && authDetailes.user._id}
+                  userFriendsList={authDetailes.user && authDetailes.user.friends}
                   token={authDetailes.token}
                 />
               }
             />
-          )}
-          {/* {authDetailes.token && (
+            <Route path="/profile/recipes" element={<MyRecipies token={authDetailes.token} />} />
+            <Route path="profile/myfriends" element={<MyFriends friendsList={friendsList} />} />
             <Route
-              path="/feed"
-              element={
-                <ProfilePage
-                  avatar={avatar}
-                  name={authDetailes.user.name}
-                  createdAt={authDetailes.user.createdAt}
-                  email={authDetailes.user.email}
-                  myRank={"4.3"}
-                  topRated={"PIZZA 3 STARS"}
-                  friendsList={friendsList}
-                />
-              }
+              path="/chat"
+              element={<Chat friendsList={friendsList} userId={authDetailes.user && authDetailes.user._id} />}
             />
-          )} */}
-          <Route
-            path="/users/profile/:id"
-            element={
-              <OtherProfilePage
-                currentUserPendingList={authDetailes.user && authDetailes.user.pending}
-                currentUserId={authDetailes.user && authDetailes.user._id}
-                userFriendsList={authDetailes.user && authDetailes.user.friends}
-                token={authDetailes.token}
-              />
-            }
-          />
-          <Route path="/profile/recipes" element={<MyRecipies token={authDetailes.token} />} />
-          <Route path="profile/myfriends" element={<MyFriends friendsList={friendsList} />} />
-          <Route
-            path="/chat"
-            element={<Chat friendsList={friendsList} userId={authDetailes.user && authDetailes.user._id} />}
-          />
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </UserContext.Provider>
     </div>
   );
 }
