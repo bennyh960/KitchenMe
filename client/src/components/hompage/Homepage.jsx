@@ -67,7 +67,7 @@ export default function Homepage({ token }) {
             `${url}/${post.owner}/avatar` ? `${url}/${post.owner}/avatar` : noAvatar
           }
           owner={post.owner}
-          name={post.name}
+          name={post.ownerName}
           title={post.name}
           createdAt={post.createdAt}
           category={post.category}

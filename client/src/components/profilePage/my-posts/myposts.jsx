@@ -12,7 +12,7 @@ import getTime from "./time";
 export default function Myposts({ avatar, name, email, topRated, myRank, createdAt, friendsList, token }) {
   const [isLoading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [owner, setOwner] = useState("");
+  // const [owner, setOwner] = useState("");
   const [updateNewPostUi, setUpdateUi] = useState(false);
 
   useEffect(() => {
@@ -20,15 +20,16 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
       setLoading(true);
       // const { data } = await recipiesAPI.getPublicRecipes(""); //! dont delete this is useful for public posts
       const {
-        data: { recipes, owner },
+        data: { recipes },
       } = await recipiesAPI.getUserRecipes("", {
         headers: {
           // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
           Authorization: `Bearer ${token}`,
         },
       });
+      // console.log(owner);
       setPosts(recipes);
-      setOwner(owner);
+      // setOwner(owner);
       setLoading(false);
     };
     getUserPosts();
@@ -51,10 +52,11 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
           instructions={post.instructions}
           image={post.image}
           avatar={avatar}
-          name={owner}
+          name={post.ownerName}
           description={post.description}
           time={getTime(post.updatedAt)}
           token={token}
+          owner={post.owner}
         />
       );
       // return <h1>xxxx</h1>;

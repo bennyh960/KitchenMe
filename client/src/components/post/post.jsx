@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./post.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -9,7 +9,8 @@ import Instructions from "./instructions";
 import { Link } from "react-router-dom";
 import Comments from "./comments/comments";
 import recipiesAPI from "../../api/recipes.users.Api";
-
+import { Rating } from "react-simple-star-rating";
+import { UserContext } from "../../App";
 // import Video from "./video";
 
 // todo : add rating if we got time
@@ -35,6 +36,9 @@ export default function Post({
   const [showComments, setShowComments] = useState(false);
   const [commentArrayLength, setCommentsArrayLength] = useState("");
   const [showStars, setShowStars] = useState(false);
+  const {
+    user: { _id: userId, rank },
+  } = useContext(UserContext);
 
   const tableView = () => {
     setActiveView(["", "active-view", "", ""]);
@@ -159,8 +163,11 @@ export default function Post({
             <li>
               <button
                 onClick={() => {
-                  setShowComments(false);
-                  setShowStars((prev) => !prev);
+                  console.log(owner === userId);
+                  if (owner !== userId) {
+                    setShowComments(false);
+                    setShowStars((prev) => !prev);
+                  }
                 }}
               >
                 <i className="star inline icon yellow large"></i>Vote
@@ -173,7 +180,7 @@ export default function Post({
                   setShowStars(false);
                 }}
               >
-                <i className="comments outline icon large"></i>Comment
+                <i className="comments outline icon large"></i>Comments
               </button>
             </li>
             <li>
@@ -184,8 +191,22 @@ export default function Post({
           </ul>
         </div>
         {showComments && <Comments avatar={avatar} postId={postId} getComments={getComments} />}
-        {showStars && 10}
+        {showStars && <StarsComponenent />}
       </div>
+    </div>
+  );
+}
+
+function StarsComponenent(params) {
+  const [rating, setRating] = useState(0);
+  const handleRating = (rate) => {
+    setRating(rate);
+    // other logic
+    console.log(rate);
+  };
+  return (
+    <div className="stars-container">
+      <Rating onClick={handleRating} ratingValue={rating} allowHalfIcon={true} /* Available Props */ />
     </div>
   );
 }

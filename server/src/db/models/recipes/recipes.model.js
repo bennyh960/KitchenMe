@@ -45,6 +45,24 @@ const recipeSchema = new mongoose.Schema(
       required: true,
       ref: "User", // in order to conect relation between 2 models we must call it in same name
     },
+    ownerName: {
+      type: String,
+      trim: true,
+    },
+    rank: {
+      type: Number,
+      default: 0,
+    },
+    voted: [
+      {
+        voterId: {
+          type: mongoose.Schema.Types.ObjectId,
+        },
+        voteRank: {
+          type: Number,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

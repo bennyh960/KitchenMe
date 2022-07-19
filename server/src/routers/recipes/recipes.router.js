@@ -6,6 +6,7 @@ const multer = require("multer");
 const auth = require("../../middleware/auth");
 const User = require("../../db/models/users/users.model");
 const mongoose = require("mongoose");
+// const { findByIdAndUpdate } = require("../../db/models/recipes/recipes.model");
 
 const router = new express.Router();
 
@@ -27,6 +28,7 @@ router.post("/recipes/new", auth, upload.single("image"), async (req, res) => {
     const recipe = new Recipe({
       ...req.body,
       owner: req.user._id,
+      ownerName: req.user.name,
     });
     if (req.file) {
       const buffer = await sharp(req.file.buffer).png().toBuffer();
@@ -84,6 +86,18 @@ router.get("/recipes/friends/:id", async (req, res) => {
   } catch (e) {
     res.status(500).send(e.message);
     console.log(chalk.red.inverse(e.message));
+  }
+});
+
+// *Vote for recipe
+router.post("/recipes/vote/:postId", async (req, res) => {
+  try {
+    const recipe = await findByIdAndUpdate(req.params.postId, {
+      voted: { $push: { voterId: req.body.userId, voteRank: req.body.rank } },
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("vote for recipe error");
   }
 });
 

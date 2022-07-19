@@ -23,7 +23,7 @@ export default function Friendposts({
 }) {
   const [isLoading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [owner, setOwner] = useState("");
+  // const [owner, setOwner] = useState("");
   const [updateNewPostUi, setUpdateUi] = useState(false);
   const [buttonDisplay, setButtonDisplay] = useState("add");
 
@@ -44,7 +44,7 @@ export default function Friendposts({
           data: { recipes, owner },
         } = await recipiesAPI.getFriendsPostsRouter(`/${friendId}`);
         setPosts(recipes);
-        setOwner(owner);
+        // setOwner(owner);
         setLoading(false);
         // console.log(owner, recipes);
       } catch (error) {
@@ -105,11 +105,12 @@ export default function Friendposts({
           instructions={post.instructions}
           image={post.image}
           avatar={`${url}/${friendId}/avatar`}
-          name={owner}
+          name={post.ownerName}
           description={post.description}
           time={getTime(post.updatedAt)}
           postId={post._id}
           token={token}
+          owner={post.owner}
         />
       );
       // return <h1>xxxx</h1>;

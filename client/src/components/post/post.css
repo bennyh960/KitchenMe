@@ -130,3 +130,13 @@
 li {
   list-style: none;
 }
+
+/* stars */
+.stars-container {
+  width: 60%;
+  margin: auto;
+  padding: 2rem;
+  display: flex;
+  /* border: 1px solid black; */
+  justify-content: center;
+}
