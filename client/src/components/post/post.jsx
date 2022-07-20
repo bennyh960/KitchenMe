@@ -141,7 +141,7 @@ export default function Post({
           </div>
         </div>
         <div className="title-catagroy-container">
-          <h1>{title}</h1>
+          <h1>{title.length > 30 ? title.slice(0, 30) + "..." : title.slice(0, 30)}</h1>
           <span>{category}</span>
         </div>
         <div>

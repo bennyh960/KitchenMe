@@ -1,18 +1,10 @@
-.confirm-container {
-  display: flex;
-  /* margin-top: 0rem; */
-  /* min-height: 55rem; */
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 3px;
-  width: 95%;
-  margin: 10px auto;
-  min-width: fit-content;
-  background-color: aliceblue;
-}
-
 .title-confirm-recipe {
   padding: 5px;
+  margin: auto;
+  max-width: 80vw !important;
+  max-height: 70vh;
+
+  /* background-color: red; */
 }
 
 .title-confirm-recipe h1 {
@@ -24,6 +16,28 @@
   box-shadow: 20px 20px 50px 10px pink inset;
   display: flex;
   justify-content: space-between;
+}
+
+.confirm-container {
+  display: flex;
+  /* margin-top: 0rem; */
+  /* min-height: 55rem; */
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 3px;
+  width: 95%;
+  max-height: 45vh;
+  margin: 10px auto;
+  min-width: fit-content;
+  background-color: aliceblue;
+  position: relative;
+  overflow-y: scroll;
+  /* height: 100vh; */
+  /* overflow-y: scroll; */
+  /* flex-direction: column; */
+  /* width: 100vw; */
+  /* height: 100vh; */
+  /* overflow-y: scroll; */
 }
 
 .close-btn {
@@ -48,6 +62,8 @@
   width: 30%;
   margin-left: 1rem;
   height: fit-content;
+  position: sticky;
+  top: 0;
 }
 
 .instructions-confirm {
@@ -60,6 +76,10 @@
   padding: 5px;
   text-align: left;
   line-height: 3rem;
+  /* position: sticky; */
+  top: 0;
+  /* height: 300px; */
+  /* overflow-y: scroll; */
   /* padding-left: 3rem; */
 }
 
@@ -92,4 +112,11 @@
   border: 1px solid black;
   width: 80%;
   margin-left: 10%;
+}
+
+.recipe-image {
+  width: 20%;
+  height: 30%;
+  position: sticky;
+  top: 0;
 }
