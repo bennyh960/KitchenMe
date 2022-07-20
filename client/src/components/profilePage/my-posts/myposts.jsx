@@ -57,6 +57,8 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
           time={getTime(post.updatedAt)}
           token={token}
           owner={post.owner}
+          rank={post.rank}
+          voterListlengh={post.voted.length}
         />
       );
       // return <h1>xxxx</h1>;
@@ -69,13 +71,13 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
       return (
         <Link to={`/users/profile/${friend.friendId}`} key={friend.friendId}>
           <div className="friend-container ">
-            {friend.isAvatar ? (
-              <img src={`${url}/${friend.friendId}/avatar`} alt="" className={"friend-card-image"} />
-            ) : (
-              <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} />
-            )}
+            {/* {friend.isAvatar ? ( */}
+            <img src={`${url}/${friend.friendId}/avatar`} alt="" className={"friend-card-image"} />
+            {/* ) : ( */}
+            {/* <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} /> */}
+            {/* )} */}
 
-            <p>hc name</p>
+            <p>{friend.name.split(" ")[0].slice(0, 7)}</p>
           </div>
         </Link>
       );
@@ -99,7 +101,10 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
         <Aboutme name={name} email={email} myRank={myRank} topRated={topRated} />
         <div className="white-box user-friends">
           <h2 style={{ margin: "15px" }} className="line">
-            My Top Friends:
+            My Top Friends:{" "}
+            <span style={{ fontSize: "10px", marginLeft: "30%", color: "rgb(180,180,180)" }}>
+              {friendsList.length} Friends
+            </span>
           </h2>
           <div className="top-friends-container">{drawTenBestFreinds()}</div>
         </div>

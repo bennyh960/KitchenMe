@@ -90,14 +90,54 @@ router.get("/recipes/friends/:id", async (req, res) => {
 });
 
 // *Vote for recipe
-router.post("/recipes/vote/:postId", async (req, res) => {
+router.post("/recipes/vote/", async (req, res) => {
   try {
-    const recipe = await findByIdAndUpdate(req.params.postId, {
-      voted: { $push: { voterId: req.body.userId, voteRank: req.body.rank } },
+    const recipe = await Recipe.findById(req.body.postId);
+
+    const validVoterIndex = recipe.voted.findIndex((v) => {
+      return v.voterId.toString() === req.body.userId;
     });
+
+    if (validVoterIndex === -1) {
+      recipe.voted.push({ voterId: req.body.userId, voteRank: req.body.rank });
+      console.log(validVoterIndex);
+    } else {
+      recipe.voted[validVoterIndex] = { voterId: req.body.userId, voteRank: req.body.rank };
+      console.log("update vote");
+    }
+
+    const RecipeRank = recipe.voted.reduce((previousValue, currentValue) => previousValue + currentValue.voteRank, 0);
+    recipe.rank = RecipeRank / recipe.voted.length;
+
+    await recipe.save();
+    res.send("you voted");
   } catch (error) {
     console.log(error.message);
     res.status(500).send("vote for recipe error");
+  }
+});
+
+router.get("/recipes/vote/", async (req, res) => {
+  try {
+    console.log(req.query);
+    const recipe = await Recipe.findById(req.query.postId);
+
+    if (!recipe) throw new Error("recipe not found - see recipe router");
+    const validVoterIndex = recipe.voted.findIndex((v) => {
+      return v.voterId.toString() === req.query.userId;
+    });
+
+    if (validVoterIndex === -1) {
+      res.send("0");
+    } else {
+      const userVoteScore = recipe.voted[validVoterIndex].voteRank / 20;
+      console.log(userVoteScore);
+      res.send(userVoteScore.toString());
+      // res.sendStatus(200);
+    }
+  } catch (e) {
+    res.sendStatus(404).send(e.message);
+    console.log("get user vote error");
   }
 });
 

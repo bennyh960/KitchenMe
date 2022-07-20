@@ -32,7 +32,7 @@ app.use("/api/messages", messangerRouter);
 app.use(commentsRouter);
 // app.use(notificationRoter);
 
-// * Step to connect heroku
+// * Step to connect with heroku
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("/*", function (req, res) {

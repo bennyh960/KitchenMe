@@ -57,6 +57,7 @@ const recipeSchema = new mongoose.Schema(
       {
         voterId: {
           type: mongoose.Schema.Types.ObjectId,
+          // type: String,
         },
         voteRank: {
           type: Number,

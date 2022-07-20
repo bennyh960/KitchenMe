@@ -19,7 +19,9 @@ export default function Homepage({ token }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
+    console.log(token);
+    const localToken = localStorage.getItem("token");
+    if (!token && !localToken) {
       navigate("/login");
     }
     console.log(token);
@@ -53,7 +55,7 @@ export default function Homepage({ token }) {
       console.log(error);
       console.log("error from loading posts in homepage");
     }
-  }, [setPublicPosts, token]);
+  }, [setPublicPosts, token, updateNewPost]);
 
   const drawPublicPosts = () => {
     const noAvatar = "https://identix.state.gov/qotw/images/no-photo.gif";
@@ -80,6 +82,8 @@ export default function Homepage({ token }) {
           image={post.image}
           postId={post._id}
           token={token}
+          rank={post.rank}
+          voterListlengh={post.voted.length}
         />
       );
     });

@@ -18,3 +18,11 @@
 .show-about-data span {
   margin: 1rem 0;
 }
+
+.rating-about-me {
+  margin: 0 !important;
+  /* background-color: red; */
+  padding: 0 !important;
+  /* height: fit-content; */
+  line-height: 0;
+}

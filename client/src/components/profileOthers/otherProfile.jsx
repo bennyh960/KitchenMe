@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import CoverOther from "./coverOthers/coverOther";
 import usersApi from "../../api/usersApi";
 import "./profile.css";
@@ -8,7 +8,14 @@ import Friendposts from "./otherPosts/friendPosts";
 export default function OtherProfilePage({ currentUserId, userFriendsList, token }) {
   const [friend, setFriend] = useState({});
   let { id } = useParams();
+  const navigate = useNavigate();
   useEffect(() => {
+    // prevent from user see his page as other page
+    if (id === currentUserId) {
+      navigate("/profile/me");
+      return;
+    }
+
     const getFriendData = async () => {
       // const { data } = await usersApi.getOtherProfile.get("/62cb2b404e986b25cc73dc74");
       const { data } = await usersApi.getOtherProfile.get(id);

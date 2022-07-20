@@ -41,7 +41,7 @@ export default function Friendposts({
       setLoading(true);
       try {
         const {
-          data: { recipes, owner },
+          data: { recipes },
         } = await recipiesAPI.getFriendsPostsRouter(`/${friendId}`);
         setPosts(recipes);
         // setOwner(owner);
@@ -111,6 +111,8 @@ export default function Friendposts({
           postId={post._id}
           token={token}
           owner={post.owner}
+          rank={post.rank}
+          voterListlengh={post.voted.length}
         />
       );
       // return <h1>xxxx</h1>;

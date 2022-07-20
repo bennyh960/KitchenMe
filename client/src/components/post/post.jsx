@@ -30,6 +30,8 @@ export default function Post({
   owner,
   // token,
   postId,
+  rank,
+  voterListlengh,
 }) {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -37,7 +39,8 @@ export default function Post({
   const [commentArrayLength, setCommentsArrayLength] = useState("");
   const [showStars, setShowStars] = useState(false);
   const {
-    user: { _id: userId, rank },
+    // user: { _id: userId, rank },
+    user: { _id: userId },
   } = useContext(UserContext);
 
   const tableView = () => {
@@ -79,6 +82,7 @@ export default function Post({
 
   useEffect(() => {
     getComments(1);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -124,10 +128,17 @@ export default function Post({
         </div>
       </div>
       <div className="like-comment-counter">
-        <div>
-          <i className="thumbs up inline icon "></i>12
-          {/* <FontAwesomeIcon icon={faStar} color="yellow" size="lg" /> */}
-          {/* <b>4.5</b> */}
+        <div className="post-rate">
+          <Rating
+            initialValue={parseInt(rank) / 20}
+            readonly={true}
+            fillColor={"yellow"}
+            allowHalfIcon={true}
+            size={"2vw"}
+          />
+          <div className="show-votersLength">
+            {voterListlengh !== 0 && voterListlengh === 1 ? "Based on 1 user" : `Based on ${voterListlengh} users`}
+          </div>
         </div>
         <div className="title-catagroy-container">
           <h1>{title}</h1>
@@ -191,22 +202,48 @@ export default function Post({
           </ul>
         </div>
         {showComments && <Comments avatar={avatar} postId={postId} getComments={getComments} />}
-        {showStars && <StarsComponenent />}
+        {showStars && <StarsComponenent updateGetMethode={showStars} postId={postId} userId={userId} />}
       </div>
     </div>
   );
 }
 
-function StarsComponenent(params) {
+// * consider to add this componenet to different file
+function StarsComponenent({ updateGetMethode, postId, userId }) {
   const [rating, setRating] = useState(0);
-  const handleRating = (rate) => {
+  const [initialRate, setInitialRate] = useState(0);
+  const handleRating = async (rate) => {
     setRating(rate);
-    // other logic
+
+    await recipiesAPI.recipesVoteRouter.post("", {
+      postId,
+      userId,
+      rank: parseInt(rate),
+    });
+    setInitialRate(rate);
+    // post new rate
+    //update ui setInitialRate
     console.log(rate);
   };
+
+  useEffect(() => {
+    const getUserRate = async () => {
+      console.log("get rate per recipe");
+      const { data } = await recipiesAPI.recipesVoteRouter.get("", { params: { postId, userId } });
+      console.log(data);
+      setInitialRate(data);
+    };
+    getUserRate();
+  }, [updateGetMethode, postId, userId]);
   return (
     <div className="stars-container">
-      <Rating onClick={handleRating} ratingValue={rating} allowHalfIcon={true} /* Available Props */ />
+      <Rating
+        onClick={handleRating}
+        ratingValue={rating}
+        allowHalfIcon={true}
+        // showTooltip={true}
+        initialValue={initialRate}
+      />
     </div>
   );
 }

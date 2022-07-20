@@ -22,6 +22,7 @@ export default function MyFriends({ friendsList }) {
 
 function FriendCard({ id, name, rank, isAvatar }) {
   const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
+  console.log(isAvatar);
   function DrawRanks() {
     const arr = [];
     for (let i = 0; i < rank; i++) {
@@ -31,25 +32,26 @@ function FriendCard({ id, name, rank, isAvatar }) {
       return <i className="star icon yellow"></i>;
     });
   }
+
   return (
     <div className="friend-card white-box">
       <div className="image-card ">
-        {isAvatar ? (
-          // <img src={`http://localhost:5000/users/${id}/avatar`} alt="" className={"friend-card-image"} />
-          <img src={`${url}/${id}/avatar`} alt="" className={"friend-card-image"} />
-        ) : (
-          <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} />
-        )}
+        {/* {isAvatar ? ( */}
+        <img src={`${url}/${id}/avatar`} alt="" className={"friend-card-image"} />
+        {/* ) : ( */}
+        {/* <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} /> */}
+        {/* )} */}
       </div>
       <div className="friend-card-content">
         {/* eslint-disable-next-line */}
         <a className="header">{name}</a>
         <div className="extra content">
           <i className="user icon"></i>
-          22 Friends
+          32 Friends
         </div>
         <div className="rank-friend">{DrawRanks(rank)}</div>
       </div>
     </div>
   );
 }
+// ! hard coded - need to think how to make it updated do to friends data write in the moment thier added
