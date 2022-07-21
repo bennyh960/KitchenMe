@@ -60,10 +60,10 @@ export default function Post({
   //   setCurrentSlide(3);
   // };
 
-  const onSwipeMove = () => {
-    console.log("move");
-    // console.log(postId);
-  };
+  // const onSwipeMove = () => {
+  // console.log("move");
+  // console.log(postId);
+  // };
 
   const getComments = async (commentsToShow) => {
     try {
@@ -153,7 +153,7 @@ export default function Post({
         <Carousel
           infiniteLoop={true}
           emulateTouch={true}
-          onSwipeMove={onSwipeMove}
+          // onSwipeMove={onSwipeMove}
           showThumbs={false}
           showArrows={false}
           selectedItem={currentSlide}
@@ -174,7 +174,7 @@ export default function Post({
             <li>
               <button
                 onClick={() => {
-                  console.log(owner === userId);
+                  // console.log(owner === userId);
                   if (owner !== userId) {
                     setShowComments(false);
                     setShowStars((prev) => !prev);
@@ -223,14 +223,14 @@ function StarsComponenent({ updateGetMethode, postId, userId }) {
     setInitialRate(rate);
     // post new rate
     //update ui setInitialRate
-    console.log(rate);
+    // console.log(rate);
   };
 
   useEffect(() => {
     const getUserRate = async () => {
-      console.log("get rate per recipe");
+      // console.log("get rate per recipe");
       const { data } = await recipiesAPI.recipesVoteRouter.get("", { params: { postId, userId } });
-      console.log(data);
+      // console.log(data);
       setInitialRate(data);
     };
     getUserRate();

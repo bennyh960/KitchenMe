@@ -4,7 +4,8 @@ import recipiesAPI from "../../api/recipes.users.Api";
 import Loader2 from "../loaders/loader2/loader2";
 import Post from "../post/post";
 import Addrecipe from "../profilePage/add-recipe/addrecipe";
-import getTime from "../profilePage/my-posts/time";
+// import getTime from "../profilePage/my-posts/time";
+import getTime from "../../utils/timeEditor";
 // import { AuthContext } from "../../App";
 
 import "./homepage.css";

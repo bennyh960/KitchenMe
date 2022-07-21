@@ -8,6 +8,7 @@ import Friendposts from "./otherPosts/friendPosts";
 export default function OtherProfilePage({ currentUserId, userFriendsList, token }) {
   const [friend, setFriend] = useState({});
   let { id } = useParams();
+  const [friendRank, setFriendRank] = useState(1);
   const navigate = useNavigate();
   useEffect(() => {
     // prevent from user see his page as other page
@@ -25,6 +26,17 @@ export default function OtherProfilePage({ currentUserId, userFriendsList, token
     };
     // console.log(id);
     getFriendData();
+  }, [id, currentUserId, navigate]);
+
+  useEffect(() => {
+    const getFriendRank = async () => {
+      // /users/friend -client
+      // server /users/friend/:id/rank
+      const { data } = await usersApi.friendshipRouter.get(`/${id}/rank`);
+      setFriendRank(data);
+      // console.log(data, friendRank);
+    };
+    getFriendRank();
   }, [id]);
 
   return (
@@ -38,7 +50,7 @@ export default function OtherProfilePage({ currentUserId, userFriendsList, token
         name={friend.name}
         createdAt={friend.createdAt}
         email={friend.email}
-        myRank={friend.myRank}
+        myRank={friendRank}
         topRated={friend.topRated}
         token={token}
       />

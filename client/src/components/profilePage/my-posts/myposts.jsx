@@ -7,7 +7,8 @@ import Aboutme from "../about-me/aboutme";
 import React, { useEffect, useState } from "react";
 import recipiesAPI from "../../../api/recipes.users.Api";
 import Loader2 from "../../loaders/loader2/loader2";
-import getTime from "./time";
+// import getTime from "./time";
+import getTime from "../../../utils/timeEditor";
 
 export default function Myposts({ avatar, name, email, topRated, myRank, createdAt, friendsList, token }) {
   const [isLoading, setLoading] = useState(false);

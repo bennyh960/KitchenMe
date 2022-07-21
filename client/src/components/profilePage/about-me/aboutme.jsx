@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import "./aboutme.css";
 import { Rating } from "react-simple-star-rating";
+import setStarsColor from "../../../utils/starcolors";
 
 export default function Aboutme({ name, topRated, myRank, email, hideEdit }) {
   return (
@@ -31,6 +32,20 @@ export default function Aboutme({ name, topRated, myRank, email, hideEdit }) {
             allowHalfIcon={true}
             size={"20px"}
             className="rating-about-me"
+            showTooltip={true}
+            tooltipStyle={{ backgroundColor: setStarsColor(myRank) }}
+            tooltipArray={[
+              "Amateur",
+              "Junior",
+              "Junior",
+              "Kitchen Porter",
+              "Junior Chef",
+              "Station Chef",
+              "Deputy Chef",
+              "Head Chef",
+              "Executive Chef",
+              "MeetBach Master Chef",
+            ]}
           />
         </span>
         <span>
@@ -41,29 +56,29 @@ export default function Aboutme({ name, topRated, myRank, email, hideEdit }) {
   );
 }
 
-function setStarsColor(rank) {
-  switch (rank) {
-    case 1:
-      return "black";
-    case 1.5:
-      return "gray";
-    case 2:
-      return "brown";
-    case 2.5:
-      return "orange";
-    case 3:
-      return "green";
-    case 3.5:
-      return "blue";
-    case 4:
-      return "yellow";
-    case 4.5:
-      return "gold";
-    case 5:
-      return "pink";
+// function setStarsColor(rank) {
+//   switch (rank) {
+//     case 1:
+//       return "black";
+//     case 1.5:
+//       return "gray";
+//     case 2:
+//       return "brown";
+//     case 2.5:
+//       return "orange";
+//     case 3:
+//       return "green";
+//     case 3.5:
+//       return "blue";
+//     case 4:
+//       return "yellow";
+//     case 4.5:
+//       return "gold";
+//     case 5:
+//       return "pink";
 
-    default:
-      console.log("white");
-      return "white";
-  }
-}
+//     default:
+//       console.log("white");
+//       return "white";
+//   }
+// }

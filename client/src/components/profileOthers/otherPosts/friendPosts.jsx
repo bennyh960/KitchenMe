@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import recipiesAPI from "../../../api/recipes.users.Api";
 import usersApi from "../../../api/usersApi";
 import Loader2 from "../../loaders/loader2/loader2";
-import getTime from "./time";
+import getTime from "../../../utils/timeEditor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faEraser, faUserLargeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";

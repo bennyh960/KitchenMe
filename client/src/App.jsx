@@ -13,7 +13,27 @@ import MyRecipies from "./components/profilePage/my-recepies/MyRecipies";
 import MyFriends from "./components/profilePage/my-friends/Myfriends";
 import Chat from "./components/chat/chat";
 
-// ! img profile src is from localhost hardcoded - when build need to fix
+// * TODO LIST IN PRIORTY ORDER
+// TODO : improve ui of post - image should be resize according to text attached - no scroll in this  - 1 hr
+// TODO : Improve add recipe UX/UI  // 4-5 hr
+// TODO : Imporove UX/UI of the my_friends and my_recipes  -3 hr
+// TODO : Improve Chat UX/UI - also make on friends button to start individual chat and search in chat  - around 1 day
+// TODO : Add advertisments with other api  - 3hr
+// TODO : Improve public page UI (add filter by category and pagination)
+
+// ===================== Post Project in linkdin ==============================
+
+// TODO : Notify user for comments in his posts - 3hr
+// TODO : Remove Freind - 2 hr
+// TODO : Edit comment in post - 3hr
+// TODO : make post private - 1hr
+// TODO : (after advertisment step only)Search by recipe in toolbar- make it functional - 2 hr
+// TODO : Images (avatar and recipe)  - should be store in S3 and not on mongoDB - around 1day
+// TODO : Make user able delete/edit posts - in both , post form and album form - around 2 days
+
+// TODO : Add translation for more languge
+// TODO : Add text to speech in recipe reading - 2 days
+// TODO : Add speech to text in write recipe - 2 days
 
 export const UserContext = createContext();
 
@@ -47,7 +67,7 @@ function App() {
     if (token && user) {
       setAuthentication({ token, user });
     } else if (!isUserLogedIn) {
-      console.log(isUserLogedIn);
+      // console.log(isUserLogedIn);
       setAuthentication({ user: undefined, token: null });
     }
     // console.log(user);
@@ -152,12 +172,3 @@ function App() {
 }
 
 export default App;
-
-// TODO : fix image bugs - understand how to use avatar image in prod mode
-// TODO : fix logout bug
-// TODO : make recipes album functional (including edit and delete )
-
-// TODO : set notifications apeare when (friend request , friend upload new post)
-// TODO : make posts can be - comments, like and ranks
-
-// TODO : Adds

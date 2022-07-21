@@ -66,6 +66,24 @@ router.get("/recipes/user", auth, async (req, res) => {
     // await req.user.populate("recipes").execPopulate(); //its seems its no longer a function
 
     await req.user.populate({ path: "recipes", options: { sort: { createdAt: -1 } } });
+
+    // const userRecipesRank = req.user.recipes.map((r) => r.rank);
+    // console.log(userRecipesRank);
+
+    const userRankFromHisRecipes =
+      req.user.recipes.reduce((acc, res) => acc + res.rank, 0) / (req.user.recipes.length * 20);
+
+    let FinalRank = Math.round(userRankFromHisRecipes * 2) / 2;
+
+    if (req.user.friends.length < 10 && FinalRank > 3) {
+      FinalRank = 3;
+      console.log("==========", FinalRank);
+    }
+
+    req.user.rank = FinalRank;
+    console.log("xxxx", FinalRank);
+    await req.user.save();
+
     res.send({ recipes: req.user.recipes, owner: req.user.name });
   } catch (e) {
     res.status(500).send(e.message);
@@ -82,6 +100,15 @@ router.get("/recipes/friends/:id", async (req, res) => {
     // const friend = await User.findOne({ _id: req.params.id });
 
     await friend.populate({ path: "recipes", options: { sort: { createdAt: -1 } } });
+
+    // Update rank of friends so user can get updated
+    // const userRankFromHisRecipes =
+    // friend.recipes.reduce((acc, res) => acc + res.rank, 0) / (req.user.recipes.length * 20);
+    // const FinalRank = Math.round(userRankFromHisRecipes * 2) / 2;
+    // friend.rank = FinalRank;
+    // console.log(FinalRank);
+    // await friend.save();
+
     res.send({ recipes: friend.recipes, owner: friend.name });
   } catch (e) {
     res.status(500).send(e.message);

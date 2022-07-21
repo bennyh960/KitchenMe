@@ -81,7 +81,7 @@ router.get("/users/profile/:userId", async (req, res) => {
 // * Get User pending and friendlist by ID
 router.get("/user/lists/:userId", async (req, res) => {
   try {
-    console.log(req.params);
+    // console.log(req.params);
     const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status(404).send("Error:User not found");
@@ -239,9 +239,16 @@ router.patch("/users/friend/request/cancle", async (req, res) => {
   }
 });
 
-// * get friend request
-// router.get("/users/friend/request",auth,async(req,res)=>{
-
-// })
+// * get friends rank
+router.get("/users/friend/:id/rank", async (req, res) => {
+  try {
+    const friend = await User.findById(req.params.id);
+    if (!friend) throw new Error();
+    // console.log(req.params.id, friend.rank);
+    res.send(friend.rank.toString());
+  } catch (error) {
+    res.status(404).send("Friend Not found on user router- maybe deleted");
+  }
+});
 
 module.exports = router;

@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Rating } from "react-simple-star-rating";
+import usersApi from "../../../api/usersApi";
+import setStarsColor from "../../../utils/starcolors";
 import "./myfriends.css";
 export default function MyFriends({ friendsList }) {
   const drawFriends = () => {
     return friendsList.map((friend) => {
       return (
-        <Link to={`/users/profile/${friend.friendId}`} key={friend.friendId}>
-          <FriendCard id={friend.friendId} name={friend.name} rank={friend.rank} isAvatar={friend.isAvatar} />
-        </Link>
+        <React.Fragment key={friend.friendId}>
+          <Link to={`/users/profile/${friend.friendId}`}>
+            <FriendCard id={friend.friendId} name={friend.name} rank={friend.rank} isAvatar={friend.isAvatar} />
+          </Link>
+        </React.Fragment>
       );
     });
   };
@@ -21,6 +26,7 @@ export default function MyFriends({ friendsList }) {
 }
 
 function FriendCard({ id, name, rank, isAvatar }) {
+  const [friendRank, setFriendRank] = useState(1);
   const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
   console.log(isAvatar);
   function DrawRanks() {
@@ -32,6 +38,15 @@ function FriendCard({ id, name, rank, isAvatar }) {
       return <i className="star icon yellow"></i>;
     });
   }
+
+  useEffect(() => {
+    const getFriendRank = async () => {
+      const { data } = await usersApi.friendshipRouter.get(`/${id}/rank`);
+      setFriendRank(data);
+    };
+    getFriendRank();
+    // friendRank
+  }, [id]);
 
   return (
     <div className="friend-card white-box">
@@ -49,7 +64,18 @@ function FriendCard({ id, name, rank, isAvatar }) {
           <i className="user icon"></i>
           32 Friends
         </div>
-        <div className="rank-friend">{DrawRanks(rank)}</div>
+        {/* <div className="rank-friend">{DrawRanks(rank)}</div> */}
+        <div className="rank-friend">
+          <Rating
+            initialValue={friendRank}
+            readonly={true}
+            fillColor={setStarsColor(friendRank)}
+            allowHalfIcon={true}
+            size={"10px"}
+            className="rating-about-me"
+            tooltipStyle={{ backgroundColor: setStarsColor(friendRank) }}
+          />
+        </div>
       </div>
     </div>
   );

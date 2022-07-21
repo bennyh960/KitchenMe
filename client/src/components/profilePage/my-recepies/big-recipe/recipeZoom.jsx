@@ -10,7 +10,7 @@ export default function RecipeZoom({ data, popUpClose }) {
     ingredients: data.ingredients || [],
   };
 
-  console.log(data);
+  // console.log(data);
   const drawIngrediernts = () => {
     return [...formData.ingredients].map((item, i, arr) => {
       return (
