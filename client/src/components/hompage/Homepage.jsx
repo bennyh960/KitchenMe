@@ -80,6 +80,7 @@ export default function Homepage({ token }) {
           topRated={"topRated"}
           ingredients={post.ingredients}
           instructions={post.instructions}
+          description={post.description}
           image={post.image}
           postId={post._id}
           token={token}

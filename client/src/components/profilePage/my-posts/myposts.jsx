@@ -43,6 +43,7 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
   const drawPosts = () => {
     // console.log(posts);
     return posts.map((post) => {
+      console.log(post.description);
       return (
         <Post
           key={post._id}

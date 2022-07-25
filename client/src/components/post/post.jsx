@@ -61,9 +61,24 @@ export default function Post({
   // };
 
   // const onSwipeMove = () => {
-  // console.log("move");
-  // console.log(postId);
+  //   console.log("move");
+
   // };
+  const onCarousleChange = (item) => {
+    switch (item) {
+      case 1:
+        setActiveView(["", "active-view", "", ""]);
+        break;
+      case 2:
+        setActiveView(["", "", "active-view", ""]);
+        break;
+
+      default:
+        setActiveView(["active-view", "", "", ""]);
+        break;
+    }
+    // console.log(postId);
+  };
 
   const getComments = async (commentsToShow) => {
     try {
@@ -134,10 +149,11 @@ export default function Post({
             readonly={true}
             fillColor={"yellow"}
             allowHalfIcon={true}
-            size={"2vw"}
+            className="Rating"
+            size="20"
           />
           <div className="show-votersLength">
-            {voterListlengh !== 0 && voterListlengh === 1 ? "Based on 1 user" : `Based on ${voterListlengh} users`}
+            {voterListlengh !== 0 && voterListlengh === 1 ? "Based on 1 user" : `Based on ${voterListlengh} reviews`}
           </div>
         </div>
         <div className="title-catagroy-container">
@@ -152,10 +168,12 @@ export default function Post({
       <div className="post-content">
         <Carousel
           infiniteLoop={true}
-          emulateTouch={true}
+          // emulateTouch={true}
           // onSwipeMove={onSwipeMove}
           showThumbs={false}
-          showArrows={false}
+          // onClickItem={onClickItem}
+          onChange={onCarousleChange}
+          // showArrows={false}
           selectedItem={currentSlide}
           showIndicators={false}
           showStatus={false}

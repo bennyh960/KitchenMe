@@ -1,27 +1,27 @@
 .posts-container {
-  width: 60vw;
+  /* width: 60vw; */
   min-width: 35rem;
-  margin: auto;
+  margin: 0;
 }
 
 /* media query */
-@media screen and (max-width: 650) {
+@media screen and (max-width: 650px) {
   .posts-container {
-    width: 70vw;
+    width: 90vw;
     min-width: 35rem;
     margin: auto;
   }
 }
-@media screen and (max-width: 550) {
-  .posts-container {
-    width: 80vw;
-    min-width: 35rem;
-    margin: auto;
-  }
-}
-@media screen and (max-width: 430) {
+@media screen and (max-width: 550px) {
   .posts-container {
     width: 95vw;
+    min-width: 35rem;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 430px) {
+  .posts-container {
+    width: 100vw;
     min-width: 35rem;
     margin: auto;
   }

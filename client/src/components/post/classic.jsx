@@ -3,6 +3,7 @@ import "./classic.css";
 import { Buffer } from "buffer";
 
 export default function ClassicPost({ image, description }) {
+  // console.log(description);
   return (
     <div className="classic-container">
       <div>
