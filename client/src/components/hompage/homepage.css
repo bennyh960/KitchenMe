@@ -1,7 +1,9 @@
 .posts-container {
   /* width: 60vw; */
-  min-width: 35rem;
-  margin: 0;
+  /* min-width: 35rem; */
+  /* margin: auto; */
+  width: 75%;
+  margin: 0 auto;
 }
 
 /* media query */

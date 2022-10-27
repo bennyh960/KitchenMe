@@ -34,7 +34,7 @@ export default function Topbar({ avatar, isUser, updatePendingList, updateFriend
   const handleSearchInput = ({ target: { value } }) => {
     setSearchInput((p) => value);
     // console.log(searchInput);
-    console.log(userContext);
+    // console.log(userContext);
   };
 
   useEffect(() => {

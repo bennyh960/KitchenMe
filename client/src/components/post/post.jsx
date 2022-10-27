@@ -150,20 +150,17 @@ export default function Post({
             fillColor={"yellow"}
             allowHalfIcon={true}
             className="Rating"
-            size="20"
+            size="30"
+            // style={{ margin: "10px auto" }}
           />
           <div className="show-votersLength">
             {voterListlengh !== 0 && voterListlengh === 1 ? "Based on 1 user" : `Based on ${voterListlengh} reviews`}
           </div>
         </div>
-        <div className="title-catagroy-container">
+        {/* <div className="title-catagroy-container">
           <h1>{title.length > 30 ? title.slice(0, 30) + "..." : title.slice(0, 30)}</h1>
           <span>{category}</span>
-        </div>
-        <div>
-          <i className="comments inline icon large"></i>
-          {commentArrayLength}
-        </div>
+        </div> */}
       </div>
       <div className="post-content">
         <Carousel
@@ -179,7 +176,7 @@ export default function Post({
           showStatus={false}
           // dynamicHeight={true}
         >
-          <ClassicPost image={image} description={description} />
+          <ClassicPost image={image} description={description} title={title} category={category} />
 
           <IngredientTable ingredients={ingredients} />
           <Instructions instructions={instructions} />
@@ -209,7 +206,8 @@ export default function Post({
                   setShowStars(false);
                 }}
               >
-                <i className="comments outline icon large"></i>Comments
+                <i className="comments outline icon large"></i>
+                {commentArrayLength} Comments
               </button>
             </li>
             <li>

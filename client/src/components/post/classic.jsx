@@ -2,11 +2,11 @@ import React from "react";
 import "./classic.css";
 import { Buffer } from "buffer";
 
-export default function ClassicPost({ image, description }) {
+export default function ClassicPost({ image, description, title, category }) {
   // console.log(description);
   return (
     <div className="classic-container">
-      <div>
+      <div className="post-image-container">
         {image && image.data && (
           <img
             className="post-image"
@@ -16,7 +16,12 @@ export default function ClassicPost({ image, description }) {
           />
         )}
       </div>
-      <div style={{ textAlign: "justify", width: "90%", margin: "auto" }}>{description}</div>
+      <div className="post-description">
+        <div className="decription-title">
+          <h1>{title}</h1> <span>{category}</span>
+        </div>
+        <div className="description-content">{description}</div>
+      </div>
       {/* <br /> */}
     </div>
   );

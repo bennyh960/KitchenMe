@@ -9,6 +9,7 @@ import getTime from "../../utils/timeEditor";
 // import { AuthContext } from "../../App";
 
 import "./homepage.css";
+import e from "cors";
 
 export default function Homepage({ token }) {
   // const authHeader = useContext(AuthContext);
