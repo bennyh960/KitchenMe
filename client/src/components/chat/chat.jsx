@@ -175,8 +175,14 @@ export default function Chat({ friendsList, userId }) {
           <div className="chat-body">{drawAllMessagesInBody()}</div>
 
           <form onSubmit={handleSendMessage} className="chat-input">
-            <div className="imogi-chat">x</div>
-            <input type="text" value={message} onChange={handleMessageInput} onSubmit={handleSendMessage} />
+            {/* <div className="imogi-chat">x</div> */}
+            <input
+              type="text"
+              value={message}
+              onChange={handleMessageInput}
+              onSubmit={handleSendMessage}
+              placeholder="Type a message"
+            />
           </form>
         </div>
       </div>

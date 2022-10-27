@@ -14,7 +14,7 @@ export default function IngredientTable({ ingredients }) {
   };
   return (
     <div className="table-container">
-      <table className="ui celled table ">
+      <table className="ui celled table table-ingredient">
         <thead>
           <tr className="table-title">
             <th>Ingredient</th>

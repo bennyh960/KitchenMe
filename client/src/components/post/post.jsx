@@ -11,6 +11,7 @@ import Comments from "./comments/comments";
 import recipiesAPI from "../../api/recipes.users.Api";
 import { Rating } from "react-simple-star-rating";
 import { UserContext } from "../../App";
+import { Buffer } from "buffer";
 // import Video from "./video";
 
 // todo : add rating if we got time
@@ -42,6 +43,8 @@ export default function Post({
     // user: { _id: userId, rank },
     user: { _id: userId },
   } = useContext(UserContext);
+
+  const { innerWidth: width } = window;
 
   const tableView = () => {
     setActiveView(["", "active-view", "", ""]);
@@ -157,12 +160,18 @@ export default function Post({
             {voterListlengh !== 0 && voterListlengh === 1 ? "Based on 1 user" : `Based on ${voterListlengh} reviews`}
           </div>
         </div>
-        {/* <div className="title-catagroy-container">
-          <h1>{title.length > 30 ? title.slice(0, 30) + "..." : title.slice(0, 30)}</h1>
-          <span>{category}</span>
-        </div> */}
       </div>
       <div className="post-content">
+        <div className="post-image-container">
+          {width > 600 && image && image.data && (
+            <img
+              className="post-image"
+              src={`data:image/png;base64, ${Buffer.from(image.data).toString("base64")}`}
+              alt=""
+            />
+          )}
+        </div>
+
         <Carousel
           infiniteLoop={true}
           // emulateTouch={true}
@@ -176,7 +185,7 @@ export default function Post({
           showStatus={false}
           // dynamicHeight={true}
         >
-          <ClassicPost image={image} description={description} title={title} category={category} />
+          <ClassicPost image={image} description={description} title={title} category={category} screenWidth={width} />
 
           <IngredientTable ingredients={ingredients} />
           <Instructions instructions={instructions} />

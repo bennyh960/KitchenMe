@@ -52,7 +52,7 @@ export default function Addrecipe({ updateUi, token }) {
     });
   };
   const imgUploadHandler = (image) => {
-    console.log(image);
+    // console.log(image);
     setFormData((p) => {
       if (p) {
         return { ...p, image };

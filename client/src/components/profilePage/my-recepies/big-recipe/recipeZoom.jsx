@@ -1,6 +1,7 @@
 import React from "react";
 import { Buffer } from "buffer";
 import "./recipezoom.css";
+import { useState } from "react";
 
 export default function RecipeZoom({ data, popUpClose }) {
   const formData = {
@@ -9,7 +10,9 @@ export default function RecipeZoom({ data, popUpClose }) {
     instructions: data.instructions || [],
     ingredients: data.ingredients || [],
   };
-
+  const { innerWidth: width } = window;
+  const [showIngredient, setShowingredients] = useState(width < 600 ? false : true);
+  const [showInstructions, setShowInstructions] = useState(width < 600 ? false : true);
   // console.log(data);
   const drawIngrediernts = () => {
     return [...formData.ingredients].map((item, i, arr) => {
@@ -32,6 +35,13 @@ export default function RecipeZoom({ data, popUpClose }) {
     });
   };
 
+  const handleIngredient = () => {
+    width < 600 && setShowingredients((p) => !p);
+  };
+  const handleInstructions = () => {
+    width < 600 && setShowInstructions((p) => !p);
+  };
+
   return (
     <div className="title-confirm-recipe white-box">
       <h1>
@@ -41,22 +51,22 @@ export default function RecipeZoom({ data, popUpClose }) {
         </span>
       </h1>
       <div className="confirm-container">
-        <div className="ingredient-confirm">
-          <b> Ingredients: </b>
+        <div className="ingredient-confirm-big" onClick={handleIngredient}>
+          <h1> Ingredients: </h1>
           <hr />
-          {drawIngrediernts()}
+          {showIngredient && drawIngrediernts()}
         </div>
-        <div className="instructions-confirm">
-          <h2 style={{ textAlign: "center", margin: "0" }}>Methode:</h2>
+        <div className="instructions-confirm-big" onClick={handleInstructions}>
+          <h1 style={{ textAlign: "center", margin: "0" }}>Methode:</h1>
 
-          {drawInstructions()}
+          {showInstructions && drawInstructions()}
         </div>
 
         {data.image ? (
           <img
             src={`data:image/png;base64, ${Buffer.from(data.image).toString("base64")}`}
             alt=""
-            className="recipe-image"
+            className="recipe-image-zoom"
           />
         ) : (
           <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="recipe-image" />

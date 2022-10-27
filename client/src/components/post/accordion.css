@@ -47,3 +47,17 @@
     color: black;
   }
 }
+
+@media screen and (max-width: 730px) {
+  .accordion-container {
+    /* max-width: 95%; */
+    width: 85vw;
+    /* width: 90%; */
+    /* margin: 0 1% 0 0; */
+    /* background-color: red; */
+  }
+  .accordion-item {
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+  }
+}

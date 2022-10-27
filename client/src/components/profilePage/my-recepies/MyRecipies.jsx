@@ -12,16 +12,15 @@ export default function MyRecipies({ token }) {
   const [recipes, setRecipes] = useState([]);
   const [data, setData] = useState({});
   const [popUpZoom, setPpUpZoom] = useState(false);
+  const [searchRecipeRes, setRecipeResFromSearch] = useState("");
   useEffect(() => {
     const getUserPosts = async () => {
       setLoading(true);
       // const { data } = await recipiesAPI.getPublicRecipes(""); //! dont delete this is useful for public posts
       const {
-        // data: { recipes, owner },
         data: { recipes },
       } = await recipiesAPI.getUserRecipes("", {
         headers: {
-          // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
           Authorization: `Bearer ${token}`,
         },
       });
@@ -33,37 +32,41 @@ export default function MyRecipies({ token }) {
   }, [setRecipes, token]);
 
   const DrawRecipes = () => {
-    return recipes.map((recipe) => {
-      return (
-        <div
-          className={`${recipe.category}`}
-          key={recipe._id}
-          onClick={() => {
-            setData(recipe);
-            setPpUpZoom(true);
-          }}
-        >
-          <div className={`line recipe-title-one`}>
-            <span>{recipe.name}</span>
-            <span style={{ fontSize: "10px" }}>
-              <i className="star icon yellow"></i>
-              <i className="star icon yellow"></i>
-              <i className="star icon yellow"></i>
-            </span>
-          </div>
+    return recipes
+      .filter((recipe) => recipe.name.includes(searchRecipeRes) || recipe.category === searchRecipeRes)
+      .map((recipe) => {
+        return (
+          <div
+            // className={`${recipe.category}`}
+            key={recipe._id}
+            onClick={() => {
+              setData(recipe);
+              setPpUpZoom(true);
+            }}
+          >
+            <div className={`line recipe-title-one ${recipe.category}`}>
+              <span>{recipe.name.slice(0, 25)}</span>
 
-          {recipe.image ? (
-            <img
-              src={`data:image/png;base64, ${Buffer.from(recipe.image).toString("base64")}`}
-              alt=""
-              className="recipe-image"
-            />
-          ) : (
-            <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="recipe-image" />
-          )}
-        </div>
-      );
-    });
+              <span style={{ fontSize: "10px" }}>
+                <i className="star icon yellow"></i>
+                <i className="star icon yellow"></i>
+                <i className="star icon yellow"></i>
+              </span>
+            </div>
+
+            {recipe.image ? (
+              <img
+                src={`data:image/png;base64, ${Buffer.from(recipe.image).toString("base64")}`}
+                alt=""
+                className="recipe-image"
+                height={200}
+              />
+            ) : (
+              <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="recipe-image" />
+            )}
+          </div>
+        );
+      });
   };
 
   const popUpClose = (answere) => {
@@ -71,44 +74,68 @@ export default function MyRecipies({ token }) {
     console.log(answere);
   };
 
-  return (
-    <div className="my-recipes-container ">
-      <div className="loading-absolute-container">{isLoading && <Loader2 />}</div>
-      <h1 style={{ margin: "2rem" }}>
-        <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="my-recipe-logo-image" />
-      </h1>
-      <div className="ui input my-recipes-searchbar">
-        <input type="text" placeholder="Search recipe name" />
-      </div>
-      <div className="categories-container ">
-        <h2 className="line">Filter By Recipe Category</h2>
-        <div>Breakfast</div>
-        <div>Lunch</div>
-        <div>Dinner</div>
-        <div>Appetizer</div>
-        <div>Salad</div>
-        <div>Side-dish</div>
-        <div>Baked-goods</div>
-        <div>Vegetarian</div>
-        <div>Holiday</div>
-        <div>Junk-Food</div>
-        <div>Fast-Food</div>
-      </div>
-      <div className="recipes-container">
-        {/* <div>
-          <div className="line recipe-title-one">
-            <span>Name</span>
-            <span>Stars</span>
-          </div>
-          <img src={process.env.PUBLIC_URL + "/images/example.jfif"} alt="" className="recipe-image" />
-        </div> */}
-        {DrawRecipes()}
-      </div>
-      {popUpZoom && (
-        <div className="zoom-container">
-          <RecipeZoom data={data} popUpClose={popUpClose} />
+  const handleChange = (e) => {
+    setRecipeResFromSearch(e.target.value);
+  };
+
+  const drawCategories = () => {
+    const categories = [
+      "Breakfast",
+      "Lunch",
+      "Dinner",
+      "Appetizer",
+      "Salad",
+      "Side-dish",
+      "Baked-goods",
+      "Vegetarian",
+      "Holiday",
+      "Junk-Food",
+      "Fast-Food",
+      "All",
+    ];
+    return categories.map((cat) => {
+      return (
+        <div
+          key={cat}
+          className={cat}
+          onClick={() =>
+            setRecipeResFromSearch(() => {
+              if (cat === "All") return "";
+              else return cat;
+            })
+          }
+        >
+          {cat}
         </div>
+      );
+    });
+  };
+  return (
+    <>
+      {!popUpZoom ? (
+        <div className="my-recipes-container ">
+          {/* <div className="loading-absolute-container">{isLoading && <Loader2 />}</div> */}
+          <h1 style={{ margin: "2rem" }}>
+            <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="my-recipe-logo-image" />
+          </h1>
+
+          <div className="ui input my-recipes-searchbar">
+            <input type="text" placeholder="Search recipe name" onChange={handleChange} value={searchRecipeRes} />
+          </div>
+
+          <div className="categories-container">
+            <h2 className="line">Filter By Recipe Category</h2>
+            {drawCategories()}
+          </div>
+          {!isLoading ? (
+            <div className="recipes-container">{DrawRecipes()}</div>
+          ) : (
+            <div>{isLoading && <Loader2 />}</div>
+          )}
+        </div>
+      ) : (
+        !isLoading && <RecipeZoom data={data} popUpClose={popUpClose} />
       )}
-    </div>
+    </>
   );
 }

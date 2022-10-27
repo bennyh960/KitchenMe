@@ -17,7 +17,9 @@
 }
 
 .close-btn-chat div {
-  border: 1px solid black;
+  box-shadow: var(--box-shadow-primary);
+
+  /* border: 1px solid gray; */
   width: fit-content;
   padding: 0 2px;
   cursor: pointer;
@@ -25,7 +27,9 @@
 
 .chat-container {
   /* background-image: none; */
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
+  /* background-image: url(); */
+
   display: flex;
   width: 99%;
   height: 92%;
@@ -44,6 +48,8 @@
   /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
+  background-color: aliceblue;
+  border-radius: 10px;
   /* position: relative; */
 }
 
@@ -54,10 +60,12 @@
 }
 
 .search-freinds-chat-input input {
-  width: 98%;
+  width: 97%;
   padding: 5px 0;
-  margin: 2px;
+  margin: 2px auto;
+  margin-left: 5px;
   border-radius: 5px;
+  background-color: azure;
 }
 
 .freinds-container-chat {
@@ -73,21 +81,28 @@
 /* ============== friend box */
 
 .freinds-container-chat .friend-box-chat {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  box-shadow: var(--box-shadow-primary);
   width: 97%;
   margin: 5px auto;
-  padding: 1.3rem 0;
+  padding: 1.3rem 3px;
   border-radius: 10px;
   display: flex;
   background-color: white;
+  box-shadow: var(--box-shadow-nav);
+}
+.friend-box-chat:hover {
+  cursor: pointer;
 }
 
 .friend-img-chat {
   /* border: 1px solid black; */
+  /* border-radius: 50%; */
   align-self: center;
 }
 
 .chat-small-avatar {
+  border-radius: 50%;
   max-width: 30px;
   height: 30px;
 }
@@ -142,8 +157,8 @@
 }
 /**============================================== BODY CHAT =====================================*/
 .chat-body-container {
+  /* min-width: 250px; */
   flex: 1;
-  min-width: 250px;
   height: 100%;
   /* overflow-y: scroll; */
   /* border: 1px solid black; */
@@ -156,14 +171,15 @@
   height: 90%;
   overflow-y: scroll;
   /* border: 1px solid black; */
-  background: wheat;
+  /* background: wheat; */
   display: flex;
   flex-direction: column;
   padding: 0 20px;
 }
 
 .chat-input {
-  width: 100%;
+  width: 99%;
+  margin: 0 auto;
   height: 10%;
   min-height: 3rem;
   /* border: 1px solid red; */
@@ -172,6 +188,7 @@
 }
 
 .chat-input input {
+  border-radius: 5px;
   flex: 9;
   padding: 5px;
   /* width: 90%; */
@@ -180,7 +197,7 @@
 
 .imogi-chat {
   flex: 1;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 /* * body chat msg */
@@ -200,4 +217,16 @@
   text-align: right;
   background: pink;
   /* justify-self: flex-end; */
+}
+
+@media screen and (max-width: 730px) {
+  .chat-container-bruto {
+    width: 100vw;
+    /* max-width: 95%; */
+    /* flex-direction: column; */
+  }
+  .chat-body {
+    /* width: 8; */
+    flex: 1;
+  }
 }
