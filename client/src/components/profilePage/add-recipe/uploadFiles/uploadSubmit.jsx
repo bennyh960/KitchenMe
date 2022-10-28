@@ -32,7 +32,7 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
       setFile(pickedFile);
       setIsValid(true);
       // fileIsValid = true;
-      console.log(pickedFile);
+      // console.log(pickedFile);
     } else {
       setIsValid(false);
       // fileIsValid = false;

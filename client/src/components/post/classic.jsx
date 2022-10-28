@@ -1,6 +1,6 @@
 import React from "react";
 import "./classic.css";
-import { Buffer } from "buffer";
+// import { Buffer } from "buffer";
 
 export default function ClassicPost({ image, description, title, category, width }) {
   const { innerWidth: width2 } = window;
@@ -9,10 +9,11 @@ export default function ClassicPost({ image, description, title, category, width
     <div className="classic-container">
       {width2 <= 600 && (
         <div className="post-image-container">
-          {image && image.data && (
+          {image && (
             <img
               className="post-image "
-              src={`data:image/png;base64, ${Buffer.from(image.data).toString("base64")}`}
+              // src={`data:image/png;base64, ${Buffer.from(image.data).toString("base64")}`}
+              src={process.env.NODE_ENV === "production" ? image : `http://localhost:5000/${image}`}
               alt=""
             />
           )}

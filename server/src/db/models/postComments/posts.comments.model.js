@@ -12,6 +12,7 @@ const commentsSchema = new mongoose.Schema(
       {
         owner: {
           type: mongoose.Schema.Types.ObjectId,
+          // type: String,
           required: true,
           ref: "User",
         },

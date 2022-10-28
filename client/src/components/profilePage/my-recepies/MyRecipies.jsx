@@ -3,7 +3,7 @@ import "./myrecipies.css";
 import RecipeZoom from "./big-recipe/recipeZoom";
 import recipiesAPI from "../../../api/recipes.users.Api";
 import Loader2 from "../../loaders/loader2/loader2";
-import { Buffer } from "buffer";
+// import { Buffer } from "buffer";
 
 // TODO MAKE SEARCH functional by category and by input
 
@@ -37,15 +37,15 @@ export default function MyRecipies({ token }) {
       .map((recipe) => {
         return (
           <div
-            // className={`${recipe.category}`}
+            className="recipe-card"
             key={recipe._id}
             onClick={() => {
               setData(recipe);
               setPpUpZoom(true);
             }}
           >
-            <div className={`line recipe-title-one ${recipe.category}`}>
-              <span>{recipe.name.slice(0, 25)}</span>
+            <div className={`recipe-title-one ${recipe.category}`}>
+              <span>{recipe.name.slice(0, 20)}</span>
 
               <span style={{ fontSize: "10px" }}>
                 <i className="star icon yellow"></i>
@@ -53,17 +53,16 @@ export default function MyRecipies({ token }) {
                 <i className="star icon yellow"></i>
               </span>
             </div>
-
-            {recipe.image ? (
-              <img
-                src={`data:image/png;base64, ${Buffer.from(recipe.image).toString("base64")}`}
-                alt=""
-                className="recipe-image"
-                height={200}
-              />
-            ) : (
-              <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="recipe-image" />
-            )}
+            <div
+              className="recipe-bg"
+              style={{
+                backgroundImage: `url(${
+                  process.env.NODE_ENV === "production" ? recipe.image : `http://localhost:5000/${recipe.image}`
+                })`,
+              }}
+            >
+              <span></span>
+            </div>
           </div>
         );
       });

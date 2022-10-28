@@ -89,9 +89,9 @@ export default function Post({
         data: { data, length },
       } = await recipiesAPI.postCommentsRouter.get(`/${postId}/?load=${commentsToShow}`);
       // setComments(data);
-
+      // console.log(image);
       setCommentsArrayLength(length);
-      // console.log(data);
+
       return data;
     } catch (error) {
       console.log(error.message);
@@ -100,6 +100,7 @@ export default function Post({
 
   useEffect(() => {
     getComments(1);
+    // console.log(image);
     // eslint-disable-next-line
   }, []);
 
@@ -163,10 +164,14 @@ export default function Post({
       </div>
       <div className="post-content">
         <div className="post-image-container">
-          {width > 600 && image && image.data && (
+          {width > 600 && image && (
             <img
               className="post-image"
-              src={`data:image/png;base64, ${Buffer.from(image.data).toString("base64")}`}
+              // * old and easy way :
+              // src={`data:image/png;base64, ${Buffer.from(image.data).toString("base64")}`}
+              src={process.env.NODE_ENV === "production" ? image : `http://localhost:5000/${image}`}
+              // src={"http://localhost:5000/recipe/image/635ad89a4c70c2aaa835e80c"}
+
               alt=""
             />
           )}

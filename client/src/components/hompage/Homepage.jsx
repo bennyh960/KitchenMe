@@ -44,6 +44,7 @@ export default function Homepage({ token }) {
         },
       });
 
+      console.log(data[0].image);
       setPublicPosts(data);
       setIsLoading(false);
     };
@@ -86,7 +87,7 @@ export default function Homepage({ token }) {
           postId={post._id}
           token={token}
           rank={post.rank}
-          voterListlengh={post.voted.length}
+          voterListlengh={post.voted?.length}
         />
       );
     });

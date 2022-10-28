@@ -1,5 +1,5 @@
 import React from "react";
-import { Buffer } from "buffer";
+// import { Buffer } from "buffer";
 import "./recipezoom.css";
 import { useState } from "react";
 
@@ -64,7 +64,7 @@ export default function RecipeZoom({ data, popUpClose }) {
 
         {data.image ? (
           <img
-            src={`data:image/png;base64, ${Buffer.from(data.image).toString("base64")}`}
+            src={process.env.NODE_ENV === "production" ? data.image : `http://localhost:5000/${data.image}`}
             alt=""
             className="recipe-image-zoom"
           />
