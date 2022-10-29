@@ -1,5 +1,4 @@
 import React from "react";
-// import { Buffer } from "buffer";
 import "./recipezoom.css";
 import { useState } from "react";
 
@@ -13,13 +12,12 @@ export default function RecipeZoom({ data, popUpClose }) {
   const { innerWidth: width } = window;
   const [showIngredient, setShowingredients] = useState(width < 600 ? false : true);
   const [showInstructions, setShowInstructions] = useState(width < 600 ? false : true);
-  // console.log(data);
+
   const drawIngrediernts = () => {
     return [...formData.ingredients].map((item, i, arr) => {
       return (
         <div className="ingredient-row-confirm" key={i}>
           {arr[i][0]} - <b>{arr[i][1]}</b>
-          {/* {arr[i][2] && `(${arr[i][2]})`} */}
         </div>
       );
     });

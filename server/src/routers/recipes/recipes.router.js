@@ -31,7 +31,7 @@ router.post("/recipes/new", auth, upload.single("image"), async (req, res) => {
       ownerName: req.user.name,
     });
     if (req.file) {
-      const buffer = await sharp(req.file.buffer).png().toBuffer();
+      const buffer = await sharp(req.file.buffer).resize({ width: 600, height: 400 }).png().toBuffer();
       recipe.image = buffer;
     }
     await recipe.save();

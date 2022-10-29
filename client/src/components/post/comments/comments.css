@@ -69,3 +69,43 @@
 .edit-delete-btn-comment:hover {
   font-weight: bold;
 }
+
+/* CSS */
+.button-comment {
+  background-color: #ea4c89;
+}
+.button-delete {
+  background-color: #fc3e3ecf;
+}
+
+.button-comment,
+.button-delete {
+  border-radius: 8px;
+  border-style: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.button-comment:hover,
+.button-comment:focus {
+  background-color: #f082ac;
+}
+.button-comment:hover,
+.button-comment:focus {
+  background-color: #f76464;
+}

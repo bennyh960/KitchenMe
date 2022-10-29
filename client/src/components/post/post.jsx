@@ -6,12 +6,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ClassicPost from "./classic";
 import IngredientTable from "./table";
 import Instructions from "./instructions";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Comments from "./comments/comments";
 import recipiesAPI from "../../api/recipes.users.Api";
 import { Rating } from "react-simple-star-rating";
 import { UserContext } from "../../App";
-import { Buffer } from "buffer";
+// import { Buffer } from "buffer";
 // import Video from "./video";
 
 // todo : add rating if we got time
@@ -39,8 +39,9 @@ export default function Post({
   const [showComments, setShowComments] = useState(false);
   const [commentArrayLength, setCommentsArrayLength] = useState("");
   const [showStars, setShowStars] = useState(false);
+  const location = useLocation();
+
   const {
-    // user: { _id: userId, rank },
     user: { _id: userId },
   } = useContext(UserContext);
 
@@ -58,15 +59,7 @@ export default function Post({
     setActiveView(["active-view", "", "", ""]);
     setCurrentSlide(0);
   };
-  // const videoView = () => {
-  //   setActiveView(["", "", "", "active-view"]);
-  //   setCurrentSlide(3);
-  // };
 
-  // const onSwipeMove = () => {
-  //   console.log("move");
-
-  // };
   const onCarousleChange = (item) => {
     switch (item) {
       case 1:
@@ -117,7 +110,6 @@ export default function Post({
           )}
           <div className="poster-user-name">
             <div className="username-post">{name.split(" ")[0]}</div>
-            {/* <div className="username-post">{name}</div> */}
             <div className="posted-at-time">{time}</div>
           </div>
         </div>
@@ -147,6 +139,10 @@ export default function Post({
         </div>
       </div>
       <div className="like-comment-counter">
+        <div className="post-title">
+          <h1>{title}</h1>
+          <span>{"  " + category}</span>
+        </div>
         <div className="post-rate">
           <Rating
             initialValue={parseInt(rank) / 20}
@@ -155,7 +151,6 @@ export default function Post({
             allowHalfIcon={true}
             className="Rating"
             size="30"
-            // style={{ margin: "10px auto" }}
           />
           <div className="show-votersLength">
             {voterListlengh !== 0 && voterListlengh === 1 ? "Based on 1 user" : `Based on ${voterListlengh} reviews`}
@@ -163,20 +158,6 @@ export default function Post({
         </div>
       </div>
       <div className="post-content">
-        <div className="post-image-container">
-          {width > 600 && image && (
-            <img
-              className="post-image"
-              // * old and easy way :
-              // src={`data:image/png;base64, ${Buffer.from(image.data).toString("base64")}`}
-              src={process.env.NODE_ENV === "production" ? image : `http://localhost:5000/${image}`}
-              // src={"http://localhost:5000/recipe/image/635ad89a4c70c2aaa835e80c"}
-
-              alt=""
-            />
-          )}
-        </div>
-
         <Carousel
           infiniteLoop={true}
           // emulateTouch={true}
@@ -190,8 +171,13 @@ export default function Post({
           showStatus={false}
           // dynamicHeight={true}
         >
-          <ClassicPost image={image} description={description} title={title} category={category} screenWidth={width} />
-
+          <ClassicPost
+            image={image}
+            description={description}
+            title={title}
+            category={category}
+            pathName={location.pathname}
+          />
           <IngredientTable ingredients={ingredients} />
           <Instructions instructions={instructions} />
           {/* <Video url="https://www.youtube.com/watch?v=1IszT_guI08" /> */}

@@ -80,11 +80,11 @@ export default function Comments({ avatar, postId, getComments }) {
               <p className="content-comment">{comment.content}</p>
               {comment.owner === userId && (
                 <p className="edit-delete-comment">
-                  <span className="edit-delete-btn-comment">Edit (todo)</span>
+                  <button className="edit-delete-btn-comment button-comment">Edit</button>
 
-                  <span className="edit-delete-btn-comment" onClick={() => handleDelete(comment._id)}>
+                  <button className="edit-delete-btn-comment button-delete" onClick={() => handleDelete(comment._id)}>
                     Delete
-                  </span>
+                  </button>
                 </p>
               )}
             </div>

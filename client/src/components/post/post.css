@@ -3,14 +3,29 @@
     width: 100%;
   }
 }
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 450px) {
   /* .post-rate {
     display: none;
     background-color: aqua;
   } */
   .like-comment-counter {
     flex-direction: column;
-    /* border: 1px solid black; */
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+  }
+  .post-title {
+    /* margin-left: 1px; */
+    flex-direction: column;
+  }
+  .post-title span {
+    font-size: 10px;
+  }
+  .star-svg {
+    width: 20px;
+  }
+  .post-image-container {
+    margin: 0;
   }
 }
 
@@ -80,8 +95,11 @@
 
 /* content */
 .post-content {
-  margin: 1rem;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
   display: flex;
+  align-items: center;
   /* border: 1px solid black; */
 }
 
@@ -97,13 +115,12 @@
   /* display: none; */
   border-top: 1px solid var(--weak-line-color);
   border-bottom: 1px solid var(--weak-line-color);
-  height: 3.5rem;
-  width: 90%;
+  width: 95%;
   margin: 5px auto;
   display: flex;
-  align-items: center;
-  /* justify-content: space-between; */
-  position: relative;
+  /* align-items: center; */
+  justify-content: center;
+  /* position: relative; */
   padding-top: 5px;
   height: fit-content;
   /* background-color: red; */
@@ -112,29 +129,18 @@
 /* stars */
 
 .post-rate {
-  margin: 0 auto;
+  margin: 0 20px;
+  justify-self: flex-start;
+  /* border: 1px solid black; */
+  position: relative;
 }
-/* .stars-container {
-  width: 60%;
-  margin: auto;
-  padding: 2rem;
-  display: flex;
-
-  justify-content: center;
-} */
-
-/* .Rating {
-  font-size: 10px;
-  background-color: red;
-  color: black;
-} */
 
 .show-votersLength {
   display: none;
   font-size: 1rem;
   position: absolute;
   top: -20px;
-  left: 20px;
+  right: 20px;
   background-color: black;
   color: white;
   padding: 2px 3px;
@@ -145,7 +151,7 @@
 .show-votersLength::after {
   content: "";
   position: absolute;
-  left: calc(50% - 2.5px);
+  right: calc(50% - 2.5px);
   bottom: -2px;
   width: 5px;
   height: 5px;

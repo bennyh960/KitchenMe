@@ -1,7 +1,9 @@
 .table-container {
   max-height: 300px;
+  max-width: 200px;
   overflow-y: scroll;
-
+  max-width: 75%;
+  margin: auto;
   /* background-color: red; */
 }
 
@@ -10,4 +12,9 @@
   top: 0;
   background-color: aliceblue;
   z-index: 10;
+}
+
+.carousel-root {
+  width: 95%;
+  margin: auto;
 }
