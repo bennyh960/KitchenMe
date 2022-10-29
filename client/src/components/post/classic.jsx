@@ -11,7 +11,7 @@ export default function ClassicPost({ image, description }) {
         {image && (
           <img
             className="post-image "
-            src={process.env.NODE_ENV === "production" ? "/" + image : `http://localhost:5000/${image}`}
+            src={process.env.NODE_ENV === "production" ? image : `http://localhost:5000${image}`}
             alt=""
           />
         )}

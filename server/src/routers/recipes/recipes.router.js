@@ -78,7 +78,7 @@ router.get("/recipes/public", auth, async (req, res) => {
         _id: mongoose.Types.ObjectId(recipe._id),
         name: recipe.name,
         category: recipe.category,
-        image: `recipes/image/${recipe._id.toString()}`,
+        image: `/recipes/image/${recipe._id.toString()}`,
         public: recipe.public,
         description: recipe.description,
         ingredients: recipe.ingredients,
