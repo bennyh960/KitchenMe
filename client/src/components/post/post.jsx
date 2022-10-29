@@ -29,10 +29,10 @@ export default function Post({
   time,
   description,
   owner,
-  // token,
   postId,
   rank,
   voterListlengh,
+  handleRefresh,
 }) {
   const [activeView, setActiveView] = useState(["active-view", "", "", ""]);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -91,6 +91,26 @@ export default function Post({
     }
   };
 
+  // const [postData, setPostData] = useState({ title, category, description, ingredients, instructions, image });
+  // const [iseditMode, setIsEditMode] = useState(true);
+  // const handleEditPost = ({ target }) => {
+  // setIsEditMode(false);
+  // setPostData((p) => {
+  //   return { ...p,target.id };
+  // });
+  // console.log(target.id);
+  // };
+
+  const [PopUp, setPopUp] = useState(false);
+
+  const handleDeletePost = async () => {
+    setPopUp((p) => true);
+    // loading
+    await recipiesAPI.recipesPostDeleteRouter.delete("/", { data: { id: postId } });
+    setPopUp((p) => false);
+    handleRefresh(postId);
+  };
+
   useEffect(() => {
     getComments(1);
     // console.log(image);
@@ -130,11 +150,6 @@ export default function Post({
                 <i className="tasks icon large"></i>
               </button>
             </li>
-            {/* <li className={activeView[3]}>
-              <button onClick={videoView}>
-                <i className="youtube icon large"></i>
-              </button>
-            </li> */}
           </ul>
         </div>
       </div>
@@ -171,51 +186,67 @@ export default function Post({
           showStatus={false}
           // dynamicHeight={true}
         >
-          <ClassicPost
-            image={image}
-            description={description}
-            title={title}
-            category={category}
-            pathName={location.pathname}
-          />
+          <ClassicPost image={image} description={description} />
           <IngredientTable ingredients={ingredients} />
           <Instructions instructions={instructions} />
-          {/* <Video url="https://www.youtube.com/watch?v=1IszT_guI08" /> */}
         </Carousel>
       </div>
       <div className="post-blog">
         <div className="action-take">
-          <ul className="ul-action-take">
-            <li>
-              <button
-                onClick={() => {
-                  // console.log(owner === userId);
-                  if (owner !== userId) {
-                    setShowComments(false);
-                    setShowStars((prev) => !prev);
-                  }
-                }}
-              >
-                <i className="star inline icon yellow large"></i>Vote
+          {!PopUp ? (
+            <ul className="ul-action-take">
+              <li>
+                {owner !== userId ? (
+                  <button
+                    onClick={() => {
+                      // console.log(owner === userId);
+                      if (owner !== userId) {
+                        setShowComments(false);
+                        setShowStars((prev) => !prev);
+                      }
+                    }}
+                  >
+                    <i className="star inline icon yellow large"></i>Vote
+                  </button>
+                ) : (
+                  <>
+                    {/* <button onClick={handleEditPost}>
+                      <i className="address edit icon large"></i>Edit
+                    </button> */}
+                    <button onClick={() => setPopUp((p) => !p)}>
+                      <i className="address eraser icon large"></i>Delete
+                    </button>
+                  </>
+                )}
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    setShowComments((prev) => !prev);
+                    setShowStars(false);
+                  }}
+                >
+                  <i className="comments outline icon large"></i>
+                  {commentArrayLength} Comments
+                </button>
+              </li>
+              <li>
+                <button>
+                  <i className="address book outline icon large"></i>Add
+                </button>
+              </li>
+            </ul>
+          ) : (
+            <div className="ui buttons" id="edit-delete" style={{ width: "100%", margin: "auto" }}>
+              <button className="ui pink button" id="cancle-upload-recipe" onClick={handleDeletePost}>
+                Confirm Delete
               </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  setShowComments((prev) => !prev);
-                  setShowStars(false);
-                }}
-              >
-                <i className="comments outline icon large"></i>
-                {commentArrayLength} Comments
+              <div className="or"></div>
+              <button className="ui red button" id="submit-upload-recipe" onClick={() => setPopUp((p) => !p)}>
+                Cancle
               </button>
-            </li>
-            <li>
-              <button>
-                <i className="address book outline icon large"></i>Add
-              </button>
-            </li>
-          </ul>
+            </div>
+          )}
         </div>
         {showComments && <Comments avatar={avatar} postId={postId} getComments={getComments} />}
         {showStars && <StarsComponenent updateGetMethode={showStars} postId={postId} userId={userId} />}

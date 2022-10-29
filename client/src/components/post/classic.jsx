@@ -3,7 +3,7 @@ import "./classic.css";
 
 // import { Buffer } from "buffer";
 
-export default function ClassicPost({ image, description, title, category, pathName }) {
+export default function ClassicPost({ image, description }) {
   return (
     <div className="classic-container">
       {/* {pathName !== "123/321" && ( */}

@@ -60,37 +60,44 @@ export default function Homepage({ token }) {
     }
   }, [setPublicPosts, token, updateNewPost]);
 
+  const [filterPost, setFilter] = useState("");
+  const handleRefresh = (postFilterId) => {
+    setFilter(postFilterId);
+  };
   const drawPublicPosts = () => {
     const noAvatar = "https://identix.state.gov/qotw/images/no-photo.gif";
     const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
-    return publicPosts.map((post) => {
-      return (
-        <Post
-          key={post._id}
-          avatar={
-            // `http://localhost:5000/users/${post.owner}/avatar`
-            `${url}/${post.owner}/avatar` ? `${url}/${post.owner}/avatar` : noAvatar
-          }
-          owner={post.owner}
-          name={post.ownerName}
-          title={post.name}
-          createdAt={post.createdAt}
-          category={post.category}
-          time={getTime(post.createdAt)}
-          email={post.email}
-          myRank={"need to check"}
-          topRated={"topRated"}
-          ingredients={post.ingredients}
-          instructions={post.instructions}
-          description={post.description}
-          image={post.image}
-          postId={post._id}
-          token={token}
-          rank={post.rank}
-          voterListlengh={post.voted?.length}
-        />
-      );
-    });
+    return publicPosts
+      .filter((post) => post._id !== filterPost)
+      .map((post) => {
+        return (
+          <Post
+            key={post._id}
+            avatar={
+              // `http://localhost:5000/users/${post.owner}/avatar`
+              `${url}/${post.owner}/avatar` ? `${url}/${post.owner}/avatar` : noAvatar
+            }
+            owner={post.owner}
+            name={post.ownerName}
+            title={post.name}
+            createdAt={post.createdAt}
+            category={post.category}
+            time={getTime(post.createdAt)}
+            email={post.email}
+            myRank={"need to check"}
+            topRated={"topRated"}
+            ingredients={post.ingredients}
+            instructions={post.instructions}
+            description={post.description}
+            image={post.image}
+            postId={post._id}
+            token={token}
+            rank={post.rank}
+            voterListlengh={post.voted?.length}
+            handleRefresh={handleRefresh}
+          />
+        );
+      });
   };
 
   return (

@@ -264,4 +264,10 @@ router.get("/recipes/vote/", async (req, res) => {
   }
 });
 
+router.delete("/recipe/post/delete", async (req, res) => {
+  await Recipe.findOneAndDelete({ _id: req.body.id });
+  console.log(req.body.id);
+  console.log("post deleted");
+});
+
 module.exports = router;
