@@ -55,6 +55,7 @@ router.get("/recipes/image/:id", async (req, res) => {
     }
 
     res.set("Content-Type", "image/png");
+    console.log(req.url);
     res.send(recipe.image);
   } catch (error) {
     res.status(400).send(error.message);
