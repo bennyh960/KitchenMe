@@ -57,7 +57,9 @@ export default function MyRecipies({ token }) {
               className="recipe-bg"
               style={{
                 backgroundImage: `url(${
-                  process.env.NODE_ENV === "production" ? recipe.image : `http://localhost:5000/${recipe.image}`
+                  process.env.NODE_ENV === "production"
+                    ? "https://meetbachv2.herokuapp.com" + recipe.image
+                    : `http://localhost:5000/${recipe.image}`
                 })`,
               }}
             >
