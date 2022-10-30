@@ -92,7 +92,7 @@
 .confirm-summary {
   min-width: 40rem;
   /* min-height: 40rem; */
-  max-height: 50rem;
+  /* max-height: 50rem; */
   overflow-y: scroll;
   /* flex: 10; */
   /* width: 100%; */
@@ -140,11 +140,15 @@ thead th {
 .fl-table thead th {
   color: #ffffff;
   background: var(--bg-navbar-color);
+  /* background-color: rgb(rgb(246, 25, 25), 10, 20); */
+  opacity: 1;
+  /* background-color: bla; */
 }
 
 .fl-table thead th:nth-child(odd) {
   color: #ffffff;
-  background: var(--bg-navbar-color);
+  /* background: var(--bg-navbar-color); */
+  /* background-color: rgb(254, 60, 60); */
 }
 
 .fl-table thead th:first-child {
@@ -161,7 +165,7 @@ thead th {
 
 /* Responsive */
 
-@media (max-width: 67px) {
+@media (max-width: 270px) {
   .ingredients-recipe {
     width: 80%;
   }

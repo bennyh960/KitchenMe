@@ -95,9 +95,14 @@ export default function Addrecipe({ updateUi, token }) {
           {/* <img src={process.env.PUBLIC_URL + "/images/logo64.png"} alt="logo" width={35} height={35} /> */}
           Add New Recipe
         </div>
-        <select className="ui select select-category" onChange={handleChange} name="category" defaultValue={"default"}>
+        <select
+          className="ui dropdown select-category"
+          onChange={handleChange}
+          name="category"
+          defaultValue={"default"}
+        >
           <option value="default" disabled>
-            Select Category*
+            <b> Select Recipe Category* </b>
           </option>
           <option value="Breakfast">Breakfast</option>
           <option value="Lunch">Lunch</option>
@@ -143,10 +148,11 @@ export default function Addrecipe({ updateUi, token }) {
         <Carousel
           infiniteLoop={true}
           emulateTouch={true}
-          showThumbs={false}
+          // showThumbs={true}
           showArrows={false}
           showIndicators={false}
           showStatus={false}
+          // dynamicHeight={true}
         >
           <div className="ingredient-container">
             <IngredientAdd ingredientObjHandler={ingredientObjHandler} />

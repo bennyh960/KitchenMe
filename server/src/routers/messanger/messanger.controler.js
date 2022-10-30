@@ -16,6 +16,7 @@ module.exports.addMessage = async (req, res, next) => {
     next(error);
   }
 };
+
 module.exports.getAllMessages = async (req, res, next) => {
   // console.log("get all messages message controler test");
   try {
@@ -25,16 +26,41 @@ module.exports.getAllMessages = async (req, res, next) => {
         $all: [from, to],
       },
     }).sort({ updateAt: 1 });
-
+    // console.log(messages);
     const messagesArr = messages.map((msg) => {
       return {
         fromSelf: msg.sender.toString() === from,
         message: msg.message.text,
+        createdAt: msg.createdAt,
       };
     });
 
-    // console.log(messagesArr);
     res.send(messagesArr);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.getLastMessage = async (req, res, next) => {
+  // console.log("get all messages message controler test");
+  try {
+    const { from, to } = req.body;
+    // console.log(from, to);
+    const messages = await Messagnger.find({
+      users: {
+        $all: [from, to],
+      },
+      sender: to,
+    }).sort({ updateAt: 1 });
+    // console.log(messages);
+    const messagesArr = messages.map((msg) => {
+      return {
+        fromSelf: msg.sender.toString() === from,
+        message: msg.message.text,
+        createdAt: msg.createdAt,
+      };
+    });
+
+    res.send(messagesArr.sort((a, b) => b.createdAt - a.createdAt)[0]);
   } catch (error) {
     next(error);
   }

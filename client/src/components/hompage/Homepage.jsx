@@ -68,7 +68,7 @@ export default function Homepage({ token }) {
     const noAvatar = "https://identix.state.gov/qotw/images/no-photo.gif";
     const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
     return publicPosts
-      .filter((post) => post._id !== filterPost)
+      .filter((post) => post._id !== filterPost && post.public === true)
       .map((post) => {
         return (
           <Post

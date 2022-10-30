@@ -10,7 +10,7 @@ export default function getTime(createdAtStr) {
   deltaInMinutes = parseFloat(deltaInMinutes);
   // console.log("deltaInMinutes", deltaInMinutes);
 
-  if (deltaInMinutes < 1) return `Before ${Math.round(deltaInMinutes * 60)} Secondes`;
+  if (deltaInMinutes < 1) return `Before ${Math.round(deltaInMinutes * 10)} Secondes`;
   else if (deltaInMinutes < 60) return `Before ${Math.round(deltaInMinutes)} Minutes`;
   else if (deltaInMinutes >= 60) {
     if (deltaInMinutes < 60 * 12) return `Before ${Math.round(deltaInMinutes / 60)} Houres`;

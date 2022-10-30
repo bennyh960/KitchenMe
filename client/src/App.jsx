@@ -118,12 +118,15 @@ function App() {
     setFriendsList(friendsListArg);
     // console.log(friendsListArg);
   };
-
+  const [msgNum, setMsgNum] = useState(0);
+  const updateNotification = (num) => {
+    setMsgNum(num);
+  };
   // useEffect(() => {
   //   console.log("=================================================================");
   //   console.log(authDetailes);
   //   console.log("=================================================================");
-  // });
+  // },[]);
 
   return (
     <div>
@@ -136,6 +139,7 @@ function App() {
               setAuth={setAuth}
               updatePendingList={updatePendingList}
               updateFriendListProp={updateFriendListProp}
+              msgNum={msgNum}
             />
           )}
           <Routes>
@@ -162,7 +166,13 @@ function App() {
             <Route path="profile/myfriends" element={<MyFriends friendsList={friendsList} />} />
             <Route
               path="/chat"
-              element={<Chat friendsList={friendsList} userId={authDetailes.user && authDetailes.user._id} />}
+              element={
+                <Chat
+                  friendsList={friendsList}
+                  userId={authDetailes.user && authDetailes.user._id}
+                  updateNotification={updateNotification}
+                />
+              }
             />
           </Routes>
         </BrowserRouter>

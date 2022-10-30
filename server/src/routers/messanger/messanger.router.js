@@ -2,7 +2,7 @@ const express = require("express");
 const chalk = require("chalk");
 // const auth = require("../../middleware/auth");
 const User = require("../../db/models/users/users.model");
-const { addMessage, getAllMessages } = require("./messanger.controler");
+const { addMessage, getAllMessages, getLastMessage } = require("./messanger.controler");
 
 const router = new express.Router();
 
@@ -10,6 +10,7 @@ const router = new express.Router();
 
 router.post("/addmsg", addMessage);
 router.post("/getmsg", getAllMessages);
+router.post("/getOnemsg", getLastMessage);
 
 // //* Get user recipes example to populate
 // router.get("/user/notifications", auth, async (req, res) => {

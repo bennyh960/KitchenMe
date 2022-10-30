@@ -120,13 +120,26 @@
 }
 
 @media screen and (max-width: 730px) {
-  .confirm-container {
+  .confirm-container,
+  .confirm-container2 {
     flex-direction: column-reverse;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     align-items: center;
     justify-content: center;
   }
+  .confirm-summary {
+    max-height: fit-content;
+    min-height: fit-content;
+    height: fit-content;
+  }
 
+  .confirm-container2 {
+    max-height: fit-content;
+    height: fit-content;
+    height: fit-content;
+    min-height: fit-content;
+    overflow-y: visible;
+  }
   .instructions-confirm-big,
   .ingredient-confirm-big {
     border: none;

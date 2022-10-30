@@ -112,6 +112,7 @@ export default function Signin({ handleClickTo, isUser, setAuth }) {
         <p onClick={() => handleClickTo("login")} style={{ color: "blue", cursor: "pointer" }}>
           Already have account?
         </p>
+        <div>demo Email: user1@c.com , password:123 </div>
 
         {message && <Message text={message} />}
         <button className="ui button" type="submit" disabled={isSubmit}>

@@ -19,7 +19,7 @@ import NotificationsDD from "./notifications/notifications";
 import usersApi from "../../api/usersApi";
 import { UserContext } from "../../App";
 
-export default function Topbar({ avatar, isUser, updatePendingList, updateFriendListProp, setAuth }) {
+export default function Topbar({ avatar, isUser, updatePendingList, updateFriendListProp, setAuth, msgNum }) {
   const userContext = useContext(UserContext);
 
   const [isPopUpMenue, setIsPopUp] = useState(false);
@@ -92,9 +92,9 @@ export default function Topbar({ avatar, isUser, updatePendingList, updateFriend
             </div>
           )}
           <Link to={"/chat"}>
-            <div className="notification-messanger-container">
+            <div className="notification-messanger-container" onClick={() => (msgNum = 0)}>
               <FontAwesomeIcon icon={faFacebookMessenger} className={"fa-icon messanger-icon"} />
-              <div className="messanger-num">6</div>
+              {msgNum > 0 && <div className="messanger-num">{msgNum}</div>}
             </div>
           </Link>
           <div

@@ -33,11 +33,11 @@ export default function ConfirmRecipe({ formData, imgUploadHandler, postNewRecip
   };
 
   return (
-    <div className="title-confirm-recipe white-box">
+    <div className="title-confirm-recipe2 white-box2">
       <h1>
         {formData.name} Recipe - {formData.category}
       </h1>
-      <div className="confirm-container">
+      <div className="confirm-container2">
         <div className="ingredient-confirm">
           <b> Ingredients: </b>
           <hr />
@@ -50,7 +50,7 @@ export default function ConfirmRecipe({ formData, imgUploadHandler, postNewRecip
         </div>
         <UploadSubmit imgUploadHandler={imgUploadHandler} />
       </div>
-      <div className="ui buttons" id="save-cancle">
+      <div className="ui buttons" id="save-cancle" style={{ width: "95%", margin: "0 auto" }}>
         <button
           className="ui pink button"
           id="cancle-upload-recipe"

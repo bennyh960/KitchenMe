@@ -57,7 +57,7 @@
 .edit-delete-comment {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: flex-start;
   font-size: 10px;
   line-height: 0;
 }
@@ -66,16 +66,12 @@
   cursor: pointer;
 }
 
-.edit-delete-btn-comment:hover {
-  font-weight: bold;
-}
-
 /* CSS */
 .button-comment {
-  background-color: #ea4c89;
+  background-color: #f79abe;
 }
 .button-delete {
-  background-color: #fc3e3ecf;
+  background-color: #ff9f9fbb;
 }
 
 .button-comment,
@@ -87,11 +83,11 @@
   display: inline-block;
   font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  line-height: 20px;
+  /* line-height: 20px; */
   list-style: none;
-  margin: 0;
+  margin: 0 10px;
   outline: none;
-  padding: 10px 16px;
+  padding: 4px 16px;
 
   text-align: center;
   text-decoration: none;
@@ -104,8 +100,10 @@
 .button-comment:hover,
 .button-comment:focus {
   background-color: #f082ac;
+  opacity: 1;
 }
-.button-comment:hover,
-.button-comment:focus {
+.button-delete:hover,
+.button-delete:focus {
   background-color: #f76464;
+  opacity: 1;
 }

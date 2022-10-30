@@ -26,26 +26,18 @@
 }
 
 .chat-container {
-  /* background-image: none; */
-  /* background-color: aliceblue; */
-  /* background-image: url(); */
-
+  background-image: url("../../../public/images/coverM.jpg");
   display: flex;
   width: 99%;
   height: 92%;
   min-height: 300px;
-  /* overflow-y: scroll; */
   margin: 0.5% auto;
-  /* border: 1px solid black; */
 }
 /**============================================== FRIENDS CHAT =====================================*/
 
 .friends-window-chat {
   width: 30%;
   min-width: 150px;
-  /* height: 99%; */
-  /* overflow-y: scroll; */
-  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   background-color: aliceblue;
@@ -90,9 +82,16 @@
   display: flex;
   background-color: white;
   box-shadow: var(--box-shadow-nav);
+  border: 1px solid transparent;
 }
-.friend-box-chat:hover {
+.friend-box-chat:hover,
+.friend-box-chat:active {
   cursor: pointer;
+  border: 1px solid red;
+}
+
+.selected-friend-chat {
+  border: 1px solid red;
 }
 
 .friend-img-chat {
@@ -112,6 +111,7 @@
   width: 100%;
   /* border: 1px solid black; */
 }
+
 .friend-box-content {
   display: flex;
   font-size: 10px;
@@ -164,6 +164,17 @@
   /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
+  /* overflow-y: hidden; */
+}
+
+.current-friend-chat {
+  width: 50%;
+  border-radius: 5px;
+  margin: 0 auto;
+  /* border: 1px solid black; */
+  text-align: center;
+  font-size: larger;
+  background-color: var(--bg-navbar-color);
 }
 
 .chat-body {
@@ -211,8 +222,10 @@
 
 .message-text.sended {
   background: #1fd41f;
+  max-width: 80%;
 }
 .message-text.rechived {
+  max-width: 80%;
   align-self: flex-end;
   text-align: right;
   background: pink;
@@ -229,4 +242,15 @@
     /* width: 8; */
     flex: 1;
   }
+}
+
+.content-msg {
+  /* display: flex; */
+
+  width: 100%;
+  /* padding: 0 20%; */
+}
+
+.msg-time {
+  font-size: 10px;
 }

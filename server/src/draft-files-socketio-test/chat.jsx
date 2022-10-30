@@ -123,6 +123,7 @@ export default function Chat({ friendsList, userId }) {
           <div className="freinds-container-chat">{drawFriendsList()}</div>
         </div>
         <div className="chat-body-container">
+          <div>draw freind dfsdfdsdfdf</div>
           <div className="chat-body">{drawAllMessagesInBody()}</div>
 
           <form onSubmit={handleSendMessage} className="chat-input">

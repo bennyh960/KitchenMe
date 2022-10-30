@@ -1,25 +1,30 @@
-.confirm-container {
+.confirm-container2 {
   display: flex;
   /* margin-top: 0rem; */
   /* min-height: 55rem; */
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 1rem;
   padding: 3px;
   width: 95%;
-  margin: 10px auto;
+  margin: 0px auto;
   background-color: aliceblue;
 }
 
-.title-confirm-recipe {
+.title-confirm-recipe2 {
   padding: 5px;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  justify-content: flex-start;
 }
 
-.title-confirm-recipe h1 {
-  margin: 15px auto;
+.title-confirm-recipe2 h1 {
+  margin: 0px auto;
   padding: 5px;
   width: 95%;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   background-color: var(--bg-navbar-color);
+  text-align: center;
   box-shadow: 20px 20px 50px 10px pink inset;
 }
 
