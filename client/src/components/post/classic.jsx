@@ -14,7 +14,7 @@ export default function ClassicPost({ image, description }) {
             className="post-image "
             src={
               process.env.NODE_ENV === "production"
-                ? process.env.REACT_APP_IMAGE_BASE_URL + image
+                ? "https://meetbachv2.herokuapp.com" + image
                 : `http://localhost:5000${image}`
             }
             alt=""
