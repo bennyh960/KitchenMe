@@ -4,6 +4,7 @@ import "./classic.css";
 // import { Buffer } from "buffer";
 
 export default function ClassicPost({ image, description }) {
+  // console.log(process.env.REACT_APP_IMAGE_BASE_URL + image);
   return (
     <div className="classic-container">
       {/* {pathName !== "123/321" && ( */}
@@ -13,7 +14,7 @@ export default function ClassicPost({ image, description }) {
             className="post-image "
             src={
               process.env.NODE_ENV === "production"
-                ? process.env.IMAGE_BASE_URL + image
+                ? process.env.REACT_APP_IMAGE_BASE_URL + image
                 : `http://localhost:5000${image}`
             }
             alt=""
