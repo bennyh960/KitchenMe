@@ -64,9 +64,9 @@ export default function RecipeZoom({ data, popUpClose }) {
           <img
             src={
               process.env.NODE_ENV === "production"
-                ? // ? "https://meetbachv2.herokuapp.com" + data.image
-                  process.env.REACT_APP_IMAGE_BASE_URL + data.image
-                : `http://localhost:5000/${data.image}`
+                ? "https://meetbachv2.herokuapp.com/" + data.image
+                : // process.env.REACT_APP_IMAGE_BASE_URL + data.image
+                  `http://localhost:5000/${data.image}`
             }
             alt=""
             className="recipe-image-zoom"
