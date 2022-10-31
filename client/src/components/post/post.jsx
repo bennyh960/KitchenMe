@@ -175,7 +175,8 @@ export default function Post({
       <div className="post-content">
         <Carousel
           infiniteLoop={true}
-          // emulateTouch={true}
+          emulateTouch={true}
+          preventMovementUntilSwipeScrollTolerance={true}
           // onSwipeMove={onSwipeMove}
           showThumbs={false}
           // onClickItem={onClickItem}

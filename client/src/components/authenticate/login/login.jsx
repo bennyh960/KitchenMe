@@ -74,7 +74,7 @@ export default function LogIn({ handleClickTo, isUser, setAuth }) {
         <div className="auth-options-links">
           <p onClick={() => handleClickTo("register")}>Not a member? - Register</p>
           <p onClick={() => handleClickTo("passwordReset")}>Forgot your password?</p>
-          <div>demo Email: user1@c.com , password:123 </div>
+          <div>demo Email: user0@c.com , password:123 </div>
         </div>
 
         <button className="ui button" type="submit" disabled={!isSubmit}>
