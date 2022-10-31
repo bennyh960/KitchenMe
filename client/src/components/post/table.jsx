@@ -18,7 +18,7 @@ export default function IngredientTable({ ingredients }) {
         <thead>
           <tr className="table-title">
             <th>Ingredient</th>
-            <th>Amount</th>
+            <th className="secondary-column">Amount</th>
           </tr>
           {drawIngredients()}
         </thead>

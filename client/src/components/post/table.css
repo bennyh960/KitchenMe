@@ -1,9 +1,11 @@
 .table-container {
-  max-height: 300px;
-  max-width: 200px;
+  max-height: 100%;
+  /* max-width: 85%; */
   overflow-y: scroll;
-  max-width: 75%;
+  /* min-height: 400px; */
+  max-width: 90%;
   margin: auto;
+  /* border: 1px solid black; */
   /* background-color: red; */
 }
 
@@ -17,4 +19,10 @@
 .carousel-root {
   width: 95%;
   margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .secondary-column {
+    font-weight: lighter !important;
+  }
 }
