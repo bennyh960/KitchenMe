@@ -6,7 +6,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ClassicPost from "./classic";
 import IngredientTable from "./table";
 import Instructions from "./instructions";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Comments from "./comments/comments";
 import recipiesAPI from "../../api/recipes.users.Api";
 import { Rating } from "react-simple-star-rating";
@@ -39,7 +39,7 @@ export default function Post({
   const [showComments, setShowComments] = useState(false);
   const [commentArrayLength, setCommentsArrayLength] = useState("");
   const [showStars, setShowStars] = useState(false);
-  const location = useLocation();
+  // const location = useLocation();
 
   const {
     user: { _id: userId },
@@ -178,14 +178,14 @@ export default function Post({
           emulateTouch={false}
           preventMovementUntilSwipeScrollTolerance={true}
           // onSwipeMove={onSwipeMove}
-          showThumbs={false}
+          // showThumbs={true}
           // onClickItem={onClickItem}
           onChange={onCarousleChange}
-          // showArrows={false}
+          showArrows={false}
           selectedItem={currentSlide}
           showIndicators={false}
           showStatus={false}
-          // dynamicHeight={true}
+          dynamicHeight={width > 600 ? true : false}
         >
           <ClassicPost image={image} description={description} />
           <IngredientTable ingredients={ingredients} />
