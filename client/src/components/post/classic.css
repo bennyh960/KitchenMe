@@ -12,9 +12,9 @@
 }
 
 .post-image {
-  margin: 0 1rem;
+  margin: 10px 1rem 0 1rem;
   /* padding: 0 1rem; */
-  object-fit: contain;
+  object-fit: cover;
   max-height: 90%;
   border-radius: 10px;
 }
@@ -36,6 +36,10 @@
   display: flex;
   /* margin-left: 20%; */
   align-items: center;
+}
+
+.post-title h1 {
+  font-size: 3rem;
 }
 .post-title span {
   font-weight: 400;
@@ -63,7 +67,6 @@
     justify-self: center;
   }
   .post-image {
-    object-fit: contain;
     margin: 0 auto;
     border-radius: 10px;
   }

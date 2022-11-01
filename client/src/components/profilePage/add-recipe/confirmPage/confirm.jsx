@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./confirm.css";
+import Loader from "../../../loaders/loader1";
 
 import UploadSubmit from "../uploadFiles/uploadSubmit";
 
 export default function ConfirmRecipe({ formData, imgUploadHandler, postNewRecipe }) {
   const [isDataReady, setIsDataReady] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     if (formData.ingredients.length > 1 && formData.instructions.length > 1) {
       // console.log(formData);
@@ -33,42 +35,52 @@ export default function ConfirmRecipe({ formData, imgUploadHandler, postNewRecip
   };
 
   return (
-    <div className="title-confirm-recipe2 white-box2">
-      <h1>
-        {formData.name} Recipe - {formData.category}
-      </h1>
-      <div className="confirm-container2">
-        <div className="ingredient-confirm">
-          <b> Ingredients: </b>
-          <hr />
-          {drawIngrediernts()}
-        </div>
-        <div className="instructions-confirm">
-          <h2 style={{ textAlign: "center", margin: "0" }}>Methode:</h2>
+    <>
+      {isLoading && <Loader />}
+      <div className="title-confirm-recipe2 white-box2">
+        <h1>
+          {formData.name} Recipe - {formData.category}
+        </h1>
+        {/* <Loader /> */}
+        <div className="confirm-container2">
+          <div className="ingredient-confirm">
+            <b> Ingredients: </b>
+            <hr />
+            {drawIngrediernts()}
+          </div>
+          <div className="instructions-confirm">
+            <h2 style={{ textAlign: "center", margin: "0" }}>Methode:</h2>
 
-          {drawInstructions()}
+            {drawInstructions()}
+          </div>
+          <UploadSubmit imgUploadHandler={imgUploadHandler} />
         </div>
-        <UploadSubmit imgUploadHandler={imgUploadHandler} />
+        <div className="ui buttons" id="save-cancle" style={{ width: "95%", margin: "0 auto" }}>
+          <button
+            className="ui pink button"
+            id="cancle-upload-recipe"
+            onClick={() => {
+              setLoading(true);
+              postNewRecipe(true);
+            }}
+            disabled={!isDataReady}
+          >
+            Post as Public
+          </button>
+          <div className="or"></div>
+          <button
+            className="ui red button"
+            id="submit-upload-recipe"
+            disabled={!isDataReady}
+            onClick={() => {
+              setLoading(true);
+              postNewRecipe(false);
+            }}
+          >
+            Save as Private
+          </button>
+        </div>
       </div>
-      <div className="ui buttons" id="save-cancle" style={{ width: "95%", margin: "0 auto" }}>
-        <button
-          className="ui pink button"
-          id="cancle-upload-recipe"
-          onClick={() => postNewRecipe(true)}
-          disabled={!isDataReady}
-        >
-          Post as Public
-        </button>
-        <div className="or"></div>
-        <button
-          className="ui red button"
-          id="submit-upload-recipe"
-          disabled={!isDataReady}
-          onClick={() => postNewRecipe(false)}
-        >
-          Save as Private
-        </button>
-      </div>
-    </div>
+    </>
   );
 }

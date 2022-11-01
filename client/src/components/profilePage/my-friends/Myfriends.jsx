@@ -28,7 +28,7 @@ export default function MyFriends({ friendsList }) {
 function FriendCard({ id, name, rank, isAvatar }) {
   const [friendRank, setFriendRank] = useState(1);
   const url = process.env.NODE_ENV === "production" ? `/users` : `http://localhost:5000/users`;
-  console.log(isAvatar);
+  // console.log(isAvatar);
   function DrawRanks() {
     const arr = [];
     for (let i = 0; i < rank; i++) {

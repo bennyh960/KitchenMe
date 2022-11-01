@@ -11,6 +11,8 @@ import Comments from "./comments/comments";
 import recipiesAPI from "../../api/recipes.users.Api";
 import { Rating } from "react-simple-star-rating";
 import { UserContext } from "../../App";
+// TODO : add new loader to delete recipe
+// import Loader from "../loaders/loader2/loader2";
 // import { Buffer } from "buffer";
 // import Video from "./video";
 
@@ -193,6 +195,7 @@ export default function Post({
         </Carousel>
       </div>
       <div className="post-blog">
+        {/* <Loader /> */}
         <div className="action-take">
           {!PopUp ? (
             <ul className="ul-action-take">

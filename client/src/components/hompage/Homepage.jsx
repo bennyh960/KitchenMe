@@ -21,32 +21,36 @@ export default function Homepage({ token }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(token);
+    // console.log(token);
     const localToken = localStorage.getItem("token");
     if (!token && !localToken) {
       navigate("/login");
     }
-    console.log(token);
+    // console.log(token);
   }, [navigate, token]);
 
   const updateNewUi = () => {
-    console.log(updateNewPost);
+    // console.log(updateNewPost);
     setUpdateNew((p) => !p);
   };
 
   useEffect(() => {
     const getRecipes = async () => {
-      setIsLoading(true);
-      const { data } = await recipiesAPI.getPublicRecipes.get("", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      try {
+        setIsLoading(true);
+        const { data } = await recipiesAPI.getPublicRecipes.get("", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-      console.log(data[0].image);
-      setPublicPosts(data);
-      setIsLoading(false);
+        // console.log(data[0].image);
+        setPublicPosts(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     try {

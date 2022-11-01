@@ -39,32 +39,39 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
   const updateUi = () => {
     setUpdateUi((p) => !p);
   };
+  const [postIdToBeFilter, setFilter] = useState([]);
+  const handleRefresh = (postIdToFilter) => {
+    setFilter((p) => [...p, postIdToFilter]);
+  };
 
   const drawPosts = () => {
-    // console.log(posts);
-    return posts.map((post) => {
-      console.log(post.description);
-      return (
-        <Post
-          key={post._id}
-          postId={post._id}
-          title={post.name}
-          category={post.category}
-          ingredients={post.ingredients}
-          instructions={post.instructions}
-          image={post.image}
-          avatar={avatar}
-          name={post.ownerName}
-          description={post.description}
-          time={getTime(post.updatedAt)}
-          token={token}
-          owner={post.owner}
-          rank={post.rank}
-          voterListlengh={post.voted.length}
-        />
-      );
-      // return <h1>xxxx</h1>;
-    });
+    console.log(postIdToBeFilter);
+    return posts
+      .filter((p) => !postIdToBeFilter.includes(p._id))
+      .map((post) => {
+        console.log(post.description);
+        return (
+          <Post
+            key={post._id}
+            postId={post._id}
+            title={post.name}
+            category={post.category}
+            ingredients={post.ingredients}
+            instructions={post.instructions}
+            image={post.image}
+            avatar={avatar}
+            name={post.ownerName}
+            description={post.description}
+            time={getTime(post.updatedAt)}
+            token={token}
+            owner={post.owner}
+            rank={post.rank}
+            voterListlengh={post.voted.length}
+            handleRefresh={handleRefresh}
+          />
+        );
+        // return <h1>xxxx</h1>;
+      });
   };
 
   const drawTenBestFreinds = () => {
@@ -75,9 +82,6 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
           <div className="friend-container ">
             {/* {friend.isAvatar ? ( */}
             <img src={`${url}/${friend.friendId}/avatar`} alt="" className={"friend-card-image"} />
-            {/* ) : ( */}
-            {/* <img src={`https://identix.state.gov/qotw/images/no-photo.gif`} alt="" className={"friend-card-image"} /> */}
-            {/* )} */}
 
             <p>{friend.name.split(" ")[0].slice(0, 7)}</p>
           </div>
@@ -91,8 +95,6 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
       <div className="my-post-left-container">
         <Addrecipe updateUi={updateUi} token={token} />
         {isLoading && <Loader2 />}
-        {/* <Loader2 /> */}
-        {/* <Post /> */}
         {drawPosts()}
         <div className="first-message">
           <h1>Welcome {name}</h1>

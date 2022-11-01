@@ -1,0 +1,72 @@
+.help-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  box-shadow: var(--box-shadow-primary);
+  border-radius: 5px;
+  background-color: aliceblue;
+  width: fit-content;
+}
+
+.close-container {
+  box-shadow: 20px 20px 50px 10px pink inset;
+  width: 99%;
+  margin: 5px auto;
+  height: fit-content;
+  background-color: var(--bg-navbar-color);
+  border-radius: 5px;
+  display: flex;
+}
+.close-container::after {
+  content: "Add Recipe Help";
+  margin: auto;
+  font-weight: bold;
+}
+.close-help {
+  border-radius: 5px;
+  padding: 0 10px 0 10px;
+  text-align: center;
+  width: 25px;
+  transition: all 0.5s ease-in-out;
+}
+
+.close-help:hover {
+  cursor: pointer;
+  background-color: red;
+  color: white;
+}
+
+.help-content {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: space-around;
+  text-align: left;
+  margin: 20px auto;
+  line-height: 3.8rem;
+}
+
+@media screen and (max-width: 600px) {
+  .help-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    margin: auto;
+    z-index: 10000000000000000000000;
+  }
+
+  .help-content > * {
+    margin-top: 20px;
+    /* border: 1px solid black; */
+    /* align-content: space-around; */
+    /* justify-content: space-around; */
+  }
+}

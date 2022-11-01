@@ -56,12 +56,7 @@ export default function MyRecipies({ token }) {
             <div
               className="recipe-bg"
               style={{
-                backgroundImage: `url(${
-                  process.env.NODE_ENV === "production"
-                    ? "https://meetbachv2.herokuapp.com/" + recipe.image
-                    : // process.env.REACT_APP_IMAGE_BASE_URL + recipe.image
-                      `http://localhost:5000/${recipe.image}`
-                })`,
+                backgroundImage: `url(${recipe.image})`,
               }}
             >
               <span></span>
@@ -70,6 +65,20 @@ export default function MyRecipies({ token }) {
         );
       });
   };
+
+  // <div
+  //             className="recipe-bg"
+  //             style={{
+  //               backgroundImage: `url(${
+  //                 process.env.NODE_ENV === "production"
+  //                   ? "https://meetbachv2.herokuapp.com/" + recipe.image
+  //                   : // process.env.REACT_APP_IMAGE_BASE_URL + recipe.image
+  //                     `http://localhost:5000/${recipe.image}`
+  //               })`,
+  //             }}
+  //           >
+  //             <span></span>
+  //           </div>
 
   const popUpClose = (answere) => {
     setPpUpZoom(answere);

@@ -4,17 +4,16 @@ import IngredientAdd from "./addIngredients/ingredientsadd";
 import InstructionsAdd from "./addInstructions/instructionsadd";
 import Help from "./addHelp/Help";
 import ConfirmRecipe from "./confirmPage/confirm";
-// import Loader from "../../loaders/loader1";
+
 import recipiesAPI from "../../../api/recipes.users.Api";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // const rowsArr = [1, 2, 3];
-export default function Addrecipe({ updateUi, token }) {
+export default function AddrecipeDev({ updateUi, token }) {
   const [titleCategory, setTitle] = useState({ name: "", category: "", description: "" });
   const [isOpenEditor, setOpenEditor] = useState(false);
   const [isHelp, setHelp] = useState(false);
-
   const [errorMsg, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",

@@ -33,14 +33,12 @@ router.post("/recipes/new", auth, upload.single("image"), async (req, res) => {
     });
     if (req.file) {
       const buffer = await sharp(req.file.buffer).resize({ width: 600, height: 400 }).png().toBuffer();
-      // old version - store img on mongo
-      // recipe.image = buffer;
+      recipe.image = buffer;
       const fileName = recipe._id.toString() + req.file.originalname.slice(-4);
-      // const uploadFile = await generateUploadURL(fileName, req.file.buffer);
-      console.log("========== Upload with S3 new version ============");
-      const uploadFile = await generateUploadURL(fileName, buffer);
+      const uploadFile = await generateUploadURL(fileName, req.file.buffer);
+      console.log("==========================");
       // console.log(uploadFile.Location);
-      recipe.image = uploadFile.Location;
+      recipe.image2 = uploadFile.Location;
       console.log("==========================");
     }
     await recipe.save();
@@ -80,35 +78,33 @@ router.get("/recipes/public", auth, async (req, res) => {
       owner: { $in: [req.user._id, ...req.user.friends.map((f) => f.friendId)] },
     }).sort("-updatedAt");
 
-    // ================================
-    // Old version of img store on mobgo
-    // const recipeToSend = recipes.map((recipe) => {
-
-    //   const obj = {
-    //     _id: mongoose.Types.ObjectId(recipe._id),
-    //     name: recipe.name,
-    //     category: recipe.category,
-    //     image: `recipes/image/${recipe._id.toString()}`,
-    //     public: recipe.public,
-    //     description: recipe.description,
-    //     ingredients: recipe.ingredients,
-    //     instructions: recipe.instructions,
-    //     ownerName: recipe.ownerName,
-    //     rank: recipe.rank,
-    //     owner: mongoose.Types.ObjectId(recipe.owner),
-    //     voted: recipe.voted.map((v) => {
-    //       return { ...v, voterId: mongoose.Types.ObjectId(v) };
-    //     }),
-    //     createdAt: recipe.createdAt,
-    //     updatedAt: recipe.updatedAt,
-    //   };
-    //   return obj;
-    // });
+    const recipeToSend = recipes.map((recipe) => {
+      // delete recipe[image];
+      // recipe.image = `/recipe/image/${recipe._id}`;
+      const obj = {
+        _id: mongoose.Types.ObjectId(recipe._id),
+        name: recipe.name,
+        category: recipe.category,
+        image: `recipes/image/${recipe._id.toString()}`,
+        public: recipe.public,
+        description: recipe.description,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+        ownerName: recipe.ownerName,
+        rank: recipe.rank,
+        owner: mongoose.Types.ObjectId(recipe.owner),
+        voted: recipe.voted.map((v) => {
+          return { ...v, voterId: mongoose.Types.ObjectId(v) };
+        }),
+        createdAt: recipe.createdAt,
+        updatedAt: recipe.updatedAt,
+      };
+      return obj;
+    });
     // console.log(recipeToSend);
-    // res.send(recipeToSend);
 
-    // ================================
-    res.send(recipes);
+    // res.send(recipes);
+    res.send(recipeToSend);
     // console.log(req.user.friends.map((f) => f.friendId));
   } catch (e) {
     console.log(e.message);
@@ -141,30 +137,31 @@ router.get("/recipes/user", auth, async (req, res) => {
     await req.user.save();
 
     // ============
-    // const recipeToSend = req.user.recipes.map((recipe) => {
+    const recipeToSend = req.user.recipes.map((recipe) => {
+      // delete recipe[image];
+      // recipe.image = `/recipe/image/${recipe._id}`;
+      const obj = {
+        _id: mongoose.Types.ObjectId(recipe._id),
+        name: recipe.name,
+        category: recipe.category,
+        image: `recipes/image/${recipe._id.toString()}`,
+        public: recipe.public,
+        description: recipe.description,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+        ownerName: recipe.ownerName,
+        rank: recipe.rank,
+        owner: mongoose.Types.ObjectId(recipe.owner),
+        voted: recipe.voted.map((v) => {
+          return { ...v, voterId: mongoose.Types.ObjectId(v) };
+        }),
+        createdAt: recipe.createdAt,
+        updatedAt: recipe.updatedAt,
+      };
+      return obj;
+    });
 
-    //   const obj = {
-    //     _id: mongoose.Types.ObjectId(recipe._id),
-    //     name: recipe.name,
-    //     category: recipe.category,
-    //     image: `recipes/image/${recipe._id.toString()}`,
-    //     public: recipe.public,
-    //     description: recipe.description,
-    //     ingredients: recipe.ingredients,
-    //     instructions: recipe.instructions,
-    //     ownerName: recipe.ownerName,
-    //     rank: recipe.rank,
-    //     owner: mongoose.Types.ObjectId(recipe.owner),
-    //     voted: recipe.voted.map((v) => {
-    //       return { ...v, voterId: mongoose.Types.ObjectId(v) };
-    //     }),
-    //     createdAt: recipe.createdAt,
-    //     updatedAt: recipe.updatedAt,
-    //   };
-    //   return obj;
-    // });
-
-    res.send({ recipes: req.user.recipes, owner: req.user.name });
+    res.send({ recipes: recipeToSend, owner: req.user.name });
     // ============
 
     // res.send({ recipes: req.user.recipes, owner: req.user.name });
@@ -192,29 +189,31 @@ router.get("/recipes/friends/:id", async (req, res) => {
     // console.log(FinalRank);
     // await friend.save();
     // ============================
-    // const recipeToSend = friend.recipes.map((recipe) => {
-    //   const obj = {
-    //     _id: mongoose.Types.ObjectId(recipe._id),
-    //     name: recipe.name,
-    //     category: recipe.category,
-    //     image: `recipes/image/${recipe._id.toString()}`,
-    //     public: recipe.public,
-    //     description: recipe.description,
-    //     ingredients: recipe.ingredients,
-    //     instructions: recipe.instructions,
-    //     ownerName: recipe.ownerName,
-    //     rank: recipe.rank,
-    //     owner: mongoose.Types.ObjectId(recipe.owner),
-    //     voted: recipe.voted.map((v) => {
-    //       return { ...v, voterId: mongoose.Types.ObjectId(v) };
-    //     }),
-    //     createdAt: recipe.createdAt,
-    //     updatedAt: recipe.updatedAt,
-    //   };
-    //   return obj;
-    // });
+    const recipeToSend = friend.recipes.map((recipe) => {
+      // delete recipe[image];
+      // recipe.image = `/recipe/image/${recipe._id}`;
+      const obj = {
+        _id: mongoose.Types.ObjectId(recipe._id),
+        name: recipe.name,
+        category: recipe.category,
+        image: `recipes/image/${recipe._id.toString()}`,
+        public: recipe.public,
+        description: recipe.description,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+        ownerName: recipe.ownerName,
+        rank: recipe.rank,
+        owner: mongoose.Types.ObjectId(recipe.owner),
+        voted: recipe.voted.map((v) => {
+          return { ...v, voterId: mongoose.Types.ObjectId(v) };
+        }),
+        createdAt: recipe.createdAt,
+        updatedAt: recipe.updatedAt,
+      };
+      return obj;
+    });
 
-    res.send({ recipes: friend.recipes, owner: friend.name });
+    res.send({ recipes: recipeToSend, owner: friend.name });
   } catch (e) {
     res.status(500).send(e.message);
     console.log(chalk.red.inverse(e.message));
