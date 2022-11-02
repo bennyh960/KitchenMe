@@ -64,9 +64,9 @@ export default function AddrecipeDev({ updateUi, token }) {
           return {
             instructions,
             ingredients,
-            category: result.dishTypes[0],
-            name: result.title,
-            description: result.summary,
+            category: result.dishTypes[0].split(" ").join("-") || "Lanch",
+            name: result.title || "Cool Recipe",
+            description: result.summary || "Amazing recipe",
             image: result.image,
             systemGenerate: true,
           };
