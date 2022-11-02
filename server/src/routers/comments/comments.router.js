@@ -39,7 +39,7 @@ router.get("/posts/comments/:postId/", async (req, res) => {
   const comment = await Comment.findOne({ postId: req.params.postId });
   try {
     if (!comment || comment.blog.length === 0) {
-      console.log("no comments");
+      // console.log("no comments");
       res.send([]);
       return;
     }

@@ -1,0 +1,37 @@
+.loader-img-container {
+  width: 90%;
+  min-height: 80%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  background-color: rgba(248, 252, 255, 0.197);
+  z-index: 1000000000000;
+}
+
+.loader-img-logo {
+  width: 64px;
+  height: 64px;
+  background-image: url("../../../public/images/logo64.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: translate(-50%, -50%);
+  transform: rotateY(360deg);
+  animation: rotation2 1s infinite linear;
+}
+
+.small {
+  width: 30px;
+  height: 30px;
+}
+
+@keyframes rotation2 {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(359deg);
+  }
+}

@@ -260,3 +260,13 @@ thead th {
   overflow-y: scroll;
   /* background-color: red; */
 }
+
+.help-btn {
+  /* margin: 0 30px; */
+}
+
+.help-btn:hover {
+  cursor: pointer;
+  /* color: #e6e4e4; */
+  opacity: 0.5;
+}

@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import "./addedrecipe.css";
-import IngredientAdd from "./addIngredients/ingredientsadd";
-import InstructionsAdd from "./addInstructions/instructionsadd";
-import Help from "./addHelp/Help";
-import ConfirmRecipe from "./confirmPage/confirm";
+import "../addedrecipe.css";
+// import IngredientAdd from "./addIngredients/ingredientsadd";
+// import InstructionsAdd from "./addInstructions/instructionsadd";
+// import Help from "./addHelp/Help";
+import ConfirmRecipe from "../confirmPage/confirm";
 
-import recipiesAPI from "../../../api/recipes.users.Api";
-import { Carousel } from "react-responsive-carousel";
+import recipiesAPI from "../../../../api/recipes.users.Api";
+// import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import ConfirmRecipeDev from "./confirmDev";
 
 // const rowsArr = [1, 2, 3];
 export default function AddrecipeDev({ updateUi, token }) {
-  const [titleCategory, setTitle] = useState({ name: "", category: "", description: "" });
-  const [isOpenEditor, setOpenEditor] = useState(false);
-  const [isHelp, setHelp] = useState(false);
-  const [errorMsg, setError] = useState("");
+  // const [formData, setTitle] = useState({ name: "", category: "", description: "" });
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -23,42 +21,30 @@ export default function AddrecipeDev({ updateUi, token }) {
     instructions: "",
     image: "",
   });
-  const [bgMandatory, setBackgroundMandtoryField] = useState("white");
 
   const postNewRecipe = async (isPublic) => {
     try {
       formData.public = isPublic;
       await recipiesAPI.createNewRecipe.post("", formData, {
         headers: {
-          // Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
       updateUi();
-      setOpenEditor(false);
-      setTitle({ name: "", description: "", category: "" });
     } catch (error) {
-      // console.log(error);
-      setHelp(true);
-      setError(error);
+      console.log(error);
     }
   };
 
-  const ingredientObjHandler = (ingredients) => {
-    setFormData((p) => {
-      if (p) {
-        return { ...p, ingredients };
-      }
+  const handleChange = ({ target: { value, name } }) => {
+    setFormData((prev) => {
+      return { ...prev, [name]: value };
     });
+
+    // console.log(formData);
   };
-  const instructionsObjHandler = (instructions) => {
-    setFormData((p) => {
-      if (p) {
-        return { ...p, instructions };
-      }
-    });
-  };
+
   const imgUploadHandler = (image) => {
     setFormData((p) => {
       if (p) {
@@ -66,48 +52,31 @@ export default function AddrecipeDev({ updateUi, token }) {
       }
     });
   };
-  const handleNameCategory = () => {
-    setFormData((p) => {
-      if (p) {
-        return {
-          ...p,
-          name: titleCategory.name,
-          category: titleCategory.category,
-          description: titleCategory.description,
-        };
-      }
-    });
 
-    if (formData.name && formData.category) {
-      setOpenEditor((p) => !p);
-      // return;
-    } else if (!formData.name && !formData.category) {
-      setBackgroundMandtoryField("rgb(240,240,240)");
-      setTimeout(() => {
-        setBackgroundMandtoryField("white");
-      }, 100);
+  const [ingredients, setIngredients] = useState([]);
+  const [instructions, setInstructions] = useState([]);
+  const handleInstructions = ({ target: { value, name } }) => {
+    const ingredientArr = value.split("@");
+    setInstructions(ingredientArr);
+    setFormData((prev) => {
+      return { ...prev, [name]: instructions };
+    });
+    console.log(name);
+  };
+  const handleIngredients = ({ target: { value, name } }) => {
+    const ingredientArr = value.split("\n");
+    for (let i of ingredientArr) {
+      setIngredients((p) => [...p, i.split(",")]);
     }
-  };
-
-  const handleChange = ({ target: { value, name } }) => {
-    setTitle((prev) => {
-      return { ...prev, [name]: value };
+    setFormData((prev) => {
+      return { ...prev, [name]: ingredients };
     });
-    console.log(titleCategory);
-  };
-
-  const handleHelp = () => {
-    setHelp((p) => !p);
+    console.log(name);
   };
   return (
     <div className="container-newRecipe-frame">
       <div className="title-category white-box">
-        <div className="add-new-title-logo">
-          <div className="help-btn" onClick={handleHelp}>
-            <i class="hire a helper icon"></i>
-          </div>
-          Add New Recipe
-        </div>
+        <div className="add-new-title-logo">Add New Recipe</div>
         <select
           className="ui dropdown select-category"
           onChange={handleChange}
@@ -130,14 +99,7 @@ export default function AddrecipeDev({ updateUi, token }) {
           <option value="Fast-Food">Fast-Food</option>
         </select>
         <div className="ui input ">
-          <input
-            type="text"
-            placeholder="Recipe Name*..."
-            onChange={handleChange}
-            value={titleCategory.name}
-            style={{ backgroundColor: bgMandatory }}
-            name="name"
-          />
+          <input type="text" placeholder="Recipe Name*..." onChange={handleChange} value={formData.name} name="name" />
         </div>
 
         <div className="ui input ">
@@ -145,48 +107,40 @@ export default function AddrecipeDev({ updateUi, token }) {
             type="text"
             placeholder="Description..."
             onChange={handleChange}
-            value={titleCategory.description}
+            value={formData.description}
             name="description"
-            style={{ backgroundColor: bgMandatory }}
           />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-around", margin: "2rem" }}>
-          <button className="ui button red" onClick={handleNameCategory}>
-            {!isOpenEditor ? "Open Recipe Editor" : "Close Recipe Editor"}
-          </button>
+
+        <div className="" style={{ display: "flex", justifyContent: "space-around" }}>
+          <textarea
+            name="ingredients"
+            cols="30"
+            rows="10"
+            onChange={handleIngredients}
+            placeholder="ingredients..."
+            value={ingredients}
+          ></textarea>
+
+          <textarea
+            name="instructions"
+            cols="30"
+            rows="10"
+            onChange={handleInstructions}
+            placeholder="instructions..."
+            value={instructions}
+          ></textarea>
         </div>
       </div>
 
-      {isOpenEditor && (
-        <Carousel
-          infiniteLoop={true}
-          emulateTouch={true}
-          // showThumbs={true}
-          showArrows={false}
-          showIndicators={false}
-          showStatus={false}
-          useKeyboardArrows={true}
-          // dynamicHeight={true}
-        >
-          <div className="ingredient-container">
-            <IngredientAdd ingredientObjHandler={ingredientObjHandler} />
-          </div>
-
-          <div className="instructions-container">
-            <InstructionsAdd instructionsObjHandler={instructionsObjHandler} />
-          </div>
-
-          <div className="confirm-summary">
-            <ConfirmRecipe
-              formData={formData}
-              postNewRecipe={postNewRecipe}
-              imgUploadHandler={imgUploadHandler}
-              updateUi={updateUi}
-            />
-          </div>
-        </Carousel>
-      )}
-      {isHelp && <Help setHelp={setHelp} error={errorMsg} />}
+      <div className="confirm-summary">
+        <ConfirmRecipe
+          formData={formData}
+          postNewRecipe={postNewRecipe}
+          imgUploadHandler={imgUploadHandler}
+          updateUi={updateUi}
+        />
+      </div>
     </div>
   );
 }

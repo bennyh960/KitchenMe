@@ -11,6 +11,7 @@ import Comments from "./comments/comments";
 import recipiesAPI from "../../api/recipes.users.Api";
 import { Rating } from "react-simple-star-rating";
 import { UserContext } from "../../App";
+import LoaderImg from "../loaders/LoaderIogo";
 // TODO : add new loader to delete recipe
 // import Loader from "../loaders/loader2/loader2";
 // import { Buffer } from "buffer";
@@ -41,6 +42,8 @@ export default function Post({
   const [showComments, setShowComments] = useState(false);
   const [commentArrayLength, setCommentsArrayLength] = useState("");
   const [showStars, setShowStars] = useState(false);
+  const [PopUp, setPopUp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // const location = useLocation();
 
   const {
@@ -62,6 +65,7 @@ export default function Post({
     setCurrentSlide(0);
   };
 
+  const [openAccordion, setOpenAccordion] = useState(false);
   const onCarousleChange = (item) => {
     switch (item) {
       case 1:
@@ -69,6 +73,8 @@ export default function Post({
         break;
       case 2:
         setActiveView(["", "", "active-view", ""]);
+
+        setOpenAccordion(true);
         break;
 
       default:
@@ -93,24 +99,15 @@ export default function Post({
     }
   };
 
-  // const [postData, setPostData] = useState({ title, category, description, ingredients, instructions, image });
-  // const [iseditMode, setIsEditMode] = useState(true);
-  // const handleEditPost = ({ target }) => {
-  // setIsEditMode(false);
-  // setPostData((p) => {
-  //   return { ...p,target.id };
-  // });
-  // console.log(target.id);
-  // };
-
-  const [PopUp, setPopUp] = useState(false);
-
   const handleDeletePost = async () => {
-    setPopUp((p) => true);
+    // setPopUp((p) => true);
     // loading
-    await recipiesAPI.recipesPostDeleteRouter.delete("/", { data: { id: postId } });
+
+    setIsLoading(true);
     setPopUp((p) => false);
+
     handleRefresh(postId);
+    await recipiesAPI.recipesPostDeleteRouter.delete("/", { data: { id: postId } });
   };
 
   useEffect(() => {
@@ -182,16 +179,19 @@ export default function Post({
           // onSwipeMove={onSwipeMove}
           // showThumbs={true}
           // onClickItem={onClickItem}
+          showThumbs={false}
           onChange={onCarousleChange}
           showArrows={false}
           selectedItem={currentSlide}
           showIndicators={false}
           showStatus={false}
           dynamicHeight={width > 600 ? true : false}
+          // dynamicHeight={true}
+          useKeyboardArrows={true}
         >
           <ClassicPost image={image} description={description} />
           <IngredientTable ingredients={ingredients} />
-          <Instructions instructions={instructions} />
+          <Instructions instructions={instructions} openAccordion={openAccordion} />
         </Carousel>
       </div>
       <div className="post-blog">
@@ -213,14 +213,15 @@ export default function Post({
                     <i className="star inline icon yellow large"></i>Vote
                   </button>
                 ) : (
-                  <>
-                    {/* <button onClick={handleEditPost}>
-                      <i className="address edit icon large"></i>Edit
-                    </button> */}
-                    <button onClick={() => setPopUp((p) => !p)}>
-                      <i className="address eraser icon large"></i>Delete
-                    </button>
-                  </>
+                  <div style={{ position: "relative" }}>
+                    {isLoading ? (
+                      <LoaderImg size={"small"} />
+                    ) : (
+                      <button onClick={() => setPopUp((p) => true)}>
+                        <i className="address eraser icon large"></i>Delete
+                      </button>
+                    )}
+                  </div>
                 )}
               </li>
               <li>

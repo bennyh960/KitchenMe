@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./confirm.css";
+import "../confirmPage/confirm.css";
 // import Loader from "../../../loaders/loader1";
 import LoaderImg from "../../../loaders/LoaderIogo";
 
 import UploadSubmit from "../uploadFiles/uploadSubmit";
 
-export default function ConfirmRecipe({ formData, imgUploadHandler, postNewRecipe }) {
+export default function ConfirmRecipeDev({ formData, imgUploadHandler, postNewRecipe }) {
   const [isDataReady, setIsDataReady] = useState(false);
   const [isLoading, setLoading] = useState(false);
   useEffect(() => {

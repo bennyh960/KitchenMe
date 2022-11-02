@@ -12,6 +12,7 @@ import Authenticate from "./components/authenticate/authenticate";
 import MyRecipies from "./components/profilePage/my-recepies/MyRecipies";
 import MyFriends from "./components/profilePage/my-friends/Myfriends";
 import Chat from "./components/chat/chat";
+import AddrecipeDev from "./components/profilePage/add-recipe/add-recipe-devoloper-tools/addRecipeDev";
 
 // * TODO LIST IN PRIORTY ORDER
 // TODO : improve ui of post - image should be resize according to text attached - no scroll in this  - 1 hr
@@ -162,6 +163,7 @@ function App() {
                 />
               }
             />
+            <Route path="/developer/recipes/1234" element={<AddrecipeDev token={authDetailes.token} />} />
             <Route path="/profile/recipes" element={<MyRecipies token={authDetailes.token} />} />
             <Route path="profile/myfriends" element={<MyFriends friendsList={friendsList} />} />
             <Route

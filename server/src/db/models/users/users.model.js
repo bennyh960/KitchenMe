@@ -121,7 +121,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
     if (!isMatch) {
       throw new Error("Email and Password are not match.");
     }
-    console.log(chalk.green.inverse("Login succesfuly"));
+    // console.log(chalk.green.inverse("Login succesfuly"));
     return user;
   } catch (error) {
     console.log(error);

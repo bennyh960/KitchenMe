@@ -23,6 +23,7 @@ export default function Comments({ avatar, postId, getComments }) {
   useEffect(() => {
     const getHereTheComments = async () => {
       const commentsFromPosts = await getComments(commentsToShow);
+      // console.log(commentsFromPosts);
       setComments(commentsFromPosts);
     };
     // console.log(commentsFromPosts);
@@ -37,6 +38,7 @@ export default function Comments({ avatar, postId, getComments }) {
 
       //   setCommentsToshow(data);
       setComments(data);
+      // console.log(data);
     } catch (error) {
       console.log(error.message);
     }

@@ -81,6 +81,7 @@ function TableRowIngredients({ addRowBtn, removeRow, index, rowObj }) {
   const handleChange = ({ target: { value, name } }) => {
     if (name === "ingredient") rowVal[0] = value;
     if (name === "amount") rowVal[1] = value;
+    console.log(rowVal);
     setRowVal((prev) => {
       return [...prev];
     });

@@ -1,16 +1,20 @@
 .accordion-container {
-  height: 100%;
-  /* min-height: 300px; */
+  /* height: 100%; */
+
+  /* height: fit-content; */
+  min-height: fit-content;
   max-height: 500px;
   max-width: 90%;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   margin: 10px auto;
+
   /* padding: 30px 0; */
   /* scroll-behavior: smooth; */
   /* border: 1px solid red; */
 }
 .accordion-item {
   border: 1px solid black;
+  height: fit-content;
   /* transition: all ease-in-out 1s; */
 }
 

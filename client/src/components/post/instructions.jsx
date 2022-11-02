@@ -1,27 +1,32 @@
-import React, { useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import "./accordion.css";
 
-export default function Instructions({ instructions }) {
+export default function Instructions({ instructions, openAccordion }) {
   const drawInstructions = () => {
     return instructions.map((ins, i) => {
-      return <Step title={`Step ${i + 1}: ${ins.slice(0, 50)}... `} content={ins} key={i} />;
+      return (
+        <Step title={`Step ${i + 1}: ${ins.slice(0, 50)}... `} content={ins} key={i} openAccordion={openAccordion} />
+      );
     });
   };
 
   return (
     <div className="accordion-container">
-      <h1>Pizza Recipe Instructions</h1>
+      <h1>Instructions</h1>
 
       {drawInstructions()}
     </div>
   );
 }
 
-function Step({ title, content }) {
-  const [isActive, setIsActive] = useState(false);
+function Step({ title, content, openAccordion }) {
+  const [isActive, setIsActive] = useState(true);
+  useEffect(() => {
+    setIsActive((p) => !p);
+  }, [openAccordion]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div className="accordion">
         <div className="accordion-item">
           <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
@@ -31,6 +36,6 @@ function Step({ title, content }) {
           {isActive && <div className="accordion-content">{content}</div>}
         </div>
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 }

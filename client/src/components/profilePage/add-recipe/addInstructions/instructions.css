@@ -1,7 +1,8 @@
 .instructions-recipe {
   /* flex: 1; */
-
+  /* border: 1px solid black; */
   width: 100%;
+  height: fit-content;
   /* margin: auto; */
   /* margin: 0.5rem 2rem 2rem; */
   /* box-shadow: 0px 2rem 3rem rgba(0, 0, 0, 0.2); */
