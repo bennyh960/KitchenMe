@@ -65,7 +65,7 @@ export default function Friendposts({
         const checkFriendship = data.friends.find((friend) => friend.friendId === friendId);
         if (checkFriendship && checkFriendship.friendId === friendId) {
           setButtonDisplay((p) => "remove");
-          console.log("already friends, click for remove friend");
+          // console.log("already friends, click for remove friend");
         } else if (
           data.pending.find((waitList) => waitList.pendingId === friendId && waitList.note === "requestedId")
         ) {

@@ -34,6 +34,9 @@
   /* background-color: red; */
   /* padding: 2rem; */
   width: 100%;
+  max-width: 200px;
+  border-radius: 5px;
+  border: 1px solid black;
   height: 100%;
   margin: 5px 0;
   cursor: zoom-in;

@@ -5,7 +5,7 @@ const User = require("../db/models/users/users.model");
 const auth = async (req, res, next) => {
   console.log("Check authentication");
   try {
-    console.log(chalk.yellow(req.header("Authorization")));
+    // console.log(chalk.yellow(req.header("Authorization")));
     // console.log(req);
     const token = req.header("Authorization").replace("Bearer ", "");
     // console.log(token);

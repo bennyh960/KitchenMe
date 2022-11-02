@@ -45,11 +45,11 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
   };
 
   const drawPosts = () => {
-    console.log(postIdToBeFilter);
+    // console.log(postIdToBeFilter);
     return posts
       .filter((p) => !postIdToBeFilter.includes(p._id))
       .map((post) => {
-        console.log(post.description);
+        // console.log(post.description);
         return (
           <Post
             key={post._id}

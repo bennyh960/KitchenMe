@@ -40,7 +40,7 @@ router.post("/recipes/new", auth, upload.single("image"), async (req, res) => {
       console.log("========== Upload with S3 new version ============");
       const uploadFile = await generateUploadURL(fileName, buffer);
       recipe.image = uploadFile.Location;
-      // console.log(uploadFile.Location);
+      console.log(uploadFile.Location);
       console.log("==========================");
     } else {
       console.log("system added new random recipe");

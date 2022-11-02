@@ -25,7 +25,7 @@ router.post("/posts/comments", auth, async (req, res) => {
 
     await comment.save();
     res.status(201).send(comment);
-    console.log(chalk.inverse.green("New comment added to  DB"));
+    // console.log(chalk.inverse.green("New comment added to  DB"));
   } catch (error) {
     res.status(400).send(error.message);
     console.log(chalk.red(error.message));

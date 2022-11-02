@@ -83,7 +83,7 @@ export default function Chat({ friendsList, userId }) {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!message) return;
-    console.log(message);
+    // console.log(message);
 
     try {
       const { data } = messangerApi.post("/addmsg", {

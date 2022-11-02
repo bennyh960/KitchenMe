@@ -94,7 +94,7 @@ export default function Addrecipe({ updateUi, token }) {
     setTitle((prev) => {
       return { ...prev, [name]: value };
     });
-    console.log(titleCategory);
+    // console.log(titleCategory);
   };
 
   const handleHelp = () => {
@@ -162,7 +162,7 @@ export default function Addrecipe({ updateUi, token }) {
         <Carousel
           infiniteLoop={true}
           emulateTouch={true}
-          // showThumbs={true}
+          showThumbs={false}
           showArrows={false}
           showIndicators={false}
           showStatus={false}

@@ -44,7 +44,7 @@ export default function AddrecipeDev({ updateUi, token }) {
         const { data } = await axios.request(options);
         // ====
         const result = data.recipes[0];
-        console.log(result);
+        // console.log(result);
         // ====
         // * Ingredients
         const ingredients = result.extendedIngredients.map((ingredient) => {

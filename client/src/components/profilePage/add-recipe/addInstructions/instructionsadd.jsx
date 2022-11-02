@@ -14,12 +14,9 @@ export default function InstructionsAdd({ instructionsObjHandler }) {
   }, [instructionsList]);
 
   const addRowToData = (data, idx) => {
-    // const checkValidRow = instructionsList.find((row) => row.instruction === data.instruction);
-    // if (!checkValidRow) {
-    // }
     instructionsList.push(data);
     setInstructionsList((p) => [...p]);
-    console.log(instructionsList);
+    // console.log(instructionsList);
   };
 
   const removeRow = (e, index) => {
@@ -32,7 +29,7 @@ export default function InstructionsAdd({ instructionsObjHandler }) {
     addRowArg.push("newRow");
     setAddRowArg((p) => [...p]);
     if (instructionsList.length <= 2 && addRowArg.length < 2) {
-      console.log(instructionsList);
+      // console.log(instructionsList);
     }
   };
 

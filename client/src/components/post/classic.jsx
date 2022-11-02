@@ -9,12 +9,12 @@ export default function ClassicPost({ image, description, systemGenerate }) {
   const [classes, setClasses] = useState("");
   const ref = createRef();
   useEffect(() => {
-    console.log(ref.current.offsetHeight);
+    // console.log(ref.current.offsetHeight);
     setDesctiptionHeight(() => ref.current.offsetHeight);
   }, []);
 
   useEffect(() => {
-    console.log(systemGenerate);
+    // console.log(systemGenerate);
     if (descriptionHeight < 60) {
       setClasses("classic-post-container reverse-column");
     } else if (systemGenerate && descriptionHeight > 100) {

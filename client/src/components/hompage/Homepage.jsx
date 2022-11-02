@@ -56,7 +56,7 @@ export default function Homepage({ token }) {
     try {
       if (token) {
         getRecipes();
-        console.log(token);
+        // console.log(token);
       } else return;
     } catch (error) {
       console.log(error);

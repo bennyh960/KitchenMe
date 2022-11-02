@@ -225,3 +225,8 @@ li {
 .input-post-data {
   background-color: transparent;
 }
+
+.stars-container {
+  /* border: 1px solid black; */
+  text-align: center;
+}

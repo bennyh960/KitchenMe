@@ -82,7 +82,7 @@ export default function MyRecipies({ token }) {
 
   const popUpClose = (answere) => {
     setPpUpZoom(answere);
-    console.log(answere);
+    // console.log(answere);
   };
 
   const handleChange = (e) => {
