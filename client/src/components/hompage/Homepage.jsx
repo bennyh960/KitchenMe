@@ -99,6 +99,7 @@ export default function Homepage({ token }) {
             rank={post.rank}
             voterListlengh={post.voted?.length}
             handleRefresh={handleRefresh}
+            systemGenerate={post.systemGenerate}
           />
         );
       });

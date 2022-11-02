@@ -68,6 +68,7 @@ export default function Myposts({ avatar, name, email, topRated, myRank, created
             rank={post.rank}
             voterListlengh={post.voted.length}
             handleRefresh={handleRefresh}
+            systemGenerate={post.systemGenerate}
           />
         );
         // return <h1>xxxx</h1>;

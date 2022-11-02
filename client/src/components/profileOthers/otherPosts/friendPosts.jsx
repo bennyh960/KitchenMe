@@ -113,6 +113,7 @@ export default function Friendposts({
           owner={post.owner}
           rank={post.rank}
           voterListlengh={post.voted.length}
+          systemGenerate={post.systemGenerate}
         />
       );
       // return <h1>xxxx</h1>;

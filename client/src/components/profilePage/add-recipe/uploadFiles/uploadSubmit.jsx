@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./upload.css";
 
-export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
+export default function UploadSubmit({ id, onInput, imgUploadHandler, imgUrlFromApi }) {
   const [file, setFile] = useState();
   const [prevUrl, setPrevUrl] = useState();
   const [isValid, setIsValid] = useState(true);
@@ -53,7 +53,9 @@ export default function UploadSubmit({ id, onInput, imgUploadHandler }) {
         accept=".jpg,.png,.jpeg"
       />
       <div className="image-uplaod">
-        <div className="image-upload__preview">{prevUrl ? <img src={prevUrl} alt="Preview" /> : ""}</div>
+        <div className="image-upload__preview">
+          {prevUrl ? <img src={prevUrl} alt="Preview" /> : <img src={imgUrlFromApi} alt="Preview" />}
+        </div>
       </div>
       {!isValid && <p>Upload failed</p>}
       {/* <button className="ui primary button" onClick={pickImageHandler}>

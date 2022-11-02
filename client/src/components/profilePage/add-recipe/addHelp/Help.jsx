@@ -28,6 +28,13 @@ function Help({ setHelp, errorMsg }) {
             <i class="arrow alternate circle right icon"></i> Post as public will post to your friends
           </div>
           <div>
+            <i class="arrow alternate circle right icon"></i> Developer tool : Link for &nbsp;
+            <a href="/developer/recipes/1234" target={"_blank"}>
+              Generate Random Recipe
+            </a>
+            {/* "https://https://meetbachv2.herokuapp.com/developer/recipes/1234" */}
+          </div>
+          <div>
             <i class="arrow alternate circle right icon"></i> Save as private will save in your recipe book in your
             profile page
           </div>

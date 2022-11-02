@@ -34,6 +34,7 @@ export default function Post({
   owner,
   postId,
   rank,
+  systemGenerate,
   voterListlengh,
   handleRefresh,
 }) {
@@ -185,11 +186,11 @@ export default function Post({
           selectedItem={currentSlide}
           showIndicators={false}
           showStatus={false}
-          dynamicHeight={width > 600 ? true : false}
-          // dynamicHeight={true}
+          // dynamicHeight={width > 600 ? true : false}
+          dynamicHeight={true}
           useKeyboardArrows={true}
         >
-          <ClassicPost image={image} description={description} />
+          <ClassicPost image={image} description={description} systemGenerate={systemGenerate} />
           <IngredientTable ingredients={ingredients} />
           <Instructions instructions={instructions} openAccordion={openAccordion} />
         </Carousel>

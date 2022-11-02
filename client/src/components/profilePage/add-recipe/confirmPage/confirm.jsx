@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import "./confirm.css";
 // import Loader from "../../../loaders/loader1";
 import LoaderImg from "../../../loaders/LoaderIogo";
@@ -54,7 +55,7 @@ export default function ConfirmRecipe({ formData, imgUploadHandler, postNewRecip
 
             {drawInstructions()}
           </div>
-          <UploadSubmit imgUploadHandler={imgUploadHandler} />
+          <UploadSubmit imgUploadHandler={imgUploadHandler} imgUrlFromApi={formData.image} />
         </div>
         <div className="ui buttons" id="save-cancle" style={{ width: "95%", margin: "0 auto" }}>
           {/* {isLoading && <Loader />} */}

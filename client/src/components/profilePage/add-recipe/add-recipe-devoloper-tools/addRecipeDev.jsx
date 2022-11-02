@@ -1,24 +1,19 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../addedrecipe.css";
-// import IngredientAdd from "./addIngredients/ingredientsadd";
-// import InstructionsAdd from "./addInstructions/instructionsadd";
-// import Help from "./addHelp/Help";
 import ConfirmRecipe from "../confirmPage/confirm";
-
 import recipiesAPI from "../../../../api/recipes.users.Api";
-// import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-// import ConfirmRecipeDev from "./confirmDev";
+import axios from "axios";
 
-// const rowsArr = [1, 2, 3];
 export default function AddrecipeDev({ updateUi, token }) {
-  // const [formData, setTitle] = useState({ name: "", category: "", description: "" });
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     category: "",
     description: "",
-    ingredients: "",
-    instructions: "",
+    ingredients: [],
+    instructions: [],
     image: "",
   });
 
@@ -31,19 +26,57 @@ export default function AddrecipeDev({ updateUi, token }) {
           "Content-Type": "multipart/form-data",
         },
       });
-      updateUi();
+      navigate("/");
+      // updateUi();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleChange = ({ target: { value, name } }) => {
-    setFormData((prev) => {
-      return { ...prev, [name]: value };
-    });
+  useEffect(() => {
+    // https://spoonacular.com/food-api/docs
+    async function getRandomRecipe() {
+      const options = {
+        method: "GET",
+        url: "https://api.spoonacular.com/recipes/random?apiKey=cbe555ecedcd4defa535bd69b659a26e",
+      };
+      try {
+        const { data } = await axios.request(options);
+        // ====
+        const result = data.recipes[0];
+        console.log(result);
+        // ====
+        // * Ingredients
+        const ingredients = result.extendedIngredients.map((ingredient) => {
+          return [
+            ingredient.name,
+            Math.ceil(ingredient.measures.metric.amount) + " " + ingredient.measures.metric.unitShort,
+          ];
+        });
+        // console.log(ingredientsApi);
 
-    // console.log(formData);
-  };
+        // * Instructions
+        const instructions = result.analyzedInstructions[0].steps.map((step) => {
+          return step.step;
+        });
+
+        setFormData((p) => {
+          return {
+            instructions,
+            ingredients,
+            category: result.dishTypes[0],
+            name: result.title,
+            description: result.summary,
+            image: result.image,
+            systemGenerate: true,
+          };
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getRandomRecipe();
+  }, []);
 
   const imgUploadHandler = (image) => {
     setFormData((p) => {
@@ -53,86 +86,8 @@ export default function AddrecipeDev({ updateUi, token }) {
     });
   };
 
-  const [ingredients, setIngredients] = useState([]);
-  const [instructions, setInstructions] = useState([]);
-  const handleInstructions = ({ target: { value, name } }) => {
-    const ingredientArr = value.split("@");
-    setInstructions(ingredientArr);
-    setFormData((prev) => {
-      return { ...prev, [name]: instructions };
-    });
-    console.log(name);
-  };
-  const handleIngredients = ({ target: { value, name } }) => {
-    const ingredientArr = value.split("\n");
-    for (let i of ingredientArr) {
-      setIngredients((p) => [...p, i.split(",")]);
-    }
-    setFormData((prev) => {
-      return { ...prev, [name]: ingredients };
-    });
-    console.log(name);
-  };
   return (
-    <div className="container-newRecipe-frame">
-      <div className="title-category white-box">
-        <div className="add-new-title-logo">Add New Recipe</div>
-        <select
-          className="ui dropdown select-category"
-          onChange={handleChange}
-          name="category"
-          defaultValue={"default"}
-        >
-          <option value="default" disabled>
-            <b> Select Recipe Category* </b>
-          </option>
-          <option value="Breakfast">Breakfast</option>
-          <option value="Lunch">Lunch</option>
-          <option value="Dinner">Dinner</option>
-          <option value="Appetizer">Appetizer</option>
-          <option value="Salad">Salad</option>
-          <option value="Side-dish">Side-dish</option>
-          <option value="Baked-goods">Baked-goods</option>
-          <option value="Vegetarian">Vegetarian</option>
-          <option value="Holiday">Holiday</option>
-          <option value="Junk-Food">Junk-Food</option>
-          <option value="Fast-Food">Fast-Food</option>
-        </select>
-        <div className="ui input ">
-          <input type="text" placeholder="Recipe Name*..." onChange={handleChange} value={formData.name} name="name" />
-        </div>
-
-        <div className="ui input ">
-          <input
-            type="text"
-            placeholder="Description..."
-            onChange={handleChange}
-            value={formData.description}
-            name="description"
-          />
-        </div>
-
-        <div className="" style={{ display: "flex", justifyContent: "space-around" }}>
-          <textarea
-            name="ingredients"
-            cols="30"
-            rows="10"
-            onChange={handleIngredients}
-            placeholder="ingredients..."
-            value={ingredients}
-          ></textarea>
-
-          <textarea
-            name="instructions"
-            cols="30"
-            rows="10"
-            onChange={handleInstructions}
-            placeholder="instructions..."
-            value={instructions}
-          ></textarea>
-        </div>
-      </div>
-
+    <div>
       <div className="confirm-summary">
         <ConfirmRecipe
           formData={formData}

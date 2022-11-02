@@ -3,9 +3,9 @@
 
   /* height: fit-content; */
   min-height: fit-content;
-  max-height: 500px;
+  max-height: 350px;
   max-width: 90%;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
   margin: 10px auto;
 
   /* padding: 30px 0; */

@@ -39,9 +39,11 @@ router.post("/recipes/new", auth, upload.single("image"), async (req, res) => {
       // const uploadFile = await generateUploadURL(fileName, req.file.buffer);
       console.log("========== Upload with S3 new version ============");
       const uploadFile = await generateUploadURL(fileName, buffer);
-      // console.log(uploadFile.Location);
       recipe.image = uploadFile.Location;
+      // console.log(uploadFile.Location);
       console.log("==========================");
+    } else {
+      console.log("system added new random recipe");
     }
     await recipe.save();
     res.status(201).send(recipe);
@@ -81,33 +83,6 @@ router.get("/recipes/public", auth, async (req, res) => {
     }).sort("-updatedAt");
 
     // ================================
-    // Old version of img store on mobgo
-    // const recipeToSend = recipes.map((recipe) => {
-
-    //   const obj = {
-    //     _id: mongoose.Types.ObjectId(recipe._id),
-    //     name: recipe.name,
-    //     category: recipe.category,
-    //     image: `recipes/image/${recipe._id.toString()}`,
-    //     public: recipe.public,
-    //     description: recipe.description,
-    //     ingredients: recipe.ingredients,
-    //     instructions: recipe.instructions,
-    //     ownerName: recipe.ownerName,
-    //     rank: recipe.rank,
-    //     owner: mongoose.Types.ObjectId(recipe.owner),
-    //     voted: recipe.voted.map((v) => {
-    //       return { ...v, voterId: mongoose.Types.ObjectId(v) };
-    //     }),
-    //     createdAt: recipe.createdAt,
-    //     updatedAt: recipe.updatedAt,
-    //   };
-    //   return obj;
-    // });
-    // console.log(recipeToSend);
-    // res.send(recipeToSend);
-
-    // ================================
     res.send(recipes);
     // console.log(req.user.friends.map((f) => f.friendId));
   } catch (e) {
@@ -140,30 +115,6 @@ router.get("/recipes/user", auth, async (req, res) => {
     // console.log("xxxx", FinalRank);
     await req.user.save();
 
-    // ============
-    // const recipeToSend = req.user.recipes.map((recipe) => {
-
-    //   const obj = {
-    //     _id: mongoose.Types.ObjectId(recipe._id),
-    //     name: recipe.name,
-    //     category: recipe.category,
-    //     image: `recipes/image/${recipe._id.toString()}`,
-    //     public: recipe.public,
-    //     description: recipe.description,
-    //     ingredients: recipe.ingredients,
-    //     instructions: recipe.instructions,
-    //     ownerName: recipe.ownerName,
-    //     rank: recipe.rank,
-    //     owner: mongoose.Types.ObjectId(recipe.owner),
-    //     voted: recipe.voted.map((v) => {
-    //       return { ...v, voterId: mongoose.Types.ObjectId(v) };
-    //     }),
-    //     createdAt: recipe.createdAt,
-    //     updatedAt: recipe.updatedAt,
-    //   };
-    //   return obj;
-    // });
-
     res.send({ recipes: req.user.recipes, owner: req.user.name });
     // ============
 
@@ -183,36 +134,6 @@ router.get("/recipes/friends/:id", async (req, res) => {
     // const friend = await User.findOne({ _id: req.params.id });
 
     await friend.populate({ path: "recipes", options: { sort: { createdAt: -1 } } });
-
-    // Update rank of friends so user can get updated
-    // const userRankFromHisRecipes =
-    // friend.recipes.reduce((acc, res) => acc + res.rank, 0) / (req.user.recipes.length * 20);
-    // const FinalRank = Math.round(userRankFromHisRecipes * 2) / 2;
-    // friend.rank = FinalRank;
-    // console.log(FinalRank);
-    // await friend.save();
-    // ============================
-    // const recipeToSend = friend.recipes.map((recipe) => {
-    //   const obj = {
-    //     _id: mongoose.Types.ObjectId(recipe._id),
-    //     name: recipe.name,
-    //     category: recipe.category,
-    //     image: `recipes/image/${recipe._id.toString()}`,
-    //     public: recipe.public,
-    //     description: recipe.description,
-    //     ingredients: recipe.ingredients,
-    //     instructions: recipe.instructions,
-    //     ownerName: recipe.ownerName,
-    //     rank: recipe.rank,
-    //     owner: mongoose.Types.ObjectId(recipe.owner),
-    //     voted: recipe.voted.map((v) => {
-    //       return { ...v, voterId: mongoose.Types.ObjectId(v) };
-    //     }),
-    //     createdAt: recipe.createdAt,
-    //     updatedAt: recipe.updatedAt,
-    //   };
-    //   return obj;
-    // });
 
     res.send({ recipes: friend.recipes, owner: friend.name });
   } catch (e) {

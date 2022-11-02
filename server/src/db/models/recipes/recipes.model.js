@@ -22,6 +22,10 @@ const recipeSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    systemGenerate: {
+      type: Boolean,
+      default: false,
+    },
 
     ingredients: [
       [
