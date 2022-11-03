@@ -3,12 +3,14 @@
   width: 100%;
   margin: 0 auto;
   height: fit-content;
-  min-height: 100vh !important;
+  min-height: 90vh !important;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   /* border: 1px solid black; */
   background-color: white;
+  /* position: fixed; */
+  /* overflow-y: scroll; */
 }
 /* 
 .title-confirm-recipe h1:first-child {
@@ -22,7 +24,8 @@
   justify-self: flex-start;
   padding: 5px 0px 5px 15px;
   text-align: center;
-  width: 100%;
+  /* width: 80%; */
+  max-width: 70vw;
   border-radius: 10px;
   background-color: var(--bg-navbar-color);
   box-shadow: 20px 20px 50px 10px pink inset;
@@ -30,17 +33,31 @@
   justify-content: center;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   color: rgb(40, 38, 38);
+  margin: 1rem auto;
 }
 .title-confirm-recipe h1 div:first-child {
-  width: 99%;
+  width: 100%;
   height: 5px;
+}
+#close-title {
+  border-radius: 0;
+  margin: 0;
+  width: 100vw;
+  align-self: flex-start;
+  justify-self: start;
+  justify-self: flex-start;
+  position: fixed;
+  left: 0;
+  padding: 1rem;
+  z-index: 1000;
+  /* border: 20px solid black; */
 }
 
 .title-confirm-recipe #recipe-title-zoom {
   width: fit-content;
   /* text-align: right; */
   padding: 5px 10px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 
   /* border: black 1px solid; */
 }
@@ -60,14 +77,18 @@
 
 .close-btn {
   margin-right: 2px;
-  border: 1px solid brown;
+  border: 1px solid white;
   padding: 0 3px;
   border-radius: 5px;
   cursor: pointer;
+  color: white;
+  background: black;
 }
 
 .close-btn:hover {
   transform: scale(0.95);
+  background-color: gray;
+  color: black;
 }
 
 .ingredient-confirm-big,

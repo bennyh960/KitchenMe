@@ -7,7 +7,7 @@ import Loader2 from "../../loaders/loader2/loader2";
 
 // TODO MAKE SEARCH functional by category and by input
 
-export default function MyRecipies({ token, postSelectedFromNavigation }) {
+export default function MyRecipies({ token, postSelectedFromNavigation, setIsCoverView }) {
   const [isLoading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [data, setData] = useState(postSelectedFromNavigation);
@@ -49,6 +49,7 @@ export default function MyRecipies({ token, postSelectedFromNavigation }) {
             onClick={() => {
               setData(recipe);
               setPpUpZoom(true);
+              setIsCoverView(() => false);
             }}
           >
             <div className={`recipe-title-one ${recipe.category}`}>

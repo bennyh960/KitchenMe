@@ -4,7 +4,7 @@ import "./profile.css";
 import Myposts from "./my-posts/myposts";
 import MyRecipies from "./my-recepies/MyRecipies";
 import MyFriends from "./my-friends/Myfriends";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { UserContext } from "../../App";
 
 // export default function ProfilePage({ avatar, name, email, topRated, myRank, createdAt, friendsList, token }) {
@@ -22,19 +22,22 @@ export default function ProfilePage({ avatar }) {
     setView(viewSelected);
   };
 
+  const [isCover, setIsCoverView] = useState(true);
   const directToRecipe = (post) => {
     setView("MyRecipies");
     setPostSelectedFromNavigation(post);
+    setIsCoverView(() => false);
     // console.log(post);
   };
 
   useEffect(() => {
+    // setIsCoverView(true);
     // console.log(location.pathname);
   }, [location]);
 
   return (
     <div className="profile-page">
-      <Cover handleView={handleView} avatar={avatar} name={name} token={token} />
+      {isCover && <Cover handleView={handleView} avatar={avatar} name={name} token={token} />}
       {view === "myPosts" && (
         <Myposts
           avatar={avatar}
@@ -48,7 +51,13 @@ export default function ProfilePage({ avatar }) {
           directToRecipe={directToRecipe}
         />
       )}
-      {view === "MyRecipies" && <MyRecipies token={token} postSelectedFromNavigation={postSelectedFromNavigation} />}
+      {view === "MyRecipies" && (
+        <MyRecipies
+          token={token}
+          postSelectedFromNavigation={postSelectedFromNavigation}
+          setIsCoverView={setIsCoverView}
+        />
+      )}
       {/* {view === "MyPhotos" && <MyPhotos />} */}
       {view === "MyFriends" && <MyFriends friendsList={friends} />}
     </div>

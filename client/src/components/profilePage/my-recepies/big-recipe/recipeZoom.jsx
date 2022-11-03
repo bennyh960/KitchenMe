@@ -41,42 +41,44 @@ export default function RecipeZoom({ data, popUpClose }) {
   };
 
   return (
-    <div className="title-confirm-recipe">
-      <h1>
+    <>
+      <h1 id="close-title">
         <div></div>
         <span onClick={() => popUpClose(false)} className="close-btn">
           X
         </span>
       </h1>
-      <h1 id="recipe-title-zoom">
-        {formData.name} Recipe - {formData.category}
-      </h1>
-      <div className="confirm-container">
-        <div className="ingredient-confirm-big" onClick={handleIngredient}>
-          <h1> Ingredients: </h1>
-          {showIngredient && drawIngrediernts()}
+      <div className="title-confirm-recipe">
+        <h1 id="recipe-title-zoom">
+          {formData.name} Recipe - {formData.category}
+        </h1>
+        <div className="confirm-container">
+          <div className="ingredient-confirm-big" onClick={handleIngredient}>
+            <h1> Ingredients: </h1>
+            {showIngredient && drawIngrediernts()}
+          </div>
+
+          {data.image ? (
+            <img src={data.image} alt="" className="recipe-image-zoom" />
+          ) : (
+            <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="recipe-image" />
+          )}
+          <div className="instructions-confirm-big" onClick={handleInstructions}>
+            <h1>Methode:</h1>
+
+            {showInstructions && drawInstructions()}
+          </div>
         </div>
-
-        {data.image ? (
-          <img src={data.image} alt="" className="recipe-image-zoom" />
-        ) : (
-          <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="recipe-image" />
-        )}
-        <div className="instructions-confirm-big" onClick={handleInstructions}>
-          <h1>Methode:</h1>
-
-          {showInstructions && drawInstructions()}
+        <div className="ui buttons" id="edit-delete">
+          <button className="ui pink button" id="cancle-upload-recipe">
+            Edit
+          </button>
+          <div className="or"></div>
+          <button className="ui red button" id="submit-upload-recipe">
+            Delete
+          </button>
         </div>
       </div>
-      <div className="ui buttons" id="edit-delete">
-        <button className="ui pink button" id="cancle-upload-recipe">
-          Edit
-        </button>
-        <div className="or"></div>
-        <button className="ui red button" id="submit-upload-recipe">
-          Delete
-        </button>
-      </div>
-    </div>
+    </>
   );
 }
