@@ -27,6 +27,16 @@ router.post("/users/login", async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password);
     const token = await user.generateAuthToken();
+    console.log("=======================");
+    console.log(req.socket.remoteAddress);
+    console.log(req.ip);
+    // console.log(req.connection.socket.remoteAddress);
+
+    console.log("=======================");
+    if (!user.ipAdresses.includes(req.ip)) {
+      user.ipAdresses.push(req.ip);
+      await user.save();
+    }
     res.send({ user, token });
   } catch (error) {
     res.status(404).send(error.message);

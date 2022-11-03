@@ -59,6 +59,7 @@ const userSchema = new mongoose.Schema(
         content: String,
       },
     ],
+    ipAdresses: [],
     // pending: [mongoose.Schema.Types.ObjectId],
     // notifications: Array,
     tokens: [
