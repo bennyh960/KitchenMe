@@ -7,10 +7,10 @@ import Loader2 from "../../loaders/loader2/loader2";
 
 // TODO MAKE SEARCH functional by category and by input
 
-export default function MyRecipies({ token }) {
+export default function MyRecipies({ token, postSelectedFromNavigation }) {
   const [isLoading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [data, setData] = useState({});
+  const [data, setData] = useState(postSelectedFromNavigation);
   const [popUpZoom, setPpUpZoom] = useState(false);
   const [searchRecipeRes, setRecipeResFromSearch] = useState("");
   useEffect(() => {
@@ -30,6 +30,13 @@ export default function MyRecipies({ token }) {
     };
     getUserPosts();
   }, [setRecipes, token]);
+
+  useEffect(() => {
+    if (postSelectedFromNavigation._id) {
+      setData(() => postSelectedFromNavigation);
+      setPpUpZoom(true);
+    }
+  }, [postSelectedFromNavigation]);
 
   const DrawRecipes = () => {
     return recipes
@@ -65,20 +72,6 @@ export default function MyRecipies({ token }) {
         );
       });
   };
-
-  // <div
-  //             className="recipe-bg"
-  //             style={{
-  //               backgroundImage: `url(${
-  //                 process.env.NODE_ENV === "production"
-  //                   ? "https://meetbachv2.herokuapp.com/" + recipe.image
-  //                   : // process.env.REACT_APP_IMAGE_BASE_URL + recipe.image
-  //                     `http://localhost:5000/${recipe.image}`
-  //               })`,
-  //             }}
-  //           >
-  //             <span></span>
-  //           </div>
 
   const popUpClose = (answere) => {
     setPpUpZoom(answere);

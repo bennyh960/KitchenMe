@@ -4,12 +4,13 @@ import "./profile.css";
 import Myposts from "./my-posts/myposts";
 import MyRecipies from "./my-recepies/MyRecipies";
 import MyFriends from "./my-friends/Myfriends";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 
 // export default function ProfilePage({ avatar, name, email, topRated, myRank, createdAt, friendsList, token }) {
-export default function ProfilePage({ avatar, topRated }) {
+export default function ProfilePage({ avatar }) {
   const [view, setView] = useState("myPosts");
+  const [postSelectedFromNavigation, setPostSelectedFromNavigation] = useState({});
   const {
     token,
     user: { name, email, rank, createdAt, friends },
@@ -19,6 +20,12 @@ export default function ProfilePage({ avatar, topRated }) {
 
   const handleView = (viewSelected) => {
     setView(viewSelected);
+  };
+
+  const directToRecipe = (post) => {
+    setView("MyRecipies");
+    setPostSelectedFromNavigation(post);
+    // console.log(post);
   };
 
   useEffect(() => {
@@ -35,12 +42,13 @@ export default function ProfilePage({ avatar, topRated }) {
           createdAt={createdAt}
           email={email}
           myRank={rank}
-          topRated={topRated}
+          // topRated={topRated}
           friendsList={friends}
           token={token}
+          directToRecipe={directToRecipe}
         />
       )}
-      {view === "MyRecipies" && <MyRecipies token={token} />}
+      {view === "MyRecipies" && <MyRecipies token={token} postSelectedFromNavigation={postSelectedFromNavigation} />}
       {/* {view === "MyPhotos" && <MyPhotos />} */}
       {view === "MyFriends" && <MyFriends friendsList={friends} />}
     </div>

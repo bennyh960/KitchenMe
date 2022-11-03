@@ -148,9 +148,7 @@ function App() {
               <Route path={"/login"} element={<Authenticate isUser={isUser} setAuth={setAuth} />} />
             )}
             <Route path="/" element={<Homepage token={authDetailes.token} />} />
-            {authDetailes.token && (
-              <Route path="/profile/me" element={<ProfilePage avatar={avatar} topRated={"PIZZA 3 STARS"} />} />
-            )}
+            {authDetailes.token && <Route path="/profile/me" element={<ProfilePage avatar={avatar} />} />}
 
             <Route
               path="/users/profile/:id"

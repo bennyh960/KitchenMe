@@ -41,23 +41,20 @@ export default function RecipeZoom({ data, popUpClose }) {
   };
 
   return (
-    <div className="title-confirm-recipe white-box">
+    <div className="title-confirm-recipe">
       <h1>
-        {formData.name} Recipe - {formData.category}
+        <div></div>
         <span onClick={() => popUpClose(false)} className="close-btn">
           X
         </span>
       </h1>
+      <h1 id="recipe-title-zoom">
+        {formData.name} Recipe - {formData.category}
+      </h1>
       <div className="confirm-container">
         <div className="ingredient-confirm-big" onClick={handleIngredient}>
           <h1> Ingredients: </h1>
-          <hr />
           {showIngredient && drawIngrediernts()}
-        </div>
-        <div className="instructions-confirm-big" onClick={handleInstructions}>
-          <h1 style={{ textAlign: "center", margin: "0" }}>Methode:</h1>
-
-          {showInstructions && drawInstructions()}
         </div>
 
         {data.image ? (
@@ -65,6 +62,11 @@ export default function RecipeZoom({ data, popUpClose }) {
         ) : (
           <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" className="recipe-image" />
         )}
+        <div className="instructions-confirm-big" onClick={handleInstructions}>
+          <h1>Methode:</h1>
+
+          {showInstructions && drawInstructions()}
+        </div>
       </div>
       <div className="ui buttons" id="edit-delete">
         <button className="ui pink button" id="cancle-upload-recipe">

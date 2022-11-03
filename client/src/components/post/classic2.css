@@ -64,11 +64,23 @@
   }
 }
 @media screen and (max-width: 530px) {
+  .post-container {
+    width: 100%;
+    border-radius: 0;
+    margin: 1.5rem auto;
+
+    /* overflow-y: scroll; */
+    /* max-width: 95%; */
+    /* flex-direction: column; */
+  }
   .float-content {
     width: 90vw;
     max-width: 100%;
     display: flex;
     flex-direction: column;
+    height: fit-content;
+    max-height: 90%;
+    overflow-y: scroll;
   }
   .float-content > .post-image-classic {
     width: 100%;
@@ -79,6 +91,6 @@
     float: none;
   }
   .post-title h1 {
-    text-align: justify !important;
+    text-align: center !important;
   }
 }

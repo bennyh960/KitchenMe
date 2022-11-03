@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import "./aboutme.css";
 import { Rating } from "react-simple-star-rating";
 import setStarsColor from "../../../utils/starcolors";
@@ -12,7 +12,7 @@ export default function Aboutme({ name, topRated, myRank, email, hideEdit }) {
         <h2 style={{ margin: "15px" }} className="line">
           About me:
         </h2>
-        <button className="edit-btn">{!hideEdit && <FontAwesomeIcon icon={faUserPen} />}</button>
+        <button className="edit-btn">{!hideEdit && <FontAwesomeIcon icon={faAddressCard} />}</button>
       </div>
       <div className="show-about-data">
         <span>
@@ -48,9 +48,9 @@ export default function Aboutme({ name, topRated, myRank, email, hideEdit }) {
             ]}
           />
         </span>
-        <span>
-          <b>Top-Rated :</b> <a href="/profile/recipes">{topRated}</a>
-        </span>
+        {/* <span> */}
+        {/* <b>Top-Rated :</b> <a href="/profile/recipes">{topRated}</a> */}
+        {/* </span> */}
       </div>
     </div>
   );
