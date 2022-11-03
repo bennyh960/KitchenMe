@@ -14,6 +14,11 @@ router.post("/users/register", async (req, res) => {
   try {
     const user = new User(req.body);
     const token = await user.generateAuthToken();
+
+    console.log("=======================");
+    if (!user.ipAdresses.includes(req.ip)) {
+      user.ipAdresses.push(req.ip);
+    }
     await user.save();
 
     res.status(201).send({ user, token });
